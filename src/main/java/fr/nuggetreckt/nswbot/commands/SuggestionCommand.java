@@ -40,9 +40,9 @@ public class SuggestionCommand extends ListenerAdapter {
                     message.createThreadChannel("Suggestion de " + event.getMember().getEffectiveName())
                             .queue();
 
-                    message.addReaction("<:oui_nsw:856148735721603153>")
+                    message.addReaction("oui_nsw:856148735721603153")
                             .queue();
-                    message.addReaction("<:non_nsw:856148735901958146>")
+                    message.addReaction("non_nsw:856148735901958146")
                             .queue();
                 } else {
                     event.reply("Veuillez mettre une description !")
