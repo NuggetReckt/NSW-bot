@@ -15,6 +15,7 @@ import fr.nuggetreckt.nswbot.ticketsystem.listeners.ConfirmButtonListener;
 import fr.nuggetreckt.nswbot.ticketsystem.listeners.CreateButtonListener;
 import fr.nuggetreckt.nswbot.tasks.BotStatus;
 import fr.nuggetreckt.nswbot.tasks.MessagesSender;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -22,6 +23,8 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import javax.security.auth.login.LoginException;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static net.dv8tion.jda.api.interactions.commands.OptionType.MENTIONABLE;
 import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
@@ -29,28 +32,24 @@ import static net.dv8tion.jda.api.interactions.commands.OptionType.STRING;
 public class Main {
 
     public static JDA jda;
+    public static Dotenv dotenv;
 
     public static void main(String[] args) throws LoginException, InterruptedException, RuntimeException {
 
-        final File file = new File("token.txt");
+        final File file = new File(".env");
         final String token;
 
         if (file.exists()) {
             System.out.println("Fichier de configuration trouvé ! Lancement du bot...");
 
-            BufferedReader reader = null;
+            dotenv = Dotenv.configure()
+                    .directory("/")
+                    .ignoreIfMissing()
+                    .load();
             try {
-                reader = Files.newBufferedReader(file.toPath());
-                token = reader.readLine();
-            } catch (IOException e) {
+                token = dotenv.get("DISCORD_TOKEN");
+            } catch (NullPointerException e) {
                 throw new RuntimeException(e);
-            } finally {
-                try {
-                    assert reader != null;
-                    reader.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
             }
 
             jda = JDABuilder.createDefault(token)
@@ -107,7 +106,10 @@ public class Main {
             System.out.println("Fichier de configuration non trouvé, création du fichier...");
 
             try {
-                file.createNewFile();
+                Path originalenv = Paths.get("src/main/resources/.env");
+                Path copiedenv = file.toPath();
+
+                Files.copy(originalenv, copiedenv);
                 System.out.println("Fichier créé avec succès. ");
             } catch (IOException e) {
                 throw new RuntimeException("Impossible de créer le fichier.", e);
