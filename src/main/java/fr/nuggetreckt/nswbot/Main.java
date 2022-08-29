@@ -39,7 +39,7 @@ public class Main {
 
         dotenv = Dotenv.configure()
                 .directory("/")
-                .filename(".env")
+                .filename("env/.env")
                 .load();
 
         System.out.println("Chargement de l'API Twitter...");
