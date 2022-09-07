@@ -38,8 +38,8 @@ public class Main {
         System.out.println("Lancement du bot...");
 
         dotenv = Dotenv.configure()
-                .directory("/")
-                .filename("env/.env")
+                .directory("/env/")
+                .filename(".env")
                 .load();
 
         System.out.println("Chargement de l'API Twitter...");

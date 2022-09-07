@@ -25,7 +25,13 @@ public class CreateButtonListener extends ListenerAdapter {
         if (event.getComponentId().equals("create")) {
 
             member = ((Objects.requireNonNull(event.getMember())).getEffectiveName());
-            channelname = "ticket-de-" + member;
+            //String memberFormatted = member.replaceAll("\\W+","");
+            String memberFormatted = member.replaceAll("\\p{P}\\p{S}","");
+
+            channelname = "ticket-de-" + memberFormatted;
+
+            System.out.println("Debug1: " + member);
+            System.out.println("Debug2: " + memberFormatted);
 
             if (event.getGuild() != null && Main.jda.getTextChannelsByName(channelname, true).size() == 0) {
                 event.reply("> Ticket Créé avec succès !")
