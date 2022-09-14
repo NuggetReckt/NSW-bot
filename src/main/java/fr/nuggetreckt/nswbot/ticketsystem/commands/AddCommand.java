@@ -41,7 +41,7 @@ public class AddCommand extends ListenerAdapter {
                         EmbedBuilder logs = new EmbedBuilder();
 
                         logs.setTitle("Log - Membre ajouté à un ticket")
-                                .setDescription("Membre ajouté au ticket : " + Objects.requireNonNull(Objects.requireNonNull(event.getOption("pseudo")).getAsMember()).getAsMention()
+                                .setDescription("Ticket : " + Objects.requireNonNull(Objects.requireNonNull(event.getOption("pseudo")).getAsMember()).getAsMention()
                                         + "\nAjouté par : " + Objects.requireNonNull(event.getMember()).getAsMention())
                                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                                 .setColor(new Color(76, 193, 80, 1))

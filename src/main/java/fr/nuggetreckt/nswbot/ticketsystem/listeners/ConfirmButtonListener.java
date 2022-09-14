@@ -31,7 +31,7 @@ public class ConfirmButtonListener extends ListenerAdapter {
                 EmbedBuilder logs = new EmbedBuilder();
 
                 logs.setTitle("Log - Suppression de ticket")
-                        .setDescription("Suppression de ticket : " + event.getGuildChannel().getName() + "\nTicket fermé par : " + event.getMember().getAsMention())
+                        .setDescription("Ticket : " + event.getGuildChannel().getName() + "\nFermé par : " + event.getMember().getAsMention())
                         .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                         .setColor(new Color(218, 67, 54, 1))
                         .setTimestamp(new Date().toInstant());

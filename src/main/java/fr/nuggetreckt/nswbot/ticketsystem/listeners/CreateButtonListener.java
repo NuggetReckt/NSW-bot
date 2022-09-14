@@ -47,7 +47,7 @@ public class CreateButtonListener extends ListenerAdapter {
                 EmbedBuilder logs = new EmbedBuilder();
 
                 logs.setTitle("Log - Création de ticket")
-                        .setDescription("Nouvelle création de ticket : " + channel.getName() + "\nTicket créé par : " + event.getMember().getAsMention())
+                        .setDescription("Ticket : " + channel.getName() + "\nCréé par : " + event.getMember().getAsMention())
                         .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                         .setColor(new Color(76, 193, 80, 1))
                         .setTimestamp(new Date().toInstant());
