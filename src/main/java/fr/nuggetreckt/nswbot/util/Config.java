@@ -2,18 +2,17 @@ package fr.nuggetreckt.nswbot.util;
 
 public class Config {
 
-    //For testing
-    final String ticketpanelid = "987861295472713738";
-    final String ticketcategoryid = "986978012014714890";
-    final String logchannelid = "987317580773589013";
-    final String generalchannelid = "986026863371616289";
-    final String ruleschannelid = "994796686033563688";
-    final String supportchannelid = "994796706073944134";
-    final String welcomechannelid = "995102579413487686";
-    final String botchannelid = "998975933987967028";
-    final String suggestionchannelid = "999414109781102613";
-    final String playerroleid = "998976455847452773";
-    final String staffroleid = "998976421529649183";
+    final String ticketpanelid = "845218977458028544";
+    final String ticketcategoryid = "845220724012482561";
+    final String logchannelid = "995722672979849216";
+    final String generalchannelid = "700249004721700958";
+    final String ruleschannelid = "794911904296075265";
+    final String supportchannelid = "991508521482981446";
+    final String welcomechannelid = "700255318520889385";
+    final String botchannelid = "820064946162499594";
+    final String suggestionchannelid = "1000757264707223583";
+    final String playerroleid = "794887765942468628";
+    final String staffroleid = "845229494151413761";
 
     public String getTicketPanelId() {
         return ticketpanelid;

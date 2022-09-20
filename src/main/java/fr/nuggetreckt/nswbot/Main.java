@@ -1,7 +1,5 @@
 package fr.nuggetreckt.nswbot;
 
-import com.twitter.clientlib.TwitterCredentialsOAuth2;
-import com.twitter.clientlib.api.TwitterApi;
 import fr.nuggetreckt.nswbot.commands.*;
 import fr.nuggetreckt.nswbot.listeners.*;
 import fr.nuggetreckt.nswbot.ticketsystem.TicketMain;
@@ -14,7 +12,6 @@ import fr.nuggetreckt.nswbot.ticketsystem.listeners.ConfirmButtonListener;
 import fr.nuggetreckt.nswbot.ticketsystem.listeners.CreateButtonListener;
 import fr.nuggetreckt.nswbot.tasks.BotStatus;
 import fr.nuggetreckt.nswbot.tasks.MessagesSender;
-import fr.nuggetreckt.nswbot.twitter.TwitterApiInteractions;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -29,7 +26,6 @@ public class Main {
 
     public static JDA jda;
     public static Dotenv dotenv;
-    public static TwitterApi apiInstance;
 
     public static void main(String[] args) throws LoginException, InterruptedException, RuntimeException {
 
@@ -42,16 +38,10 @@ public class Main {
                 .filename(".env")
                 .load();
 
-        System.out.println("Chargement de l'API Twitter...");
+        System.out.println("Chargement du token...");
 
         try {
             token = dotenv.get("DISCORD_TOKEN");
-
-            apiInstance = new TwitterApi(new TwitterCredentialsOAuth2(
-                    Main.dotenv.get("TWITTER_OAUTH2_CLIENT_ID"),
-                    Main.dotenv.get("TWITTER_OAUTH2_CLIENT_SECRET"),
-                    Main.dotenv.get("TWITTER_OAUTH2_ACCESS_TOKEN"),
-                    Main.dotenv.get("TWITTER_OAUTH2_REFRESH_TOKEN")));
         } catch (NullPointerException e) {
             throw new RuntimeException(e);
         }
@@ -106,7 +96,5 @@ public class Main {
         new MessagesSender().sendRulesMessage();
         new MessagesSender().sendSupportMessage();
         new TicketMain().mainMessageSetter();
-
-        new TwitterApiInteractions().OnTweetListener();
     }
 }
