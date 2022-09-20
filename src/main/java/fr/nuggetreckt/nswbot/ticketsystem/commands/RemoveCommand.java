@@ -41,7 +41,7 @@ public class RemoveCommand extends ListenerAdapter {
                         EmbedBuilder logs = new EmbedBuilder();
 
                         logs.setTitle("Log - Membre retiré d'un ticket")
-                                .setDescription("Membre retiré du ticket : " + Objects.requireNonNull(Objects.requireNonNull(event.getOption("pseudo")).getAsMember()).getAsMention()
+                                .setDescription("Ticket : " + Objects.requireNonNull(Objects.requireNonNull(event.getOption("pseudo")).getAsMember()).getAsMention()
                                         + "\nRetiré par : " + Objects.requireNonNull(event.getMember()).getAsMention())
                                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                                 .setColor(new Color(218, 67, 54, 1))
