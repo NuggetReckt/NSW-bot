@@ -11,6 +11,8 @@ import java.awt.*;
 import java.util.Date;
 import java.util.Objects;
 
+import static fr.nuggetreckt.nswbot.Main.jda;
+
 public class CloseButtonListener extends ListenerAdapter {
 
     @Override
@@ -30,12 +32,12 @@ public class CloseButtonListener extends ListenerAdapter {
             EmbedBuilder logs = new EmbedBuilder();
 
             logs.setTitle("Log - Demande de suppression de ticket")
-                    .setDescription("Ticket : " + event.getGuildChannel().getName() + "\nPar : " + Objects.requireNonNull(event.getMember()).getAsMention())
+                    .setDescription("Ticket : " + event.getTextChannel().getAsMention() + "\nPar : " + Objects.requireNonNull(event.getMember()).getAsMention())
                     .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                     .setColor(new Color(255, 165, 54, 1))
                     .setTimestamp(new Date().toInstant());
 
-            Objects.requireNonNull(Objects.requireNonNull(event.getGuild()).getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(logs.build()).queue();
+            Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(logs.build()).queue();
         }
     }
 }

@@ -25,13 +25,10 @@ public class CreateButtonListener extends ListenerAdapter {
         if (event.getComponentId().equals("create")) {
 
             member = ((Objects.requireNonNull(event.getMember())).getEffectiveName());
-            //String memberFormatted = member.replaceAll("\\W+","");
-            String memberFormatted = member.replaceAll("\\p{P}\\p{S}","");
+
+            String memberFormatted = member.replaceAll("\\W+","-");
 
             channelname = "ticket-de-" + memberFormatted;
-
-            System.out.println("Debug1: " + member);
-            System.out.println("Debug2: " + memberFormatted);
 
             if (event.getGuild() != null && Main.jda.getTextChannelsByName(channelname, true).size() == 0) {
                 event.reply("> Ticket Créé avec succès !")
@@ -47,7 +44,7 @@ public class CreateButtonListener extends ListenerAdapter {
                 EmbedBuilder logs = new EmbedBuilder();
 
                 logs.setTitle("Log - Création de ticket")
-                        .setDescription("Ticket : " + channel.getName() + "\nCréé par : " + event.getMember().getAsMention())
+                        .setDescription("Ticket : " + channel.getAsMention() + "\nCréé par : " + event.getMember().getAsMention())
                         .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                         .setColor(new Color(76, 193, 80, 1))
                         .setTimestamp(new Date().toInstant());

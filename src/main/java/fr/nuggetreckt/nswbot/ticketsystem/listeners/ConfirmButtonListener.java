@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import static fr.nuggetreckt.nswbot.Main.jda;
+
 public class ConfirmButtonListener extends ListenerAdapter {
 
     @Override
@@ -36,8 +38,7 @@ public class ConfirmButtonListener extends ListenerAdapter {
                         .setColor(new Color(218, 67, 54, 1))
                         .setTimestamp(new Date().toInstant());
 
-                Objects.requireNonNull(Objects.requireNonNull(event.getGuild()).getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(logs.build()).queue();
-
+                Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(logs.build()).queue();
             } else {
                 event.reply("> Vous n'avez pas la permission.")
                         .setEphemeral(true)
