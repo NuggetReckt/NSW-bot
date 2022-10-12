@@ -1,6 +1,5 @@
 package fr.nuggetreckt.nswbot.ticketsystem.commands;
 
-import fr.nuggetreckt.nswbot.Main;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -13,6 +12,8 @@ import java.awt.*;
 import java.util.Date;
 import java.util.Objects;
 
+import static fr.nuggetreckt.nswbot.Main.jda;
+
 public class RemoveCommand extends ListenerAdapter {
 
     @Override
@@ -22,7 +23,7 @@ public class RemoveCommand extends ListenerAdapter {
 
                 Member target = Objects.requireNonNull(event.getOption("pseudo")).getAsMember();
                 Member executor = event.getMember();
-                Role staffrole = Main.jda.getRoleById(new Config().getStaffRoleId());
+                Role staffrole = jda.getRoleById(new Config().getStaffRoleId());
 
                 assert target != null;
                 assert executor != null;
