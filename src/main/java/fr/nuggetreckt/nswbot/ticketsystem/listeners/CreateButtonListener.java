@@ -26,7 +26,7 @@ public class CreateButtonListener extends ListenerAdapter {
 
             member = ((Objects.requireNonNull(event.getMember())).getEffectiveName());
 
-            String memberFormatted = member.replaceAll("\\W+","-");
+            String memberFormatted = member.replaceAll("\\W+","");
 
             channelname = "ticket-de-" + memberFormatted;
 
