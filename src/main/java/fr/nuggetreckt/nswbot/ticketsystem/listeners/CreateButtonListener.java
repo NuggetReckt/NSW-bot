@@ -1,6 +1,7 @@
 package fr.nuggetreckt.nswbot.ticketsystem.listeners;
 
 import fr.nuggetreckt.nswbot.Main;
+import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -41,15 +42,7 @@ public class CreateButtonListener extends ListenerAdapter {
                         .addPermissionOverride(event.getGuild().getPublicRole(), null, EnumSet.of(Permission.VIEW_CHANNEL))
                         .complete();
 
-                EmbedBuilder logs = new EmbedBuilder();
-
-                logs.setTitle("Log - Création de ticket")
-                        .setDescription("Ticket : " + channel.getAsMention() + "\nCréé par : " + event.getMember().getAsMention())
-                        .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
-                        .setColor(new Color(76, 193, 80, 1))
-                        .setTimestamp(new Date().toInstant());
-
-                Objects.requireNonNull(channel.getGuild().getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(logs.build()).queue();
+                new TicketLogs().TicketCreate(event.getMember(), channel);
 
                 EmbedBuilder welcome = new EmbedBuilder();
 

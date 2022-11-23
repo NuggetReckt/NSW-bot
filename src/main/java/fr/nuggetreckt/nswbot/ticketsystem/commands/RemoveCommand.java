@@ -1,5 +1,6 @@
 package fr.nuggetreckt.nswbot.ticketsystem.commands;
 
+import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -39,17 +40,7 @@ public class RemoveCommand extends ListenerAdapter {
                                 .setEphemeral(true)
                                 .queue();
 
-                        EmbedBuilder logs = new EmbedBuilder();
-
-                        logs.setTitle("Log - Membre retiré d'un ticket")
-                                .setDescription("Ticket : " + Objects.requireNonNull(Objects.requireNonNull(event.getOption("pseudo")).getAsMember()).getAsMention()
-                                        + "\nRetiré par : " + Objects.requireNonNull(event.getMember()).getAsMention())
-                                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
-                                .setColor(new Color(218, 67, 54, 1))
-                                .setTimestamp(new Date().toInstant());
-
-                        Objects.requireNonNull(Objects.requireNonNull(event.getGuild()).getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(logs.build())
-                                .queue();
+                        new TicketLogs().TicketRemove(target, executor, event.getChannel());
                     } else {
                         event.reply("> Vous n'avez pas la permission !")
                                 .setEphemeral(true)

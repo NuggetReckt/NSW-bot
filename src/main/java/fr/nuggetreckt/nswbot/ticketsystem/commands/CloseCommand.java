@@ -1,5 +1,6 @@
 package fr.nuggetreckt.nswbot.ticketsystem.commands;
 
+import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -29,15 +30,7 @@ public class CloseCommand extends ListenerAdapter {
                                 Button.secondary("abort", "Annuler"))
                         .queue();
 
-                EmbedBuilder logs = new EmbedBuilder();
-
-                logs.setTitle("Log - Demande de suppression de ticket")
-                        .setDescription("Ticket : " + event.getTextChannel().getAsMention() + "\nPar : " + Objects.requireNonNull(event.getMember()).getAsMention())
-                        .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
-                        .setColor(new Color(255, 165, 54, 1))
-                        .setTimestamp(new Date().toInstant());
-
-                Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(logs.build()).queue();
+                new TicketLogs().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
             } else {
                 event.reply("Vous n'êtes pas dans un ticket !")
                         .setEphemeral(true)

@@ -1,5 +1,6 @@
 package fr.nuggetreckt.nswbot.ticketsystem.listeners;
 
+import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -30,15 +31,7 @@ public class ConfirmButtonListener extends ListenerAdapter {
                         .delete()
                         .queueAfter(10000, TimeUnit.MILLISECONDS);
 
-                EmbedBuilder logs = new EmbedBuilder();
-
-                logs.setTitle("Log - Suppression de ticket")
-                        .setDescription("Ticket : " + event.getGuildChannel().getName() + "\nFermé par : " + event.getMember().getAsMention())
-                        .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
-                        .setColor(new Color(218, 67, 54, 1))
-                        .setTimestamp(new Date().toInstant());
-
-                Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(logs.build()).queue();
+                new TicketLogs().TicketDelete(event.getMember(), event.getChannel());
             } else {
                 event.reply("> Vous n'avez pas la permission.")
                         .setEphemeral(true)
