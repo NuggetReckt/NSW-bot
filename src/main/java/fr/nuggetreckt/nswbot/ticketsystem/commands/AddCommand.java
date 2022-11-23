@@ -3,15 +3,12 @@ package fr.nuggetreckt.nswbot.ticketsystem.commands;
 import fr.nuggetreckt.nswbot.Main;
 import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
 import fr.nuggetreckt.nswbot.util.Config;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
-import java.awt.*;
-import java.util.Date;
 import java.util.Objects;
 
 public class AddCommand extends ListenerAdapter {

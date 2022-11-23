@@ -1,17 +1,13 @@
 package fr.nuggetreckt.nswbot.ticketsystem.commands;
 
 import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
-import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
-import java.util.Date;
 import java.util.Objects;
-
-import static fr.nuggetreckt.nswbot.Main.jda;
 
 public class CloseCommand extends ListenerAdapter {
 
