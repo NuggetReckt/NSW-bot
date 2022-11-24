@@ -6,7 +6,7 @@
 
     <groupId>fr.nuggetreckt.nswbot</groupId>
     <artifactId>NSW-bot</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 
     <build>
         <plugins>

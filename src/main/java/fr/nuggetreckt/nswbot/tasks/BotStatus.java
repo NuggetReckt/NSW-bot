@@ -1,9 +1,10 @@
 package fr.nuggetreckt.nswbot.tasks;
 
-import fr.nuggetreckt.nswbot.Main;
 import net.dv8tion.jda.api.entities.Activity;
 
 import java.util.*;
+
+import static fr.nuggetreckt.nswbot.Main.jda;
 
 public class BotStatus {
     final int ChangeStatusInterval = 15000;
@@ -12,6 +13,8 @@ public class BotStatus {
 
     public void setStatus() {
         List<String> status = new ArrayList<>();
+        Random r = new Random();
+        Timer timer = new Timer();
 
         status.add("NSW's Bot");
         status.add("play.noskillworld.fr");
@@ -35,16 +38,15 @@ public class BotStatus {
         status.add("Rejoins-nous !");
         status.add("pain au chocolat ou chocolatine ?");
         status.add("NSW");
-        status.add("Nouveau bot !");
-
-        Random r = new Random();
-        Timer timer = new Timer();
+        status.add("@NoSkillWorld sur Twitter !");
+        status.add("@NoSkillWorld sur Insta !");
+        status.add("/bump !");
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 a = r.nextInt(status.size() - 1);
-                Main.jda.getPresence().setActivity(Activity.playing(String.valueOf(status.get(a))));
+                jda.getPresence().setActivity(Activity.playing(String.valueOf(status.get(a))));
             }
         }, second, ChangeStatusInterval);
     }
