@@ -1,6 +1,6 @@
-package fr.nuggetreckt.nswbot.ticketsystem.listeners;
+package fr.nuggetreckt.nswbot.buttons;
 
-import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
+import fr.nuggetreckt.nswbot.util.Logs;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -15,7 +15,7 @@ public class AbortButtonListener extends ListenerAdapter {
                     .delete()
                     .queue();
 
-            new TicketLogs().TicketAbort(Objects.requireNonNull(event.getMember()), event.getChannel());
+            new Logs().TicketAbort(Objects.requireNonNull(event.getMember()), event.getChannel());
         }
     }
 }

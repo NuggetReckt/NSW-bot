@@ -1,23 +1,23 @@
-package fr.nuggetreckt.nswbot.commands;
+package fr.nuggetreckt.nswbot.commands.impl;
 
 import fr.nuggetreckt.nswbot.Main;
+import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
 import java.util.Date;
 import java.util.Objects;
 
-public class SuggestionCommand extends ListenerAdapter {
+public class SuggestionCommand extends Command {
 
     public final String suggestionchannelid = new Config().getSuggestionChannelId();
     public final String botchannelid = new Config().getBotChannelId();
 
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+    public void execute(SlashCommandInteractionEvent event) {
         if (event.getName().equals("suggestion")) {
             if (event.getChannel().getId().equals(botchannelid)) {
                 if (event.getOption("description") != null) {

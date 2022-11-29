@@ -1,21 +1,21 @@
-package fr.nuggetreckt.nswbot.commands;
+package fr.nuggetreckt.nswbot.commands.impl;
 
 import fr.nuggetreckt.nswbot.Main;
+import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Objects;
 
-public class IpCommand extends ListenerAdapter {
+public class ShopCommand extends Command {
 
     String botchannelid = new Config().getBotChannelId();
 
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (event.getName().equals("ip")) {
+    public void execute(SlashCommandInteractionEvent event) {
+        if (event.getName().equals("shop")) {
             if (event.getChannel().getId().equals(botchannelid)) {
-                event.reply("> **IP :** play.noskillworld.fr")
+                event.reply("> **Shop :** https://shop.noskillworld.fr")
                         .queue();
             }
             else {

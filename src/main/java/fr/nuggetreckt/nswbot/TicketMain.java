@@ -1,6 +1,5 @@
-package fr.nuggetreckt.nswbot.ticketsystem;
+package fr.nuggetreckt.nswbot;
 
-import fr.nuggetreckt.nswbot.Main;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class TicketMain {
 
-    public void mainMessageSetter() {
+    public TicketMain() {
 
         MessageChannel channel = Main.jda.getTextChannelById(new Config().getTicketPanelId());
 

@@ -1,6 +1,5 @@
-package fr.nuggetreckt.nswbot.ticketsystem;
+package fr.nuggetreckt.nswbot.util;
 
-import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.Member;
@@ -12,7 +11,7 @@ import java.util.Objects;
 
 import static fr.nuggetreckt.nswbot.Main.jda;
 
-public class TicketLogs {
+public class Logs {
 
     EmbedBuilder builder = new EmbedBuilder();
 

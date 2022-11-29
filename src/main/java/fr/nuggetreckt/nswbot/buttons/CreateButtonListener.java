@@ -1,7 +1,7 @@
-package fr.nuggetreckt.nswbot.ticketsystem.listeners;
+package fr.nuggetreckt.nswbot.buttons;
 
 import fr.nuggetreckt.nswbot.Main;
-import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
+import fr.nuggetreckt.nswbot.util.Logs;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -42,7 +42,7 @@ public class CreateButtonListener extends ListenerAdapter {
                         .addPermissionOverride(event.getGuild().getPublicRole(), null, EnumSet.of(Permission.VIEW_CHANNEL))
                         .complete();
 
-                new TicketLogs().TicketCreate(event.getMember(), channel);
+                new Logs().TicketCreate(event.getMember(), channel);
 
                 EmbedBuilder welcome = new EmbedBuilder();
 

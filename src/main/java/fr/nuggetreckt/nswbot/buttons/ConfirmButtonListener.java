@@ -1,19 +1,13 @@
-package fr.nuggetreckt.nswbot.ticketsystem.listeners;
+package fr.nuggetreckt.nswbot.buttons;
 
-import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
-import fr.nuggetreckt.nswbot.util.Config;
-import net.dv8tion.jda.api.EmbedBuilder;
+import fr.nuggetreckt.nswbot.util.Logs;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
-import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-
-import static fr.nuggetreckt.nswbot.Main.jda;
 
 public class ConfirmButtonListener extends ListenerAdapter {
 
@@ -31,7 +25,7 @@ public class ConfirmButtonListener extends ListenerAdapter {
                         .delete()
                         .queueAfter(10000, TimeUnit.MILLISECONDS);
 
-                new TicketLogs().TicketDelete(event.getMember(), event.getChannel());
+                new Logs().TicketDelete(event.getMember(), event.getChannel());
             } else {
                 event.reply("> Vous n'avez pas la permission.")
                         .setEphemeral(true)

@@ -1,24 +1,23 @@
-package fr.nuggetreckt.nswbot.commands;
+package fr.nuggetreckt.nswbot.commands.impl;
 
 import fr.nuggetreckt.nswbot.Main;
+import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Objects;
 
-public class ShopCommand extends ListenerAdapter {
+public class VoteCommand extends Command {
 
     String botchannelid = new Config().getBotChannelId();
 
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (event.getName().equals("shop")) {
+    public void execute(SlashCommandInteractionEvent event) {
+        if (event.getName().equals("vote")) {
             if (event.getChannel().getId().equals(botchannelid)) {
-                event.reply("> **Shop :** https://shop.noskillworld.fr")
+                event.reply("> **Votes :** https://play.noskillworld.fr/votes")
                         .queue();
-            }
-            else {
+            } else {
                 event.reply("Mauvais salon ! Merci d'utiliser le salon " + Objects.requireNonNull(Main.jda.getTextChannelById(botchannelid)).getAsMention())
                         .setEphemeral(true)
                         .queue();

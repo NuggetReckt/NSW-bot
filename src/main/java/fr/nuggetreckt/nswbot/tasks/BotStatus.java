@@ -11,7 +11,7 @@ public class BotStatus {
     final int second = 1000;
     private int a;
 
-    public void setStatus() {
+    public BotStatus() {
         List<String> status = new ArrayList<>();
         Random r = new Random();
         Timer timer = new Timer();

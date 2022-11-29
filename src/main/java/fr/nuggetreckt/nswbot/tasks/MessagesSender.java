@@ -20,7 +20,12 @@ public class MessagesSender {
     final String supportChannelid = new Config().getSupportChannelId();
     MessageChannel supportChannel = Main.jda.getTextChannelById(supportChannelid);
 
-    public void sendRulesMessage() {
+    public void sendMessages() {
+        this.sendRulesMessage();
+        this.sendSupportMessage();
+    }
+
+    private void sendRulesMessage() {
         MessageHistory history = MessageHistory.getHistoryFromBeginning(rulesChannel).complete();
         List<Message> messages = history.getRetrievedHistory();
 
@@ -52,7 +57,7 @@ public class MessagesSender {
         }
     }
 
-    public void sendSupportMessage() {
+    private void sendSupportMessage() {
         MessageHistory history = MessageHistory.getHistoryFromBeginning(supportChannel).complete();
         List<Message> messages = history.getRetrievedHistory();
 

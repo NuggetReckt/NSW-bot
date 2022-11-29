@@ -1,6 +1,9 @@
 package fr.nuggetreckt.nswbot.listeners;
 
 import fr.nuggetreckt.nswbot.Main;
+import fr.nuggetreckt.nswbot.TicketMain;
+import fr.nuggetreckt.nswbot.tasks.BotStatus;
+import fr.nuggetreckt.nswbot.tasks.MessagesSender;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
@@ -19,6 +22,10 @@ public class ReadyListener implements EventListener {
                      | |\\  |____) |  \\  /\\  /    \\__ \\ | |_) | (_) | |_\s
                      |_| \\_|_____/    \\/  \\/     |___/ |____/ \\___/ \\__|
                     """);
+
+            new BotStatus();
+            new MessagesSender().sendMessages();
+            new TicketMain();
         }
     }
 }

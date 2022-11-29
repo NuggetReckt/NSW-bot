@@ -1,18 +1,18 @@
-package fr.nuggetreckt.nswbot.ticketsystem.commands;
+package fr.nuggetreckt.nswbot.commands.impl;
 
-import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
+import fr.nuggetreckt.nswbot.commands.Command;
+import fr.nuggetreckt.nswbot.util.Logs;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
 import java.util.Objects;
 
-public class CloseCommand extends ListenerAdapter {
+public class CloseCommand extends Command {
 
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+    public void execute(SlashCommandInteractionEvent event) {
         if (event.getName().equals("close")) {
             if (event.getChannel().getName().contains("ticket-de-")) {
                 EmbedBuilder confirm = new EmbedBuilder();
@@ -26,7 +26,7 @@ public class CloseCommand extends ListenerAdapter {
                                 Button.secondary("abort", "Annuler"))
                         .queue();
 
-                new TicketLogs().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
+                new Logs().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
             } else {
                 event.reply("Vous n'êtes pas dans un ticket !")
                         .setEphemeral(true)

@@ -1,24 +1,23 @@
-package fr.nuggetreckt.nswbot.commands;
+package fr.nuggetreckt.nswbot.commands.impl;
 
 import fr.nuggetreckt.nswbot.Main;
+import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Objects;
 
-public class ReglesCommand extends ListenerAdapter {
+public class IpCommand extends Command {
 
     String botchannelid = new Config().getBotChannelId();
 
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        if (event.getName().equals("règles")) {
+    public void execute(SlashCommandInteractionEvent event) {
+        if (event.getName().equals("ip")) {
             if (event.getChannel().getId().equals(botchannelid)) {
-                event.reply("> **Règles :** https://play.noskillworld.fr/rules")
+                event.reply("> **IP :** play.noskillworld.fr")
                         .queue();
-            }
-            else {
+            } else {
                 event.reply("Mauvais salon ! Merci d'utiliser le salon " + Objects.requireNonNull(Main.jda.getTextChannelById(botchannelid)).getAsMention())
                         .setEphemeral(true)
                         .queue();

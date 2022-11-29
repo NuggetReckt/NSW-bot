@@ -1,20 +1,20 @@
-package fr.nuggetreckt.nswbot.ticketsystem.commands;
+package fr.nuggetreckt.nswbot.commands.impl;
 
 import fr.nuggetreckt.nswbot.Main;
-import fr.nuggetreckt.nswbot.ticketsystem.TicketLogs;
+import fr.nuggetreckt.nswbot.commands.Command;
+import fr.nuggetreckt.nswbot.util.Logs;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.Objects;
 
-public class AddCommand extends ListenerAdapter {
+public class AddCommand extends Command {
 
     @Override
-    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+    public void execute(SlashCommandInteractionEvent event) {
         if (event.getName().equals("add")) {
             if (event.getChannel().getName().contains("ticket-de-")) {
 
@@ -36,7 +36,7 @@ public class AddCommand extends ListenerAdapter {
                                 .setEphemeral(true)
                                 .queue();
 
-                        new TicketLogs().TicketAdd(target, executor, event.getChannel());
+                        new Logs().TicketAdd(target, executor, event.getChannel());
                     } else {
                         event.reply("> Vous n'avez pas la permission !")
                                 .setEphemeral(true)
