@@ -22,9 +22,9 @@ public class ButtonListener extends ListenerAdapter {
 
     @Override
     public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
-        for (String command : buttons.keySet()) {
-            if (event.getComponentId().equalsIgnoreCase(command)) {
-                buttons.get(command).execute(event);
+        for (String button : buttons.keySet()) {
+            if (event.getComponentId().equalsIgnoreCase(button)) {
+                buttons.get(button).execute(event);
             }
         }
     }
