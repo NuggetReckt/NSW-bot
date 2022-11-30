@@ -1,37 +1,37 @@
 package fr.nuggetreckt.nswbot.tasks;
 
-import fr.nuggetreckt.nswbot.Main;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageHistory;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 
 import java.awt.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import static fr.nuggetreckt.nswbot.Main.jda;
+
 public class MessagesSender {
 
-    final String rulesChannelid = new Config().getRulesChannelId();
-    MessageChannel rulesChannel = Main.jda.getTextChannelById(rulesChannelid);
+    MessageChannel rulesChannel = jda.getTextChannelById(new Config().getRulesChannelId());
+    MessageChannel supportChannel = jda.getTextChannelById(new Config().getSupportChannelId());
+    MessageChannel ticketChannel = jda.getTextChannelById(new Config().getTicketPanelId());
 
-    final String supportChannelid = new Config().getSupportChannelId();
-    MessageChannel supportChannel = Main.jda.getTextChannelById(supportChannelid);
-
-    public void sendMessages() {
+    public MessagesSender() {
         this.sendRulesMessage();
         this.sendSupportMessage();
+        this.sendTicketPanelMessage();
     }
 
     private void sendRulesMessage() {
         MessageHistory history = MessageHistory.getHistoryFromBeginning(rulesChannel).complete();
         List<Message> messages = history.getRetrievedHistory();
 
-        if (messages.size() == 1) {
-            return;
-        }
+        if (messages.size() == 1) return;
+
         if (messages.size() == 0) {
             EmbedBuilder rules = new EmbedBuilder();
             rules.setTitle("✅ ・ Règles", "https://play.noskillworld.fr/cgu-cgv")
@@ -47,13 +47,12 @@ public class MessagesSender {
                             Retrouvez les règles en jeu complètes ici : https://play.noskillworld.fr/règles
                                                         
                             🔹Vous êtes témoin d'un tp kill, cheat, insultes, ou grief ? Créez un ticket.
-                            """ + Objects.requireNonNull(Main.jda.getTextChannelById(new Config().getTicketPanelId())).getAsMention(), true)
+                            """ + Objects.requireNonNull(jda.getTextChannelById(new Config().getTicketPanelId())).getAsMention(), true)
                     .setColor(new Color(61, 189, 201, 1))
                     .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                     .setTimestamp(new Date().toInstant());
 
-
-            Objects.requireNonNull(Main.jda.getTextChannelById(rulesChannelid)).sendMessageEmbeds(rules.build()).queue();
+            rulesChannel.sendMessageEmbeds(rules.build()).queue();
         }
     }
 
@@ -61,9 +60,8 @@ public class MessagesSender {
         MessageHistory history = MessageHistory.getHistoryFromBeginning(supportChannel).complete();
         List<Message> messages = history.getRetrievedHistory();
 
-        if (messages.size() == 1) {
-            return;
-        }
+        if (messages.size() == 1) return;
+
         if (messages.size() == 0) {
             EmbedBuilder support = new EmbedBuilder();
             support.setTitle("🔗 ・ Nous Supporter", "https://play.noskillworld.fr/votes")
@@ -85,7 +83,31 @@ public class MessagesSender {
                     .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                     .setTimestamp(new Date().toInstant());
 
-            Objects.requireNonNull(Main.jda.getTextChannelById(supportChannelid)).sendMessageEmbeds(support.build()).queue();
+            supportChannel.sendMessageEmbeds(support.build()).queue();
+        }
+    }
+
+    private void sendTicketPanelMessage() {
+        MessageHistory history = MessageHistory.getHistoryFromBeginning(ticketChannel).complete();
+        List<Message> messages = history.getRetrievedHistory();
+
+        if (messages.size() == 1) return;
+
+        if (messages.size() == 0) {
+            EmbedBuilder panel = new EmbedBuilder();
+
+            panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
+                    .setDescription("Pour créer un ticket, cliquez sur le bouton ci-dessous.\nTout abus/troll sera sanctionné.")
+                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                    .setColor(new Color(61, 189, 201, 1))
+                    .setTimestamp(new Date().toInstant());
+
+            ticketChannel.sendMessageEmbeds(panel.build())
+                    .setActionRow(
+                            Button.primary("create", "Créer un ticket"),
+                            Button.link("https://play.noskillworld.fr/cgu-cgv", "Informations")
+                    )
+                    .queue();
         }
     }
 }

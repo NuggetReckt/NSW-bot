@@ -18,7 +18,6 @@ import javax.security.auth.login.LoginException;
 
 public class Main {
 
-    private static Main instance;
     public static JDA jda;
     public static Dotenv dotenv;
     public static String token;
@@ -26,8 +25,6 @@ public class Main {
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public Main() throws LoginException {
-        instance = this;
-
         logger.info("Lancement du bot...");
 
         dotenv = Dotenv.configure()
@@ -66,9 +63,5 @@ public class Main {
         //Commands/Buttons events
         jda.addEventListener(new CommandListener());
         jda.addEventListener(new ButtonListener());
-    }
-
-    public static Main getInstance() {
-        return instance;
     }
 }
