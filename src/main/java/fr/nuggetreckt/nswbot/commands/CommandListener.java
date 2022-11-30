@@ -1,7 +1,6 @@
 package fr.nuggetreckt.nswbot.commands;
 
 import fr.nuggetreckt.nswbot.commands.impl.*;
-import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -12,9 +11,7 @@ public class CommandListener extends ListenerAdapter {
 
     HashMap<String, Command> commands = new HashMap<>();
 
-    public CommandListener(JDA jda) {
-        jda.addEventListener(this);
-
+    public CommandListener() {
         commands.put("dynmap", new DynmapCommand());
         commands.put("ip", new IpCommand());
         commands.put("règles", new ReglesCommand());
@@ -22,9 +19,7 @@ public class CommandListener extends ListenerAdapter {
         commands.put("site", new SiteCommand());
         commands.put("suggestion", new SuggestionCommand());
         commands.put("vote", new VoteCommand());
-        commands.put("add", new AddCommand());
-        commands.put("remove", new RemoveCommand());
-        commands.put("close", new CloseCommand());
+        commands.put("ticket", new TicketCommand());
     }
 
     @Override

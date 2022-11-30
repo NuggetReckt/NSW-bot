@@ -1,13 +1,12 @@
-package fr.nuggetreckt.nswbot.buttons;
+package fr.nuggetreckt.nswbot.buttons.impl;
 
 import fr.nuggetreckt.nswbot.Main;
-import fr.nuggetreckt.nswbot.util.Logs;
 import fr.nuggetreckt.nswbot.util.Config;
+import fr.nuggetreckt.nswbot.util.Logs;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,31 +15,31 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Objects;
 
-public class CreateButtonListener extends ListenerAdapter {
+public class CreateButton extends fr.nuggetreckt.nswbot.buttons.Button {
 
     public String member;
     public String channelname;
 
     @Override
-    public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
+    public void execute(@NotNull ButtonInteractionEvent event) {
         if (event.getComponentId().equals("create")) {
 
             member = ((Objects.requireNonNull(event.getMember())).getEffectiveName());
 
-            String memberFormatted = member.replaceAll("\\W+","");
+            String memberFormatted = member.replaceAll("\\W+", "");
 
             channelname = "ticket-de-" + memberFormatted;
 
             if (event.getGuild() != null && Main.jda.getTextChannelsByName(channelname, true).size() == 0) {
-                event.reply("> Ticket Créé avec succès !")
-                        .setEphemeral(true)
-                        .queue();
-
                 TextChannel channel = Objects.requireNonNull(event.getGuild()).createTextChannel(channelname, event.getGuild().getCategoryById(new Config().getTicketCategoryId()))
                         .addPermissionOverride((event.getMember()), EnumSet.of(Permission.VIEW_CHANNEL), null)
                         .addPermissionOverride(Objects.requireNonNull(Main.jda.getRoleById(new Config().getStaffRoleId())), EnumSet.of(Permission.VIEW_CHANNEL), null)
                         .addPermissionOverride(event.getGuild().getPublicRole(), null, EnumSet.of(Permission.VIEW_CHANNEL))
                         .complete();
+
+                event.reply("> Ticket Créé avec succès ! " + channel.getAsMention())
+                        .setEphemeral(true)
+                        .queue();
 
                 new Logs().TicketCreate(event.getMember(), channel);
 
@@ -58,8 +57,7 @@ public class CreateButtonListener extends ListenerAdapter {
                                 Button.primary("close", "Fermer le ticket")
                         )
                         .queue();
-            }
-            else {
+            } else {
                 event.reply("> Vous avez déja créé un ticket !")
                         .setEphemeral(true)
                         .queue();

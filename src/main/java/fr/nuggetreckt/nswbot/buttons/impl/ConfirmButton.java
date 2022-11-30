@@ -1,18 +1,18 @@
-package fr.nuggetreckt.nswbot.buttons;
+package fr.nuggetreckt.nswbot.buttons.impl;
 
+import fr.nuggetreckt.nswbot.buttons.Button;
 import fr.nuggetreckt.nswbot.util.Logs;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class ConfirmButtonListener extends ListenerAdapter {
+public class ConfirmButton extends Button {
 
     @Override
-    public void onButtonInteraction(@NotNull ButtonInteractionEvent event) {
+    public void execute(@NotNull ButtonInteractionEvent event) {
         if (event.getComponentId().equals("confirm")) {
             if (Objects.requireNonNull(event.getMember()).hasPermission(Permission.ADMINISTRATOR)) {
                 event.reply("> Le ticket sera supprimé dans 10 secondes.")

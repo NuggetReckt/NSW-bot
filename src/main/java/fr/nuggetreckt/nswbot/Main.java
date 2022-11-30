@@ -1,66 +1,74 @@
 package fr.nuggetreckt.nswbot;
 
+import fr.nuggetreckt.nswbot.buttons.ButtonListener;
 import fr.nuggetreckt.nswbot.commands.CommandListener;
 import fr.nuggetreckt.nswbot.commands.CommandManager;
-import fr.nuggetreckt.nswbot.listeners.*;
-import fr.nuggetreckt.nswbot.buttons.AbortButtonListener;
-import fr.nuggetreckt.nswbot.buttons.CloseButtonListener;
-import fr.nuggetreckt.nswbot.buttons.ConfirmButtonListener;
-import fr.nuggetreckt.nswbot.buttons.CreateButtonListener;
-import fr.nuggetreckt.nswbot.tasks.BotStatus;
-import fr.nuggetreckt.nswbot.tasks.MessagesSender;
+import fr.nuggetreckt.nswbot.listeners.GronazListener;
+import fr.nuggetreckt.nswbot.listeners.MemberJoinListener;
+import fr.nuggetreckt.nswbot.listeners.MessageListener;
+import fr.nuggetreckt.nswbot.listeners.ReadyListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.security.auth.login.LoginException;
 
 public class Main {
 
+    private static Main instance;
     public static JDA jda;
     public static Dotenv dotenv;
+    public static String token;
 
-    public static void main(String[] args) throws LoginException, InterruptedException, RuntimeException {
+    public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
-        final String token;
+    public Main() throws LoginException {
+        instance = this;
 
-        System.out.println("Lancement du bot...");
+        logger.info("Lancement du bot...");
 
         dotenv = Dotenv.configure()
                 .directory("/env/")
                 .filename(".env")
                 .load();
 
-        System.out.println("Chargement du token...");
+        logger.info("Chargement du token...");
 
         try {
             token = dotenv.get("DISCORD_TOKEN");
         } catch (NullPointerException e) {
             throw new RuntimeException(e);
         }
+        this.buildJDA();
+    }
 
+    private void buildJDA() throws LoginException {
         jda = JDABuilder.createDefault(token)
-
-                //Basic Listeners
-                .addEventListeners(new ReadyListener())
-                .addEventListeners(new GronazListener())
-                .addEventListeners(new MessageListener())
-                .addEventListeners(new MemberJoinListener())
-                .addEventListeners(new CommandManager())
-
-                //Buttons Listeners
-                .addEventListeners(new CreateButtonListener())
-                .addEventListeners(new ConfirmButtonListener())
-                .addEventListeners(new CloseButtonListener())
-                .addEventListeners(new AbortButtonListener())
-
-                //Server Commands
-                .addEventListeners(new CommandListener(jda))
-
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .build();
 
-        jda.awaitReady();
+        registerEvents();
+    }
+
+    private static void registerEvents() {
+        //Basic events
+        jda.addEventListener(new ReadyListener());
+        jda.addEventListener(new GronazListener());
+        jda.addEventListener(new MessageListener());
+        jda.addEventListener(new MemberJoinListener());
+
+        //Register commands
+        jda.addEventListener(new CommandManager());
+
+        //Commands/Buttons events
+        jda.addEventListener(new CommandListener());
+        jda.addEventListener(new ButtonListener());
+    }
+
+    public static Main getInstance() {
+        return instance;
     }
 }

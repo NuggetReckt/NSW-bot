@@ -11,11 +11,13 @@ import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
+import static fr.nuggetreckt.nswbot.Main.jda;
+
 public class TicketMain {
 
     public TicketMain() {
 
-        MessageChannel channel = Main.jda.getTextChannelById(new Config().getTicketPanelId());
+        MessageChannel channel = jda.getTextChannelById(new Config().getTicketPanelId());
 
         if (channel != null) {
 
