@@ -17,7 +17,8 @@ public class Logs {
 
     public void TicketCreate(@NotNull Member user, @NotNull Channel channel) {
         builder.setTitle("Log - Création de ticket")
-                .setDescription("Ticket : " + channel.getAsMention() + "\nCréé par : " + user.getAsMention())
+                .setDescription("Ticket : **" + channel.getName() + "**"
+                        + "\nCréé par : " + user.getAsMention())
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
@@ -27,7 +28,8 @@ public class Logs {
 
     public void TicketDelete(@NotNull Member user, @NotNull Channel channel) {
         builder.setTitle("Log - Suppression de ticket")
-                .setDescription("Ticket : " + channel.getAsMention() + "\nFermé par : " + user.getAsMention())
+                .setDescription("Ticket : **" + channel.getName() + "**"
+                        + "\nFermé par : " + user.getAsMention())
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                 .setColor(new Color(218, 67, 54, 1))
                 .setTimestamp(new Date().toInstant());
@@ -37,7 +39,8 @@ public class Logs {
 
     public void TicketClose(@NotNull Member user, @NotNull Channel channel) {
         builder.setTitle("Log - Demande de suppression de ticket")
-                .setDescription("Ticket : " + channel.getAsMention() + "\nPar : " + user.getAsMention())
+                .setDescription("Ticket : **" + channel.getName() + "**"
+                        + "\nPar : " + user.getAsMention())
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                 .setColor(new Color(255, 165, 54, 1))
                 .setTimestamp(new Date().toInstant());
@@ -47,7 +50,8 @@ public class Logs {
 
     public void TicketAbort(@NotNull Member user, @NotNull Channel channel) {
         builder.setTitle("Log - Annulation de suppression de ticket")
-                .setDescription("Ticket : " + channel.getAsMention() + "\nPar : " + user.getAsMention())
+                .setDescription("Ticket : **" + channel.getName() + "**"
+                        + "\nPar : " + user.getAsMention())
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
@@ -57,7 +61,7 @@ public class Logs {
 
     public void TicketAdd(@NotNull Member user, @NotNull Member executor, @NotNull Channel channel) {
         builder.setTitle("Log - Membre ajouté à un ticket")
-                .setDescription("Ticket : " + channel.getAsMention()
+                .setDescription("Ticket : **" + channel.getName() + "**"
                         + "\nMembre :" + user.getAsMention()
                         + "\nAjouté par : " + executor.getAsMention())
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
@@ -69,7 +73,7 @@ public class Logs {
 
     public void TicketRemove(@NotNull Member user, @NotNull Member executor, @NotNull Channel channel) {
         builder.setTitle("Log - Membre retiré d'un ticket")
-                .setDescription("Ticket : " + channel.getAsMention()
+                .setDescription("Ticket : **" + channel.getName() + "**"
                         + "\nMembre :" + user.getAsMention()
                         + "\nRetiré par : " + executor.getAsMention())
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
