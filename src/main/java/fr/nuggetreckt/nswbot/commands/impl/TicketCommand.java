@@ -42,8 +42,8 @@ public class TicketCommand extends Command {
 
                 if (executor.getRoles().contains(staffrole)) {
                     if (Objects.requireNonNull(event.getSubcommandName()).equals("add")) {
-                        if (!target.hasAccess(event.getTextChannel())) {
-                            event.getTextChannel().upsertPermissionOverride(target)
+                        if (!target.hasAccess(event.getChannel().asTextChannel())) {
+                            event.getChannel().asTextChannel().upsertPermissionOverride(target)
                                     .setAllowed(Permission.VIEW_CHANNEL)
                                     .queue();
 
@@ -59,8 +59,8 @@ public class TicketCommand extends Command {
                         }
                     }
                     if (Objects.requireNonNull(event.getSubcommandName()).equals("remove")) {
-                        if (target.hasAccess(event.getTextChannel())) {
-                            event.getTextChannel().upsertPermissionOverride(target)
+                        if (target.hasAccess(event.getChannel().asTextChannel())) {
+                            event.getChannel().asTextChannel().upsertPermissionOverride(target)
                                     .setDenied(Permission.VIEW_CHANNEL)
                                     .queue();
 

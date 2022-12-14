@@ -42,7 +42,7 @@ public class Main {
         this.buildJDA();
     }
 
-    private void buildJDA() throws LoginException {
+    private void buildJDA() {
         jda = JDABuilder.createDefault(token)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .build();

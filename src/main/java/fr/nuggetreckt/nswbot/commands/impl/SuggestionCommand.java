@@ -5,6 +5,7 @@ import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 import java.awt.*;
@@ -40,9 +41,9 @@ public class SuggestionCommand extends Command {
                     message.createThreadChannel("Suggestion de " + event.getMember().getEffectiveName())
                             .queue();
 
-                    message.addReaction("oui_nsw:856148735721603153")
+                    message.addReaction(Emoji.fromFormatted("oui_nsw:856148735721603153"))
                             .queue();
-                    message.addReaction("non_nsw:856148735901958146")
+                    message.addReaction(Emoji.fromFormatted("non_nsw:856148735901958146"))
                             .queue();
                 } else {
                     event.reply("Veuillez mettre une description !")

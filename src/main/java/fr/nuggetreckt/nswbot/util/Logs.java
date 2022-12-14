@@ -1,8 +1,8 @@
 package fr.nuggetreckt.nswbot.util;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Channel;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.channel.Channel;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
