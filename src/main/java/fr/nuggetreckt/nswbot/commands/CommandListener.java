@@ -20,6 +20,7 @@ public class CommandListener extends ListenerAdapter {
         commands.put("suggestion", new SuggestionCommand());
         commands.put("vote", new VoteCommand());
         commands.put("ticket", new TicketCommand());
+        commands.put("info", new InfoCommand());
     }
 
     @Override

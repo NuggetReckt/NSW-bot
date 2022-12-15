@@ -7,6 +7,7 @@ import fr.nuggetreckt.nswbot.listeners.GronazListener;
 import fr.nuggetreckt.nswbot.listeners.MemberJoinListener;
 import fr.nuggetreckt.nswbot.listeners.MessageListener;
 import fr.nuggetreckt.nswbot.listeners.ReadyListener;
+import fr.nuggetreckt.nswbot.tasks.Pinger;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -20,7 +21,9 @@ public class Main {
 
     public static JDA jda;
     public static Dotenv dotenv;
-    public static String token;
+    public static Pinger pinger;
+
+    private static String token;
 
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
@@ -40,6 +43,9 @@ public class Main {
             throw new RuntimeException(e);
         }
         this.buildJDA();
+
+        pinger = new Pinger();
+        pinger.fetchData();
     }
 
     private void buildJDA() {
