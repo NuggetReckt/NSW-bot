@@ -26,11 +26,8 @@ public class InfoCommand extends Command {
             if (event.getChannel().getId().equals(botchannelid)) {
 
                 builder.setTitle("<:info_nsw:864197429729034250> ・ Infos")
-                        .addField(" __Statut__", getStatus(), true)
-                        .addField("__Joueurs__", getPlayers(), true)
-                        .addField("__IP__", "play.noskillworld.fr", true)
-                        .addField(" __Version__", pinger.getGameVersion(), true)
-                        .addField("__MotD__", "```" + pinger.getMotd() + "```", true)
+                        .addField("__Stats__", getPlayers() + "\n" + getStatus(), true)
+                        .addField("__Serveur__", "\uD83C\uDFAE ・ play.noskillworld.fr\n" + getVersion(), true)
                         .setColor(new Color(61, 189, 201, 1))
                         .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
                         .setTimestamp(new Date().toInstant());
@@ -47,15 +44,20 @@ public class InfoCommand extends Command {
     @NotNull
     private String getStatus() {
         if (pinger.fetchData()) {
-            return "<a:online:999970001966608446> Serveur en ligne";
+            return "<a:online:999970001966608446> ・ Serveur en ligne";
         }
         else {
-            return "<a:offline:999980343580962836> Serveur hors ligne";
+            return "<a:offline:999980343580962836> ・ Serveur hors ligne";
         }
     }
 
     @NotNull
     private String getPlayers() {
-        return "\uD83D\uDC65 " + pinger.getPlayersOnline() + "/" + pinger.getMaxPlayers();
+        return "\uD83D\uDC65 ・ " + pinger.getPlayersOnline() + "/" + pinger.getMaxPlayers() + " Joueurs connectés";
+    }
+
+    @NotNull
+    private String getVersion() {
+        return "\uD83D\uDCBB ・ " + pinger.getGameVersion();
     }
 }

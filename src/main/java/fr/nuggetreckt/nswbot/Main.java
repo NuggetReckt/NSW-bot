@@ -51,6 +51,7 @@ public class Main {
     private void buildJDA() {
         jda = JDABuilder.createDefault(token)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
+                .enableIntents(GatewayIntent.MESSAGE_CONTENT)
                 .build();
 
         registerEvents();

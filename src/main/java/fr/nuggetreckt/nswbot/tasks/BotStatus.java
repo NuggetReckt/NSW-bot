@@ -17,14 +17,7 @@ public class BotStatus {
         Random r = new Random();
         Timer timer = new Timer();
 
-        String statusMessage = pinger.getPlayersOnline() + "/" + pinger.getMaxPlayers() + " Joueurs en ligne";
-
-        System.out.println("DEBUG: " + pinger.getPlayersOnline());
-        System.out.println("DEBUG: " + pinger.getMaxPlayers());
-        System.out.println("DEBUG: " + pinger.getAddress());
-        System.out.println("DEBUG: " + pinger.getGameVersion());
-        System.out.println("DEBUG: " + pinger.getPingVersion());
-        System.out.println("DEBUG: " + statusMessage);
+        String statusMessage = pinger.getPlayersOnline() + "/" + pinger.getMaxPlayers() + " Joueurs connectés";
 
         status.add("NSW's Bot");
         status.add("play.noskillworld.fr");
