@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Date;
@@ -18,7 +19,7 @@ public class SuggestionCommand extends Command {
     public final String botchannelid = new Config().getBotChannelId();
 
     @Override
-    public void execute(SlashCommandInteractionEvent event) {
+    public void execute(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("suggestion")) {
             if (event.getChannel().getId().equals(botchannelid)) {
                 if (event.getOption("description") != null) {

@@ -1,6 +1,5 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
-import fr.nuggetreckt.nswbot.Main;
 import fr.nuggetreckt.nswbot.util.Config;
 import fr.nuggetreckt.nswbot.util.Logs;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -15,6 +14,8 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Objects;
 
+import static fr.nuggetreckt.nswbot.Main.jda;
+
 public class CreateButton extends fr.nuggetreckt.nswbot.buttons.Button {
 
     public String member;
@@ -25,15 +26,13 @@ public class CreateButton extends fr.nuggetreckt.nswbot.buttons.Button {
         if (event.getComponentId().equals("create")) {
 
             member = ((Objects.requireNonNull(event.getMember())).getEffectiveName());
-
             String memberFormatted = member.replaceAll("\\W+", "");
-
             channelname = "ticket-de-" + memberFormatted;
 
-            if (event.getGuild() != null && Main.jda.getTextChannelsByName(channelname, true).size() == 0) {
+            if (event.getGuild() != null && jda.getTextChannelsByName(channelname, true).size() == 0) {
                 TextChannel channel = Objects.requireNonNull(event.getGuild()).createTextChannel(channelname, event.getGuild().getCategoryById(new Config().getTicketCategoryId()))
                         .addPermissionOverride((event.getMember()), EnumSet.of(Permission.VIEW_CHANNEL), null)
-                        .addPermissionOverride(Objects.requireNonNull(Main.jda.getRoleById(new Config().getStaffRoleId())), EnumSet.of(Permission.VIEW_CHANNEL), null)
+                        .addPermissionOverride(Objects.requireNonNull(jda.getRoleById(new Config().getStaffRoleId())), EnumSet.of(Permission.VIEW_CHANNEL), null)
                         .addPermissionOverride(event.getGuild().getPublicRole(), null, EnumSet.of(Permission.VIEW_CHANNEL))
                         .complete();
 

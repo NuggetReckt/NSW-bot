@@ -7,6 +7,7 @@ import fr.nuggetreckt.nswbot.listeners.GronazListener;
 import fr.nuggetreckt.nswbot.listeners.MemberJoinListener;
 import fr.nuggetreckt.nswbot.listeners.MessageListener;
 import fr.nuggetreckt.nswbot.listeners.ReadyListener;
+import fr.nuggetreckt.nswbot.tasks.MessagesSender;
 import fr.nuggetreckt.nswbot.tasks.Pinger;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
@@ -22,6 +23,7 @@ public class Main {
     public static JDA jda;
     public static Dotenv dotenv;
     public static Pinger pinger;
+    private static boolean canCreateTicket = true;
 
     private static String token;
 
@@ -70,5 +72,19 @@ public class Main {
         //Commands/Buttons events
         jda.addEventListener(new CommandListener());
         jda.addEventListener(new ButtonListener());
+    }
+
+    public static void setCanCreateTicket(boolean b) {
+        canCreateTicket = b;
+
+        if (canCreateTicket) {
+            new MessagesSender().enableTicketCreation();
+        } else {
+            new MessagesSender().disableTicketCreation();
+        }
+    }
+
+    public static boolean getCanCreateTicket() {
+        return canCreateTicket;
     }
 }

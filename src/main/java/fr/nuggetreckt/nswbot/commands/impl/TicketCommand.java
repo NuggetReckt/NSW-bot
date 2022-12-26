@@ -9,16 +9,22 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Objects;
 
-import static fr.nuggetreckt.nswbot.Main.jda;
+import static fr.nuggetreckt.nswbot.Main.*;
 
 public class TicketCommand extends Command {
 
     @Override
-    public void execute(SlashCommandInteractionEvent event) {
+    public void execute(@NotNull SlashCommandInteractionEvent event) {
+
+        Role staffrole = jda.getRoleById(new Config().getStaffRoleId());
+        Member executor = event.getMember();
+        assert executor != null;
+
         if (event.getChannel().getName().contains("ticket-de-")) {
             if (Objects.requireNonNull(event.getSubcommandName()).equals("close")) {
                 EmbedBuilder confirm = new EmbedBuilder();
@@ -27,18 +33,14 @@ public class TicketCommand extends Command {
 
                 event.replyEmbeds(confirm.build())
                         .addActionRow(
-                                net.dv8tion.jda.api.interactions.components.buttons.Button.danger("confirm", "Supprimer définitivement."),
+                                Button.danger("confirm", "Supprimer définitivement."),
                                 Button.secondary("abort", "Annuler"))
                         .queue();
 
                 new Logs().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
             } else {
                 Member target = Objects.requireNonNull(event.getOption("pseudo")).getAsMember();
-                Member executor = event.getMember();
-                Role staffrole = jda.getRoleById(new Config().getStaffRoleId());
-
                 assert target != null;
-                assert executor != null;
 
                 if (executor.getRoles().contains(staffrole)) {
                     if (Objects.requireNonNull(event.getSubcommandName()).equals("add")) {
@@ -80,6 +82,41 @@ public class TicketCommand extends Command {
                             .setEphemeral(true)
                             .queue();
                 }
+            }
+        } else if (Objects.equals(event.getSubcommandName(), "toggle")) {
+            if (executor.hasPermission(Permission.ADMINISTRATOR)) {
+                if (Objects.requireNonNull(event.getOption("switch")).getAsString().equals("ON")) {
+                    if (getCanCreateTicket()) {
+                        event.reply("> L'option est déjà activée !")
+                                .setEphemeral(true)
+                                .queue();
+                    } else {
+                        event.reply("> Création de ticket **activée.**")
+                                .setEphemeral(true)
+                                .queue();
+
+                        setCanCreateTicket(true);
+                        new Logs().TicketEnable(executor);
+                    }
+                }
+                if (Objects.requireNonNull(event.getOption("switch")).getAsString().equals("OFF")) {
+                    if (!getCanCreateTicket()) {
+                        event.reply("> L'option est déjà désactivée !")
+                                .setEphemeral(true)
+                                .queue();
+                    } else {
+                        event.reply("> Création de ticket **désactivée.**")
+                                .setEphemeral(true)
+                                .queue();
+
+                        setCanCreateTicket(false);
+                        new Logs().TicketDisable(executor);
+                    }
+                }
+            } else {
+                event.reply("> Vous n'avez pas la permission !")
+                        .setEphemeral(true)
+                        .queue();
             }
         } else {
             event.reply("Vous n'êtes pas dans un ticket !")

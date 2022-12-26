@@ -82,4 +82,24 @@ public class Logs {
 
         Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
     }
+
+    public void TicketDisable(@NotNull Member executor) {
+        builder.setTitle("Log - Création de tickets désactivée")
+                .setDescription("Exécuté par : " + executor.getAsMention())
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                .setColor(new Color(192, 0, 7, 1))
+                .setTimestamp(new Date().toInstant());
+
+        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+    }
+
+    public void TicketEnable(@NotNull Member executor) {
+        builder.setTitle("Log - Création de tickets activée")
+                .setDescription("Exécuté par : " + executor.getAsMention())
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                .setColor(new Color(27, 224, 21, 1))
+                .setTimestamp(new Date().toInstant());
+
+        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+    }
 }

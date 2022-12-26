@@ -91,23 +91,63 @@ public class MessagesSender {
         MessageHistory history = MessageHistory.getHistoryFromBeginning(ticketChannel).complete();
         List<Message> messages = history.getRetrievedHistory();
 
+        EmbedBuilder panel = new EmbedBuilder();
+
+        panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
+                .setDescription("Pour créer un ticket, cliquez sur le bouton ci-dessous.\nTout abus/troll sera sanctionné.")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                .setColor(new Color(61, 189, 201, 1))
+                .setTimestamp(new Date().toInstant());
+
+
         if (messages.size() == 1) return;
 
         if (messages.size() == 0) {
-            EmbedBuilder panel = new EmbedBuilder();
-
-            panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
-                    .setDescription("Pour créer un ticket, cliquez sur le bouton ci-dessous.\nTout abus/troll sera sanctionné.")
-                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
-                    .setColor(new Color(61, 189, 201, 1))
-                    .setTimestamp(new Date().toInstant());
-
             ticketChannel.sendMessageEmbeds(panel.build())
                     .setActionRow(
                             Button.primary("create", "Créer un ticket"),
                             Button.link("https://play.noskillworld.fr/cgu-cgv", "Informations")
                     )
                     .queue();
+
         }
+    }
+
+    public void disableTicketCreation() {
+        MessageHistory history = MessageHistory.getHistoryFromBeginning(ticketChannel).complete();
+        List<Message> messages = history.getRetrievedHistory();
+
+        String embed = messages.get(0).getId();
+        EmbedBuilder panel = new EmbedBuilder();
+
+        panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
+                .setDescription("La création de ticket est temporairement désactivée.\nNous revenons bientôt.")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                .setColor(new Color(61, 189, 201, 1))
+                .setTimestamp(new Date().toInstant());
+
+        ticketChannel.editMessageEmbedsById(embed, panel.build()).setActionRow(
+                Button.primary("create", "Créer un ticket").asDisabled(),
+                Button.link("https://play.noskillworld.fr/cgu-cgv", "Informations")
+        ).queue();
+    }
+
+    public void enableTicketCreation() {
+        MessageHistory history = MessageHistory.getHistoryFromBeginning(ticketChannel).complete();
+        List<Message> messages = history.getRetrievedHistory();
+
+        String embed = messages.get(0).getId();
+        EmbedBuilder panel = new EmbedBuilder();
+
+        panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
+                .setDescription("Pour créer un ticket, cliquez sur le bouton ci-dessous.\nTout abus/troll sera sanctionné.")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                .setColor(new Color(61, 189, 201, 1))
+                .setTimestamp(new Date().toInstant());
+
+        ticketChannel.editMessageEmbedsById(embed, panel.build()).setActionRow(
+                Button.primary("create", "Créer un ticket").asEnabled(),
+                Button.link("https://play.noskillworld.fr/cgu-cgv", "Informations")
+        ).queue();
     }
 }
