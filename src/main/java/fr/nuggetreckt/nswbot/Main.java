@@ -3,10 +3,7 @@ package fr.nuggetreckt.nswbot;
 import fr.nuggetreckt.nswbot.buttons.ButtonListener;
 import fr.nuggetreckt.nswbot.commands.CommandListener;
 import fr.nuggetreckt.nswbot.commands.CommandManager;
-import fr.nuggetreckt.nswbot.listeners.GronazListener;
-import fr.nuggetreckt.nswbot.listeners.MemberJoinListener;
-import fr.nuggetreckt.nswbot.listeners.MessageListener;
-import fr.nuggetreckt.nswbot.listeners.ReadyListener;
+import fr.nuggetreckt.nswbot.listeners.*;
 import fr.nuggetreckt.nswbot.tasks.MessagesSender;
 import fr.nuggetreckt.nswbot.tasks.Pinger;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -36,7 +33,6 @@ public class Main {
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public Main() throws LoginException {
-
         instance = this;
 
         logger.info("Lancement du bot...");
