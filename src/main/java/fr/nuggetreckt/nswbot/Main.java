@@ -21,15 +21,24 @@ import javax.security.auth.login.LoginException;
 public class Main {
 
     public static JDA jda;
+
     public static Dotenv dotenv;
+
     public static Pinger pinger;
+
     private static boolean canCreateTicket = true;
 
+    public static String version;
     private static String token;
+
+    private static Main instance;
 
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public Main() throws LoginException {
+
+        instance = this;
+
         logger.info("Lancement du bot...");
 
         dotenv = Dotenv.configure()
@@ -86,5 +95,14 @@ public class Main {
 
     public static boolean getCanCreateTicket() {
         return canCreateTicket;
+    }
+
+    public static Main getInstance() {
+        return instance;
+    }
+
+    public static String getVersion() {
+        version = getInstance().getClass().getPackage().getImplementationVersion();
+        return version;
     }
 }

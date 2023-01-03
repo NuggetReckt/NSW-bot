@@ -18,6 +18,9 @@
                     <archive>
                         <manifest>
                             <mainClass>Launcher</mainClass>
+                            <addDefaultImplementationEntries>
+                                true
+                            </addDefaultImplementationEntries>
                         </manifest>
                     </archive>
                 </configuration>

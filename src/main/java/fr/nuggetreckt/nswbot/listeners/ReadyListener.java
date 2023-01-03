@@ -7,15 +7,15 @@ import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
 
-import static fr.nuggetreckt.nswbot.Main.jda;
-import static fr.nuggetreckt.nswbot.Main.logger;
+import static fr.nuggetreckt.nswbot.Main.*;
 
 public class ReadyListener implements EventListener {
 
     @Override
     public void onEvent(@NotNull GenericEvent event) {
+
         if (event instanceof ReadyEvent) {
-            logger.info(jda.getSelfUser().getName() + " lancé avec succès.");
+            logger.info(jda.getSelfUser().getName()+ " v" + getVersion() + " lancé avec succès.");
             logger.info(jda.getEventManager().getRegisteredListeners().size() + " listeners chargés.");
             System.out.println("""
                       _   _  _______          ___       ____        _  \s
