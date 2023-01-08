@@ -8,7 +8,7 @@ import static fr.nuggetreckt.nswbot.Main.jda;
 import static fr.nuggetreckt.nswbot.Main.pinger;
 
 public class BotStatus {
-    final int ChangeStatusInterval = 15000;
+    final int changeStatusInterval = 15000;
     final int second = 1000;
     private int a;
 
@@ -52,6 +52,6 @@ public class BotStatus {
                 a = r.nextInt(status.size() - 1);
                 jda.getPresence().setActivity(Activity.playing(String.valueOf(status.get(a))));
             }
-        }, second, ChangeStatusInterval);
+        }, second, changeStatusInterval);
     }
 }
