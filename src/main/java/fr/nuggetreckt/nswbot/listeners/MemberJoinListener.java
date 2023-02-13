@@ -27,7 +27,7 @@ public class MemberJoinListener extends ListenerAdapter {
                 .addField("", "Nous sommes maintenant **" + (long) event.getGuild().getMemberCount() + "** membres.", false)
                 .setThumbnail(event.getMember().getEffectiveAvatarUrl())
                 .setColor(new Color(61, 189, 201, 1))
-                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
                 .setTimestamp(new Date().toInstant());
 
         Objects.requireNonNull(Main.jda.getTextChannelById(new Config().getWelcomeChannelId())).sendMessageEmbeds(join.build())

@@ -49,7 +49,7 @@ public class MessagesSender {
                             🔹Vous êtes témoin d'un tp kill, cheat, insultes, ou grief ? Créez un ticket.
                             """ + Objects.requireNonNull(jda.getTextChannelById(new Config().getTicketPanelId())).getAsMention(), true)
                     .setColor(new Color(61, 189, 201, 1))
-                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
                     .setTimestamp(new Date().toInstant());
 
             rulesChannel.sendMessageEmbeds(rules.build()).queue();
@@ -80,7 +80,7 @@ public class MessagesSender {
                             🔹**Liste-serveurs-minecraft.org :** https://www.liste-serveurs-minecraft.org/serveur-minecraft/noskillworld/
                             """, false)
                     .setColor(new Color(61, 189, 201, 1))
-                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
                     .setTimestamp(new Date().toInstant());
 
             supportChannel.sendMessageEmbeds(support.build()).queue();
@@ -95,7 +95,7 @@ public class MessagesSender {
 
         panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
                 .setDescription("Pour créer un ticket, cliquez sur le bouton ci-dessous.\nTout abus/troll sera sanctionné.")
-                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
                 .setColor(new Color(61, 189, 201, 1))
                 .setTimestamp(new Date().toInstant());
 
@@ -122,7 +122,7 @@ public class MessagesSender {
 
         panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
                 .setDescription("La création de ticket est temporairement désactivée.\nNous revenons bientôt.")
-                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
                 .setColor(new Color(61, 189, 201, 1))
                 .setTimestamp(new Date().toInstant());
 
@@ -141,7 +141,7 @@ public class MessagesSender {
 
         panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
                 .setDescription("Pour créer un ticket, cliquez sur le bouton ci-dessous.\nTout abus/troll sera sanctionné.")
-                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
                 .setColor(new Color(61, 189, 201, 1))
                 .setTimestamp(new Date().toInstant());
 

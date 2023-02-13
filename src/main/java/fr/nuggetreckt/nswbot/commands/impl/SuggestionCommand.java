@@ -33,7 +33,7 @@ public class SuggestionCommand extends Command {
                             .addField("<:info_nsw:864197429729034250> __Joueur :__", Objects.requireNonNull(event.getMember()).getAsMention(), false)
                             .addField("<:info_nsw:864197429729034250> __Suggestion :__", Objects.requireNonNull(event.getOption("description")).getAsString(), false)
                             .setColor(new Color(61, 189, 201, 1))
-                            .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/static/img/logo_nsw.png")
+                            .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
                             .setTimestamp(new Date().toInstant());
 
                     Message message = Objects.requireNonNull(Main.jda.getTextChannelById(suggestionchannelid)).sendMessageEmbeds(suggestion.build())
