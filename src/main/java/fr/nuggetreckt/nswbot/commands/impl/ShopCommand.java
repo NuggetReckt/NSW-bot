@@ -18,8 +18,7 @@ public class ShopCommand extends Command {
             if (event.getChannel().getId().equals(botchannelid)) {
                 event.reply("> **Shop :** https://shop.noskillworld.fr")
                         .queue();
-            }
-            else {
+            } else {
                 event.reply("Mauvais salon ! Merci d'utiliser le salon " + Objects.requireNonNull(Main.jda.getTextChannelById(botchannelid)).getAsMention())
                         .setEphemeral(true)
                         .queue();

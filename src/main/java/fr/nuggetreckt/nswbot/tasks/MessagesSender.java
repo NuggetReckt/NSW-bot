@@ -49,7 +49,7 @@ public class MessagesSender {
                             🔹Vous êtes témoin d'un tp kill, cheat, insultes, ou grief ? Créez un ticket.
                             """ + Objects.requireNonNull(jda.getTextChannelById(new Config().getTicketPanelId())).getAsMention(), true)
                     .setColor(new Color(61, 189, 201, 1))
-                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
+                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                     .setTimestamp(new Date().toInstant());
 
             rulesChannel.sendMessageEmbeds(rules.build()).queue();
@@ -66,8 +66,8 @@ public class MessagesSender {
             EmbedBuilder support = new EmbedBuilder();
             support.setTitle("🔗 ・ Nous Supporter", "https://play.noskillworld.fr/votes")
                     .addField("<:info_nsw:864197429729034250> __Introduction__", """
-                            Si vous aimez le serveur et que vous souhaitez nous aider,
-                            vous pouvez voter pour NoSkillWorld sur les différents sites de référencement de serveurs minecraft !
+                            Vous aimez le serveur et vous souhaitez nous aider ?
+                            Votez pour NoSkillWorld sur les différents sites de référencement de serveurs minecraft !
                             Cela nous aide beaucoup et permet au serveur de gagner en visibilité, merci à ceux qui le feront !
                             """, false)
                     .addField("<:info_nsw:864197429729034250> __Liens__", """
@@ -80,7 +80,7 @@ public class MessagesSender {
                             🔹**Liste-serveurs-minecraft.org :** https://www.liste-serveurs-minecraft.org/serveur-minecraft/noskillworld/
                             """, false)
                     .setColor(new Color(61, 189, 201, 1))
-                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
+                    .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                     .setTimestamp(new Date().toInstant());
 
             supportChannel.sendMessageEmbeds(support.build()).queue();
@@ -95,10 +95,9 @@ public class MessagesSender {
 
         panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
                 .setDescription("Pour créer un ticket, cliquez sur le bouton ci-dessous.\nTout abus/troll sera sanctionné.")
-                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                 .setColor(new Color(61, 189, 201, 1))
                 .setTimestamp(new Date().toInstant());
-
 
         if (messages.size() == 1) return;
 
@@ -109,7 +108,6 @@ public class MessagesSender {
                             Button.link("https://play.noskillworld.fr/cgu-cgv", "Informations")
                     )
                     .queue();
-
         }
     }
 
@@ -122,7 +120,7 @@ public class MessagesSender {
 
         panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
                 .setDescription("La création de ticket est temporairement désactivée.\nNous revenons bientôt.")
-                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                 .setColor(new Color(61, 189, 201, 1))
                 .setTimestamp(new Date().toInstant());
 
@@ -141,7 +139,7 @@ public class MessagesSender {
 
         panel.setTitle("📮 ・ Ouvrir un ticket", "https://play.noskillworld.fr")
                 .setDescription("Pour créer un ticket, cliquez sur le bouton ci-dessous.\nTout abus/troll sera sanctionné.")
-                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
+                .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                 .setColor(new Color(61, 189, 201, 1))
                 .setTimestamp(new Date().toInstant());
 

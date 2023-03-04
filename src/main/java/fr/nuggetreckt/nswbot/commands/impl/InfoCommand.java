@@ -29,7 +29,7 @@ public class InfoCommand extends Command {
                         .addField("__Stats__", getPlayers() + "\n" + getStatus(), true)
                         .addField("__Serveur__", "\uD83C\uDFAE ・ play.noskillworld.fr\n" + getVersion(), true)
                         .setColor(new Color(61, 189, 201, 1))
-                        .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
+                        .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                         .setTimestamp(new Date().toInstant());
 
                 event.replyEmbeds(builder.build()).queue();

@@ -47,7 +47,7 @@ public class CreateButton extends fr.nuggetreckt.nswbot.buttons.Button {
                 welcome.setTitle("Bienvenue sur votre ticket, " + member + " 👋 !")
                         .setDescription("Un membre de l'équipe se chargera de celui-ci dans les plus brefs délais." +
                                 "\nSi vous n'avez pas de réponse d'ici 24h, merci de contacter un administrateur.")
-                        .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/logo_nsw.png")
+                        .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                         .setColor(new Color(61, 189, 201, 1))
                         .setTimestamp(new Date().toInstant());
 
