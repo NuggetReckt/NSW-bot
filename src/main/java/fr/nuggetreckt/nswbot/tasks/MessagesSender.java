@@ -64,13 +64,13 @@ public class MessagesSender {
 
         if (messages.size() == 0) {
             EmbedBuilder support = new EmbedBuilder();
-            support.setTitle("🔗 ・ Nous Supporter", "https://play.noskillworld.fr/votes")
+            support.setTitle("🔗 ・ Nous Soutenir", "https://play.noskillworld.fr")
                     .addField("<:info_nsw:864197429729034250> __Introduction__", """
                             Vous aimez le serveur et vous souhaitez nous aider ?
                             Votez pour NoSkillWorld sur les différents sites de référencement de serveurs minecraft !
                             Cela nous aide beaucoup et permet au serveur de gagner en visibilité, merci à ceux qui le feront !
                             """, false)
-                    .addField("<:info_nsw:864197429729034250> __Liens__", """
+                    .addField("<:info_nsw:864197429729034250> ____", """
                             🔹**Serveurs-minecraft.org :** https://www.serveurs-minecraft.org/vote.php?id=60934
                             🔹**Serveur-minecraft.com :** https://serveur-minecraft.com/2598
                             🔹**Serveurs-mc.net :** https://serveurs-mc.net/index.php/serveur/251
@@ -78,6 +78,10 @@ public class MessagesSender {
                             🔹**Serveur-privé.net :** https://serveur-prive.net/minecraft/noskillworld-9550/vote
                             🔹**Serveursminecraft.org :** https://www.serveursminecraft.org/serveur/5870/
                             🔹**Liste-serveurs-minecraft.org :** https://www.liste-serveurs-minecraft.org/serveur-minecraft/noskillworld/
+                            """, false)
+                    .addField("<:info_nsw:864197429729034250> ____", """
+                            🔹**Acheter un grade sur le shop :** https://shop.noskillworld.fr
+                            🔹**Faire un don via PayPal :** https://paypal.me/noskillworld
                             """, false)
                     .setColor(new Color(61, 189, 201, 1))
                     .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")

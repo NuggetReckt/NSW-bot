@@ -8,17 +8,28 @@ import static fr.nuggetreckt.nswbot.Main.jda;
 import static fr.nuggetreckt.nswbot.Main.pinger;
 
 public class BotStatus {
+    public Random r = new Random();
+    public Timer timer = new Timer();
+
     final int changeStatusInterval = 15000;
     final int second = 1000;
-    private int a;
+
+    public List<String> status = new ArrayList<>();
+
+    int a;
 
     public BotStatus() {
-        List<String> status = new ArrayList<>();
-        Random r = new Random();
-        Timer timer = new Timer();
+        setStatus();
 
-        String statusMessage = pinger.getPlayersOnline() + "/" + pinger.getMaxPlayers() + " Joueurs connectés";
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                setCurrentStatus();
+            }
+        }, second, changeStatusInterval);
+    }
 
+    public void setStatus() {
         status.add("NSW's Bot");
         status.add("play.noskillworld.fr");
         status.add("discord.noskillworld.fr");
@@ -35,8 +46,8 @@ public class BotStatus {
         status.add("Quelle Dinguerie !");
         status.add("Vous trouvez pas que Herbyvor il est bg ?");
         status.add("Dev par NuggetReckt avec ❤");
-        status.add("Saison 2.5 !");
-        status.add("En version 1.18.2 !");
+        status.add("Saison 3 !");
+        status.add("En version 1.20 !");
         status.add("Génération custom !");
         status.add("Rejoins-nous !");
         status.add("pain au chocolat ou chocolatine ?");
@@ -44,14 +55,15 @@ public class BotStatus {
         status.add("@NoSkillWorld sur Twitter !");
         status.add("@NoSkillWorld sur Insta !");
         status.add("/bump !");
-        status.add(statusMessage);
+        status.add(pinger.getPlayersOnline() + "/" + pinger.getMaxPlayers() + " Joueurs connectés");
+    }
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                a = r.nextInt(status.size() - 1);
-                jda.getPresence().setActivity(Activity.playing(String.valueOf(status.get(a))));
-            }
-        }, second, changeStatusInterval);
+    public List<String> getStatus() {
+        return status;
+    }
+
+    public void setCurrentStatus() {
+        a = r.nextInt(getStatus().size() - 1);
+        jda.getPresence().setActivity(Activity.playing(String.valueOf(getStatus().get(a))));
     }
 }
