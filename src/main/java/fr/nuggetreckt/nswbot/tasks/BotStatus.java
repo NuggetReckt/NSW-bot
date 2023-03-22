@@ -1,5 +1,6 @@
 package fr.nuggetreckt.nswbot.tasks;
 
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
 import java.util.*;
@@ -16,17 +17,21 @@ public class BotStatus {
 
     public List<String> status = new ArrayList<>();
 
-    int a;
+    public int a;
 
-    public BotStatus() {
-        setStatus();
+    public BotStatus(boolean isUnderMaintenance) {
+        if (!isUnderMaintenance) {
+            setStatus();
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                setCurrentStatus();
-            }
-        }, second, changeStatusInterval);
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    setCurrentStatus();
+                }
+            }, second, changeStatusInterval);
+        } else {
+            jda.getPresence().setPresence(OnlineStatus.IDLE, true);
+        }
     }
 
     public void setStatus() {
