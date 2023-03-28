@@ -14,7 +14,6 @@ public class Config {
     final String playerroleid = "794887765942468628";
     final String staffroleid = "845229494151413761";
 
-
     public String getTicketPanelId() {
         return ticketpanelid;
     }
