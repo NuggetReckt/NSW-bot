@@ -9,11 +9,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class ConfirmButton extends Button {
+public class DeleteButton extends Button {
 
     @Override
     public void execute(@NotNull ButtonInteractionEvent event) {
-        if (event.getComponentId().equals("confirm")) {
+        if (event.getComponentId().equals("delete")) {
             if (Objects.requireNonNull(event.getMember()).hasPermission(Permission.ADMINISTRATOR)) {
                 event.reply("> Le ticket sera supprimé dans 10 secondes.")
                         .setEphemeral(true)

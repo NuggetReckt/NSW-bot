@@ -16,12 +16,13 @@ public class CloseButton extends fr.nuggetreckt.nswbot.buttons.Button {
         if (event.getComponentId().equals("close")) {
             EmbedBuilder confirm = new EmbedBuilder();
 
-            confirm.setTitle("Confirmation requise d'un administrateur")
+            confirm.setTitle("Action requise d'un administrateur")
                     .setColor(new Color(61, 189, 201, 1));
 
             event.replyEmbeds(confirm.build())
                     .addActionRow(
-                            Button.danger("confirm", "Supprimer définitivement."),
+                            Button.success("save", "Sauvegarder"),
+                            Button.danger("delete", "Supprimer définitivement"),
                             Button.secondary("abort", "Annuler"))
                     .queue();
 
