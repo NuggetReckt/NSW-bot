@@ -30,9 +30,9 @@ public class CreateButton extends fr.nuggetreckt.nswbot.buttons.Button {
             channelname = "ticket-de-" + memberFormatted;
 
             if (event.getGuild() != null && jda.getTextChannelsByName(channelname, true).size() == 0) {
-                TextChannel channel = Objects.requireNonNull(event.getGuild()).createTextChannel(channelname, event.getGuild().getCategoryById(new Config().getTicketCategoryId()))
-                        .addPermissionOverride((event.getMember()), EnumSet.of(Permission.VIEW_CHANNEL), null)
-                        .addPermissionOverride(Objects.requireNonNull(jda.getRoleById(new Config().getStaffRoleId())), EnumSet.of(Permission.VIEW_CHANNEL), null)
+                TextChannel channel = event.getGuild().createTextChannel(channelname, new Config().getTicketCategory())
+                        .addPermissionOverride(event.getMember(), EnumSet.of(Permission.VIEW_CHANNEL), null)
+                        .addPermissionOverride(new Config().getStaffRole(), EnumSet.of(Permission.VIEW_CHANNEL), null)
                         .addPermissionOverride(event.getGuild().getPublicRole(), null, EnumSet.of(Permission.VIEW_CHANNEL))
                         .complete();
 

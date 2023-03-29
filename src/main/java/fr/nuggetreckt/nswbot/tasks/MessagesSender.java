@@ -10,15 +10,12 @@ import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import java.awt.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-
-import static fr.nuggetreckt.nswbot.Main.jda;
 
 public class MessagesSender {
 
-    MessageChannel rulesChannel = jda.getTextChannelById(new Config().getRulesChannelId());
-    MessageChannel supportChannel = jda.getTextChannelById(new Config().getSupportChannelId());
-    MessageChannel ticketChannel = jda.getTextChannelById(new Config().getTicketPanelId());
+    MessageChannel rulesChannel = new Config().getRulesChannel();
+    MessageChannel supportChannel = new Config().getSupportChannel();
+    MessageChannel ticketChannel = new Config().getTicketPanel();
 
     public MessagesSender() {
         this.sendRulesMessage();
@@ -47,7 +44,7 @@ public class MessagesSender {
                             Retrouvez les règles en jeu complètes ici : https://play.noskillworld.fr/règles
                                                         
                             🔹Vous êtes témoin d'un tp kill, cheat, insultes, ou grief ? Créez un ticket.
-                            """ + Objects.requireNonNull(jda.getTextChannelById(new Config().getTicketPanelId())).getAsMention(), true)
+                            """ + new Config().getTicketPanel().getAsMention(), true)
                     .setColor(new Color(61, 189, 201, 1))
                     .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                     .setTimestamp(new Date().toInstant());

@@ -21,7 +21,7 @@ public class TicketCommand extends Command {
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        Role staffrole = jda.getRoleById(new Config().getStaffRoleId());
+        Role staffrole = new Config().getStaffRole();
         Member executor = event.getMember();
         assert executor != null;
 

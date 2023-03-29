@@ -7,9 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Date;
-import java.util.Objects;
-
-import static fr.nuggetreckt.nswbot.Main.jda;
 
 public class Logs {
 
@@ -23,7 +20,7 @@ public class Logs {
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketDelete(@NotNull Member user, @NotNull Channel channel) {
@@ -34,7 +31,7 @@ public class Logs {
                 .setColor(new Color(218, 67, 54, 1))
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketSave(@NotNull Member user, @NotNull Channel channel) {
@@ -45,7 +42,7 @@ public class Logs {
                 .setColor(new Color(27, 224, 21, 1))
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketClose(@NotNull Member user, @NotNull Channel channel) {
@@ -56,7 +53,7 @@ public class Logs {
                 .setColor(new Color(255, 165, 54, 1))
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketAbort(@NotNull Member user, @NotNull Channel channel) {
@@ -67,7 +64,7 @@ public class Logs {
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketAdd(@NotNull Member user, @NotNull Member executor, @NotNull Channel channel) {
@@ -79,7 +76,7 @@ public class Logs {
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketRemove(@NotNull Member user, @NotNull Member executor, @NotNull Channel channel) {
@@ -91,7 +88,7 @@ public class Logs {
                 .setColor(new Color(218, 67, 54, 1))
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketDisable(@NotNull Member executor) {
@@ -101,7 +98,7 @@ public class Logs {
                 .setColor(new Color(192, 0, 7, 1))
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketEnable(@NotNull Member executor) {
@@ -111,6 +108,6 @@ public class Logs {
                 .setColor(new Color(27, 224, 21, 1))
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(jda.getTextChannelById(new Config().getLogChannelId())).sendMessageEmbeds(builder.build()).queue();
+        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 }

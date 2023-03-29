@@ -1,10 +1,10 @@
 package fr.nuggetreckt.nswbot.commands.impl;
 
-import fr.nuggetreckt.nswbot.Main;
 import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.jetbrains.annotations.NotNull;
@@ -15,13 +15,13 @@ import java.util.Objects;
 
 public class SuggestionCommand extends Command {
 
-    public final String suggestionchannelid = new Config().getSuggestionChannelId();
-    public final String botchannelid = new Config().getBotChannelId();
+    MessageChannel suggestionChannel = new Config().getSuggestionChannel();
+    MessageChannel botChannel = new Config().getBotChannel();
 
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("suggestion")) {
-            if (event.getChannel().getId().equals(botchannelid)) {
+            if (event.getChannel().equals(botChannel)) {
                 if (event.getOption("description") != null) {
                     event.reply("> Suggestion envoyée avec succès !")
                             .setEphemeral(true)
@@ -36,7 +36,7 @@ public class SuggestionCommand extends Command {
                             .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                             .setTimestamp(new Date().toInstant());
 
-                    Message message = Objects.requireNonNull(Main.jda.getTextChannelById(suggestionchannelid)).sendMessageEmbeds(suggestion.build())
+                    Message message = suggestionChannel.sendMessageEmbeds(suggestion.build())
                             .complete();
 
                     message.createThreadChannel("Suggestion de " + event.getMember().getEffectiveName())
@@ -52,7 +52,7 @@ public class SuggestionCommand extends Command {
                             .queue();
                 }
             } else {
-                event.reply("Mauvais salon ! Merci d'utiliser le salon " + Objects.requireNonNull(Main.jda.getTextChannelById(botchannelid)).getAsMention())
+                event.reply("Mauvais salon ! Merci d'utiliser le salon " + botChannel.getAsMention())
                         .setEphemeral(true)
                         .queue();
 

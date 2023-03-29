@@ -1,6 +1,5 @@
 package fr.nuggetreckt.nswbot.listeners;
 
-import fr.nuggetreckt.nswbot.Main;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
@@ -11,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Date;
-import java.util.Objects;
 
 public class MemberJoinListener extends ListenerAdapter {
 
@@ -19,7 +17,7 @@ public class MemberJoinListener extends ListenerAdapter {
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
         EmbedBuilder join = new EmbedBuilder();
 
-        Role role = event.getGuild().getRoleById(new Config().getPlayerRoleId());
+        Role role = new Config().getPlayerRole();
         Member member = event.getMember();
 
         join.setTitle("🎉 ・ Oh ! Un nouveau membre !")
@@ -30,10 +28,10 @@ public class MemberJoinListener extends ListenerAdapter {
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                 .setTimestamp(new Date().toInstant());
 
-        Objects.requireNonNull(Main.jda.getTextChannelById(new Config().getWelcomeChannelId())).sendMessageEmbeds(join.build())
+        new Config().getWelcomeChannel().sendMessageEmbeds(join.build())
                 .queue();
 
-        event.getGuild().addRoleToMember(member, Objects.requireNonNull(role))
+        event.getGuild().addRoleToMember(member, role)
                 .queue();
     }
 }
