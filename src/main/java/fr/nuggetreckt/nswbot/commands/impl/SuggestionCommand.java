@@ -4,7 +4,7 @@ import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.jetbrains.annotations.NotNull;
@@ -15,8 +15,8 @@ import java.util.Objects;
 
 public class SuggestionCommand extends Command {
 
-    MessageChannel suggestionChannel = new Config().getSuggestionChannel();
-    MessageChannel botChannel = new Config().getBotChannel();
+    TextChannel suggestionChannel = new Config().getSuggestionChannel();
+    TextChannel botChannel = new Config().getBotChannel();
 
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {

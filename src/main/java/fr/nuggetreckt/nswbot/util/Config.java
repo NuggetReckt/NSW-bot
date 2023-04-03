@@ -11,7 +11,7 @@ public class Config {
     final String ticketPanelId = "845218977458028544";
     final String ticketCategoryId = "845220724012482561";
     final String logChannelId = "995722672979849216";
-    final String generaChannelId = "700249004721700958";
+    final String generalChannelId = "700249004721700958";
     final String rulesChannelId = "794911904296075265";
     final String supportChannelId = "991508521482981446";
     final String welcomeChannelId = "700255318520889385";
@@ -33,7 +33,7 @@ public class Config {
     }
 
     public TextChannel getGeneralChannel() {
-        return jda.getTextChannelById(generaChannelId);
+        return jda.getTextChannelById(generalChannelId);
     }
 
     public TextChannel getRulesChannel() {

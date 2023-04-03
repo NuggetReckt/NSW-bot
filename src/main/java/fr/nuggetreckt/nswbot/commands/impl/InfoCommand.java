@@ -3,7 +3,7 @@ package fr.nuggetreckt.nswbot.commands.impl;
 import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,12 +14,11 @@ import static fr.nuggetreckt.nswbot.Main.pinger;
 
 public class InfoCommand extends Command {
 
-    MessageChannel botChannel = new Config().getBotChannel();
-
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
         EmbedBuilder builder = new EmbedBuilder();
+        TextChannel botChannel = new Config().getBotChannel();
 
         if (event.getName().equals("info")) {
             if (event.getChannel().equals(botChannel)) {
@@ -44,8 +43,7 @@ public class InfoCommand extends Command {
     private String getStatus() {
         if (pinger.fetchData()) {
             return "<a:online:999970001966608446> ・ Serveur en ligne";
-        }
-        else {
+        } else {
             return "<a:offline:999980343580962836> ・ Serveur hors ligne";
         }
     }
