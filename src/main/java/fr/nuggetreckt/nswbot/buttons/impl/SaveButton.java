@@ -1,17 +1,19 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
-import fr.nuggetreckt.nswbot.buttons.Button;
+import fr.nuggetreckt.nswbot.buttons.Buttons;
 import fr.nuggetreckt.nswbot.util.FileUtils;
 import fr.nuggetreckt.nswbot.util.Logs;
+import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Objects;
 
-public class SaveButton extends Button {
+public class SaveButton extends Buttons {
 
     @Override
     public void execute(@NotNull ButtonInteractionEvent event) {
@@ -30,13 +32,13 @@ public class SaveButton extends Button {
 
                 event.replyEmbeds(confirm.build())
                         .addActionRow(
-                                net.dv8tion.jda.api.interactions.components.buttons.Button.danger("delete", "Oui"),
-                                net.dv8tion.jda.api.interactions.components.buttons.Button.success("abort", "Non"))
+                                Button.danger("delete", "Oui"),
+                                Button.success("abort", "Non"))
                         .queue();
 
                 new Logs().TicketSave(event.getMember(), event.getChannel());
             } else {
-                event.reply("> Vous n'avez pas la permission.")
+                event.reply(MessageManager.NO_PERMISSION_MESSAGE.getMessage())
                         .setEphemeral(true)
                         .queue();
             }

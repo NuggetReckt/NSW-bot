@@ -3,7 +3,10 @@ package fr.nuggetreckt.nswbot;
 import fr.nuggetreckt.nswbot.buttons.ButtonListener;
 import fr.nuggetreckt.nswbot.commands.CommandListener;
 import fr.nuggetreckt.nswbot.commands.CommandManager;
-import fr.nuggetreckt.nswbot.listeners.*;
+import fr.nuggetreckt.nswbot.listeners.GronazListener;
+import fr.nuggetreckt.nswbot.listeners.MemberJoinListener;
+import fr.nuggetreckt.nswbot.listeners.MessageListener;
+import fr.nuggetreckt.nswbot.listeners.ReadyListener;
 import fr.nuggetreckt.nswbot.tasks.MessagesSender;
 import fr.nuggetreckt.nswbot.tasks.Pinger;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -12,8 +15,6 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.security.auth.login.LoginException;
 
 public class Main {
 
@@ -32,7 +33,7 @@ public class Main {
 
     public static final Logger logger = LoggerFactory.getLogger(Main.class);
 
-    public Main() throws LoginException {
+    public Main() {
         instance = this;
 
         logger.info("Lancement du bot...");

@@ -1,5 +1,6 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
+import fr.nuggetreckt.nswbot.buttons.Buttons;
 import fr.nuggetreckt.nswbot.util.Logs;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.Objects;
 
-public class CloseButton extends fr.nuggetreckt.nswbot.buttons.Button {
+public class CloseButton extends Buttons {
 
     @Override
     public void execute(@NotNull ButtonInteractionEvent event) {

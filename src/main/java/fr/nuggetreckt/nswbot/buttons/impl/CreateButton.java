@@ -1,7 +1,9 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
+import fr.nuggetreckt.nswbot.buttons.Buttons;
 import fr.nuggetreckt.nswbot.util.Config;
 import fr.nuggetreckt.nswbot.util.Logs;
+import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -16,7 +18,7 @@ import java.util.Objects;
 
 import static fr.nuggetreckt.nswbot.Main.jda;
 
-public class CreateButton extends fr.nuggetreckt.nswbot.buttons.Button {
+public class CreateButton extends Buttons {
 
     public String member;
     public String channelname;
@@ -36,7 +38,7 @@ public class CreateButton extends fr.nuggetreckt.nswbot.buttons.Button {
                         .addPermissionOverride(event.getGuild().getPublicRole(), null, EnumSet.of(Permission.VIEW_CHANNEL))
                         .complete();
 
-                event.reply("> Ticket Créé avec succès ! " + channel.getAsMention())
+                event.reply(String.format(MessageManager.TICKET_CREATED_MESSAGE.getMessage(), channel.getAsMention()))
                         .setEphemeral(true)
                         .queue();
 
@@ -57,7 +59,7 @@ public class CreateButton extends fr.nuggetreckt.nswbot.buttons.Button {
                         )
                         .queue();
             } else {
-                event.reply("> Vous avez déjà créé un ticket !")
+                event.reply(MessageManager.TICKET_ALREADY_CREATED.getMessage())
                         .setEphemeral(true)
                         .queue();
             }

@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 
 public class ButtonListener extends ListenerAdapter {
-    HashMap<String, Button> buttons = new HashMap<>();
+    HashMap<String, Buttons> buttons = new HashMap<>();
 
     public ButtonListener() {
         buttons.put("abort", new AbortButton());

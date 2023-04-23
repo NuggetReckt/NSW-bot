@@ -2,6 +2,7 @@ package fr.nuggetreckt.nswbot.commands.impl;
 
 import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
+import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -32,7 +33,7 @@ public class InfoCommand extends Command {
 
                 event.replyEmbeds(builder.build()).queue();
             } else {
-                event.reply("Mauvais salon ! Merci d'utiliser le salon " + botChannel.getAsMention())
+                event.reply(String.format(MessageManager.BAD_CHANNEL_MESSAGE.getMessage(), botChannel.getAsMention()))
                         .setEphemeral(true)
                         .queue();
             }

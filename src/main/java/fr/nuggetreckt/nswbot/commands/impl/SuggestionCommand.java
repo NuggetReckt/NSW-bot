@@ -2,6 +2,7 @@ package fr.nuggetreckt.nswbot.commands.impl;
 
 import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.Config;
+import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -23,7 +24,7 @@ public class SuggestionCommand extends Command {
         if (event.getName().equals("suggestion")) {
             if (event.getChannel().equals(botChannel)) {
                 if (event.getOption("description") != null) {
-                    event.reply("> Suggestion envoyée avec succès !")
+                    event.reply(String.format(MessageManager.SUGGESTION_SENT_MESSAGE.getMessage(), botChannel.getAsMention()))
                             .setEphemeral(true)
                             .queue();
 
@@ -47,12 +48,12 @@ public class SuggestionCommand extends Command {
                     message.addReaction(Emoji.fromFormatted("non_nsw:856148735901958146"))
                             .queue();
                 } else {
-                    event.reply("Veuillez mettre une description !")
+                    event.reply(String.format(MessageManager.NO_DESCRIPTION_MESSAGE.getMessage(), botChannel.getAsMention()))
                             .setEphemeral(true)
                             .queue();
                 }
             } else {
-                event.reply("Mauvais salon ! Merci d'utiliser le salon " + botChannel.getAsMention())
+                event.reply(String.format(MessageManager.BAD_CHANNEL_MESSAGE.getMessage(), botChannel.getAsMention()))
                         .setEphemeral(true)
                         .queue();
 
