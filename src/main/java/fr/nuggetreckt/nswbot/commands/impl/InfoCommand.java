@@ -23,10 +23,10 @@ public class InfoCommand extends Command {
 
         if (event.getName().equals("info")) {
             if (event.getChannel().equals(botChannel)) {
-
                 builder.setTitle("<:info_nsw:864197429729034250> ・ Infos")
                         .addField("__Stats__", getPlayers() + "\n" + getStatus(), true)
                         .addField("__Serveur__", "\uD83C\uDFAE ・ play.noskillworld.fr\n" + getVersion(), true)
+                        .addField("__Message dans la liste des serveurs__", getMotd(), false)
                         .setColor(new Color(61, 189, 201, 1))
                         .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                         .setTimestamp(new Date().toInstant());
@@ -50,12 +50,47 @@ public class InfoCommand extends Command {
     }
 
     @NotNull
+    private String getMotd() {
+        String version = pinger.getGameVersion();
+        String motd;
+
+        if (version.equals("§4§lServeur en Maintenance !")) {
+            motd = """
+                    ```ansi
+                    [2;34m[2;36m [0m[2;34m[2;36m[1;36mNoSkillWorld[0m[2;36m[0m[2;34m[0m [2;30m|[0m [2;34mSaison 3[0m [2;30m[[0m[2;31mMaintenance[0m[2;30m][0m
+                    [2;37mSemi-RP[0m [2;30m|[0m [2;37mCréatif[0m [2;30m|[0m [2;37mHardCore[0m [2;32mSaison 1 ![0m[2;36m[2;36m
+                    [0m[2;36m[0m
+                    ```
+                    """;
+        } else {
+            motd = String.format("""
+                    ```ansi
+                    [2;34m[2;36m   [0m[2;34m[2;36m[1;36mNoSkillWorld[0m[2;36m[0m[2;34m[0m [2;30m|[0m [2;34mSaison 3[0m [2;30m[[0m[2;31m%s[0m[2;30m][0m
+                    [2;37mSemi-RP[0m [2;30m|[0m [2;37mCréatif[0m [2;30m|[0m [2;37mHardCore[0m [2;32mSaison 1 ![0m[2;36m[2;36m
+                    [0m[2;36m[0m
+                    ```
+                    """, version);
+        }
+        return motd;
+    }
+
+    @NotNull
     private String getPlayers() {
         return "\uD83D\uDC65 ・ " + pinger.getPlayersOnline() + "/" + pinger.getMaxPlayers() + " Joueurs connectés";
     }
 
     @NotNull
     private String getVersion() {
-        return "\uD83D\uDCBB ・ " + pinger.getGameVersion();
+        String version = pinger.getGameVersion();
+        String versionFormatted;
+
+        if (version.equals("§4§lServeur en Maintenance !")) {
+            versionFormatted = "\uD83D\uDCBB ・ Maintenance !";
+        } else {
+            versionFormatted = String.format("\uD83D\uDCBB ・ %s", version);
+        }
+
+
+        return versionFormatted;
     }
 }

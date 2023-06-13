@@ -48,7 +48,7 @@ public class Config {
         return jda.getTextChannelById(welcomeChannelId);
     }
 
-    public TextChannel getBotChannel(){
+    public TextChannel getBotChannel() {
         return jda.getTextChannelById(botChannelId);
     }
 

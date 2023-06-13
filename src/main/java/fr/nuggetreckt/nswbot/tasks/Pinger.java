@@ -165,7 +165,7 @@ public class Pinger {
 
             String string = new String(chars);
 
-            if (string.startsWith("§")) {
+            if (string.startsWith("&") || string.startsWith("§")) {
                 String[] data = string.split("\0");
 
                 this.setPingVersion(Integer.parseInt(data[0].substring(1)));
