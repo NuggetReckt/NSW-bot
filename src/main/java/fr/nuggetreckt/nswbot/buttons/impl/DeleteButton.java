@@ -1,7 +1,7 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
 import fr.nuggetreckt.nswbot.buttons.Buttons;
-import fr.nuggetreckt.nswbot.util.Logs;
+import fr.nuggetreckt.nswbot.util.LogsUtils;
 import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -16,7 +16,7 @@ public class DeleteButton extends Buttons {
     public void execute(@NotNull ButtonInteractionEvent event) {
         if (event.getComponentId().equals("delete")) {
             if (Objects.requireNonNull(event.getMember()).hasPermission(Permission.ADMINISTRATOR)) {
-                event.reply(MessageManager.TICKET_DELETE_TIME_MESSAGE.getMessage())
+                event.reply(MessageManager.TICKET_DELETE_TIME.getMessage())
                         .setEphemeral(true)
                         .queue();
                 event.getMessage()
@@ -26,9 +26,9 @@ public class DeleteButton extends Buttons {
                         .delete()
                         .queueAfter(10000, TimeUnit.MILLISECONDS);
 
-                new Logs().TicketDelete(event.getMember(), event.getChannel());
+                new LogsUtils().TicketDelete(event.getMember(), event.getChannel());
             } else {
-                event.reply(MessageManager.NO_PERMISSION_MESSAGE.getMessage())
+                event.reply(MessageManager.NO_PERMISSION.getMessage())
                         .setEphemeral(true)
                         .queue();
             }

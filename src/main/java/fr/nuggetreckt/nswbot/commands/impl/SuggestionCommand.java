@@ -1,7 +1,7 @@
 package fr.nuggetreckt.nswbot.commands.impl;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.commands.Command;
-import fr.nuggetreckt.nswbot.util.Config;
 import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -16,15 +16,15 @@ import java.util.Objects;
 
 public class SuggestionCommand extends Command {
 
-    TextChannel suggestionChannel = new Config().getSuggestionChannel();
-    TextChannel botChannel = new Config().getBotChannel();
+    final TextChannel suggestionChannel = NSWBot.getConfig().getSuggestionChannel();
+    final TextChannel botChannel = NSWBot.getConfig().getBotChannel();
 
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
         if (event.getName().equals("suggestion")) {
             if (event.getChannel().equals(botChannel)) {
                 if (event.getOption("description") != null) {
-                    event.reply(String.format(MessageManager.SUGGESTION_SENT_MESSAGE.getMessage(), botChannel.getAsMention()))
+                    event.reply(String.format(MessageManager.SUGGESTION_SENT.getMessage(), botChannel.getAsMention()))
                             .setEphemeral(true)
                             .queue();
 
@@ -48,12 +48,12 @@ public class SuggestionCommand extends Command {
                     message.addReaction(Emoji.fromFormatted("non_nsw:856148735901958146"))
                             .queue();
                 } else {
-                    event.reply(String.format(MessageManager.NO_DESCRIPTION_MESSAGE.getMessage(), botChannel.getAsMention()))
+                    event.reply(String.format(MessageManager.NO_DESCRIPTION.getMessage(), botChannel.getAsMention()))
                             .setEphemeral(true)
                             .queue();
                 }
             } else {
-                event.reply(String.format(MessageManager.BAD_CHANNEL_MESSAGE.getMessage(), botChannel.getAsMention()))
+                event.reply(String.format(MessageManager.BAD_CHANNEL.getMessage(), botChannel.getAsMention()))
                         .setEphemeral(true)
                         .queue();
 

@@ -1,7 +1,7 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
 import fr.nuggetreckt.nswbot.buttons.Buttons;
-import fr.nuggetreckt.nswbot.util.Logs;
+import fr.nuggetreckt.nswbot.util.LogsUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
@@ -27,7 +27,7 @@ public class CloseButton extends Buttons {
                             Button.secondary("abort", "Annuler"))
                     .queue();
 
-            new Logs().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
+            new LogsUtils().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
         }
     }
 }

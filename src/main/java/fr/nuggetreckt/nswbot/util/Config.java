@@ -1,24 +1,32 @@
 package fr.nuggetreckt.nswbot.util;
 
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
-import static fr.nuggetreckt.nswbot.Main.jda;
+import static fr.nuggetreckt.nswbot.NSWBot.jda;
 
 public class Config {
 
-    final String ticketPanelId = "845218977458028544";
-    final String ticketCategoryId = "845220724012482561";
-    final String logChannelId = "995722672979849216";
-    final String generalChannelId = "700249004721700958";
-    final String rulesChannelId = "794911904296075265";
-    final String supportChannelId = "991508521482981446";
-    final String welcomeChannelId = "700255318520889385";
-    final String botChannelId = "820064946162499594";
-    final String suggestionChannelId = "1000757264707223583";
-    final String playerRoleId = "794887765942468628";
-    final String staffRoleId = "845229494151413761";
+    //FOR TESTING
+    final String guildId = "986026862406950993";
+    final String ticketPanelId = "987861295472713738";
+    final String ticketCategoryId = "986978012014714890";
+    final String logChannelId = "987317580773589013";
+    final String generalChannelId = "986026863371616289";
+    final String rulesChannelId = "994796686033563688";
+    final String supportChannelId = "994796706073944134";
+    final String welcomeChannelId = "995102579413487686";
+    final String botChannelId = "998975933987967028";
+    final String suggestionChannelId = "999414109781102613";
+    final String playerRoleId = "998976455847452773";
+    final String staffRoleId = "998976421529649183";
+    final String linkRoleId = "1148722123951591446";
+
+    public Guild getGuild() {
+        return jda.getGuildById(guildId);
+    }
 
     public TextChannel getTicketPanel() {
         return jda.getTextChannelById(ticketPanelId);
@@ -62,5 +70,9 @@ public class Config {
 
     public Role getStaffRole() {
         return jda.getRoleById(staffRoleId);
+    }
+
+    public Role getLinkRole() {
+        return jda.getRoleById(linkRoleId);
     }
 }

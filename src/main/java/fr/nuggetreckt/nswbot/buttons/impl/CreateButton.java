@@ -1,8 +1,8 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.buttons.Buttons;
-import fr.nuggetreckt.nswbot.util.Config;
-import fr.nuggetreckt.nswbot.util.Logs;
+import fr.nuggetreckt.nswbot.util.LogsUtils;
 import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -16,33 +16,29 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Objects;
 
-import static fr.nuggetreckt.nswbot.Main.jda;
+import static fr.nuggetreckt.nswbot.NSWBot.jda;
 
 public class CreateButton extends Buttons {
-
-    public String member;
-    public String channelname;
 
     @Override
     public void execute(@NotNull ButtonInteractionEvent event) {
         if (event.getComponentId().equals("create")) {
-
-            member = ((Objects.requireNonNull(event.getMember())).getEffectiveName());
+            String member = ((Objects.requireNonNull(event.getMember())).getEffectiveName());
             String memberFormatted = member.replaceAll("\\W+", "");
-            channelname = "ticket-de-" + memberFormatted;
+            String channelName = "ticket-de-" + memberFormatted;
 
-            if (event.getGuild() != null && jda.getTextChannelsByName(channelname, true).size() == 0) {
-                TextChannel channel = event.getGuild().createTextChannel(channelname, new Config().getTicketCategory())
+            if (event.getGuild() != null && jda.getTextChannelsByName(channelName, true).isEmpty()) {
+                TextChannel channel = event.getGuild().createTextChannel(channelName, NSWBot.getConfig().getTicketCategory())
                         .addPermissionOverride(event.getMember(), EnumSet.of(Permission.VIEW_CHANNEL), null)
-                        .addPermissionOverride(new Config().getStaffRole(), EnumSet.of(Permission.VIEW_CHANNEL), null)
+                        .addPermissionOverride(NSWBot.getConfig().getStaffRole(), EnumSet.of(Permission.VIEW_CHANNEL), null)
                         .addPermissionOverride(event.getGuild().getPublicRole(), null, EnumSet.of(Permission.VIEW_CHANNEL))
                         .complete();
 
-                event.reply(String.format(MessageManager.TICKET_CREATED_MESSAGE.getMessage(), channel.getAsMention()))
+                event.reply(String.format(MessageManager.TICKET_CREATED.getMessage(), channel.getAsMention()))
                         .setEphemeral(true)
                         .queue();
 
-                new Logs().TicketCreate(event.getMember(), channel);
+                new LogsUtils().TicketCreate(event.getMember(), channel);
 
                 EmbedBuilder welcome = new EmbedBuilder();
 
@@ -53,7 +49,7 @@ public class CreateButton extends Buttons {
                         .setColor(new Color(61, 189, 201, 1))
                         .setTimestamp(new Date().toInstant());
 
-                channel.getGuild().getTextChannelsByName(channelname, true).get(0).sendMessageEmbeds(welcome.build())
+                channel.getGuild().getTextChannelsByName(channelName, true).get(0).sendMessageEmbeds(welcome.build())
                         .setActionRow(
                                 Button.primary("close", "Fermer le ticket")
                         )

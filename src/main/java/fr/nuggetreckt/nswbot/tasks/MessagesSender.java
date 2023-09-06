@@ -1,6 +1,6 @@
 package fr.nuggetreckt.nswbot.tasks;
 
-import fr.nuggetreckt.nswbot.util.Config;
+import fr.nuggetreckt.nswbot.NSWBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
@@ -13,9 +13,9 @@ import java.util.List;
 
 public class MessagesSender {
 
-    MessageChannel rulesChannel = new Config().getRulesChannel();
-    MessageChannel supportChannel = new Config().getSupportChannel();
-    MessageChannel ticketChannel = new Config().getTicketPanel();
+    final MessageChannel rulesChannel = NSWBot.getConfig().getRulesChannel();
+    final MessageChannel supportChannel = NSWBot.getConfig().getSupportChannel();
+    final MessageChannel ticketChannel = NSWBot.getConfig().getTicketPanel();
 
     public MessagesSender() {
         this.sendRulesMessage();
@@ -29,7 +29,7 @@ public class MessagesSender {
 
         if (messages.size() == 1) return;
 
-        if (messages.size() == 0) {
+        if (messages.isEmpty()) {
             EmbedBuilder rules = new EmbedBuilder();
             rules.setTitle("✅ ・ Règles", "https://play.noskillworld.fr/cgu-cgv")
                     .setDescription("En lisant ces règles ci-dessous, vous vous engagez à les respecter et à vous exposer à des **sanctions** dans le cas contraire.")
@@ -44,7 +44,7 @@ public class MessagesSender {
                             Retrouvez les règles en jeu complètes ici : https://play.noskillworld.fr/règles
                                                         
                             🔹Vous êtes témoin d'un tp kill, cheat, insultes, ou grief ? Créez un ticket.
-                            """ + new Config().getTicketPanel().getAsMention(), true)
+                            """ + NSWBot.getConfig().getTicketPanel().getAsMention(), true)
                     .setColor(new Color(61, 189, 201, 1))
                     .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                     .setTimestamp(new Date().toInstant());
@@ -59,7 +59,7 @@ public class MessagesSender {
 
         if (messages.size() == 1) return;
 
-        if (messages.size() == 0) {
+        if (messages.isEmpty()) {
             EmbedBuilder support = new EmbedBuilder();
             support.setTitle("🔗 ・ Nous Soutenir", "https://play.noskillworld.fr")
                     .addField("<:info_nsw:864197429729034250> __Introduction__", """
@@ -105,7 +105,7 @@ public class MessagesSender {
 
         if (messages.size() == 1) return;
 
-        if (messages.size() == 0) {
+        if (messages.isEmpty()) {
             ticketChannel.sendMessageEmbeds(panel.build())
                     .setActionRow(
                             Button.primary("create", "Créer un ticket"),

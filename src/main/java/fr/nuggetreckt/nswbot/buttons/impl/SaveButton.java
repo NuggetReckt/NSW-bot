@@ -2,7 +2,7 @@ package fr.nuggetreckt.nswbot.buttons.impl;
 
 import fr.nuggetreckt.nswbot.buttons.Buttons;
 import fr.nuggetreckt.nswbot.util.FileUtils;
-import fr.nuggetreckt.nswbot.util.Logs;
+import fr.nuggetreckt.nswbot.util.LogsUtils;
 import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -27,7 +27,7 @@ public class SaveButton extends Buttons {
 
                 new FileUtils().saveTranscript(event.getChannel().asTextChannel());
 
-                confirm.setTitle("Transcript sauvé avec succès. Supprimer définitivement le ticket ?")
+                confirm.setTitle("Transcript sauvegardé avec succès. Supprimer définitivement le ticket ?")
                         .setColor(new Color(61, 189, 201, 1));
 
                 event.replyEmbeds(confirm.build())
@@ -36,9 +36,9 @@ public class SaveButton extends Buttons {
                                 Button.success("abort", "Non"))
                         .queue();
 
-                new Logs().TicketSave(event.getMember(), event.getChannel());
+                new LogsUtils().TicketSave(event.getMember(), event.getChannel());
             } else {
-                event.reply(MessageManager.NO_PERMISSION_MESSAGE.getMessage())
+                event.reply(MessageManager.NO_PERMISSION.getMessage())
                         .setEphemeral(true)
                         .queue();
             }

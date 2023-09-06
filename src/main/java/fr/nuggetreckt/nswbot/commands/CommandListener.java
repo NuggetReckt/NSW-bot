@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class CommandListener extends ListenerAdapter {
 
-    HashMap<String, Command> commands = new HashMap<>();
+    final HashMap<String, Command> commands = new HashMap<>();
 
     public CommandListener() {
         commands.put("dynmap", new DynmapCommand());
@@ -21,6 +21,7 @@ public class CommandListener extends ListenerAdapter {
         commands.put("vote", new VoteCommand());
         commands.put("ticket", new TicketCommand());
         commands.put("info", new InfoCommand());
+        commands.put("link", new LinkCommand());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
 import fr.nuggetreckt.nswbot.buttons.Buttons;
-import fr.nuggetreckt.nswbot.util.Logs;
+import fr.nuggetreckt.nswbot.util.LogsUtils;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,7 +16,7 @@ public class AbortButton extends Buttons {
                     .delete()
                     .queue();
 
-            new Logs().TicketAbort(Objects.requireNonNull(event.getMember()), event.getChannel());
+            new LogsUtils().TicketAbort(Objects.requireNonNull(event.getMember()), event.getChannel());
         }
     }
 }

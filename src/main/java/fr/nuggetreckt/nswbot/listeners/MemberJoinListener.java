@@ -1,6 +1,6 @@
 package fr.nuggetreckt.nswbot.listeners;
 
-import fr.nuggetreckt.nswbot.util.Config;
+import fr.nuggetreckt.nswbot.NSWBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -17,7 +17,7 @@ public class MemberJoinListener extends ListenerAdapter {
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
         EmbedBuilder join = new EmbedBuilder();
 
-        Role role = new Config().getPlayerRole();
+        Role role = NSWBot.getConfig().getPlayerRole();
         Member member = event.getMember();
 
         join.setTitle("🎉 ・ Oh ! Un nouveau membre !")
@@ -28,7 +28,7 @@ public class MemberJoinListener extends ListenerAdapter {
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getWelcomeChannel().sendMessageEmbeds(join.build())
+        NSWBot.getConfig().getWelcomeChannel().sendMessageEmbeds(join.build())
                 .queue();
 
         event.getGuild().addRoleToMember(member, role)

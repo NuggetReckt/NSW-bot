@@ -1,8 +1,8 @@
 package fr.nuggetreckt.nswbot.commands.impl;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.commands.Command;
-import fr.nuggetreckt.nswbot.util.Config;
-import fr.nuggetreckt.nswbot.util.Logs;
+import fr.nuggetreckt.nswbot.util.LogsUtils;
 import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -15,14 +15,15 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.Objects;
 
-import static fr.nuggetreckt.nswbot.Main.*;
+import static fr.nuggetreckt.nswbot.NSWBot.getCanCreateTicket;
+import static fr.nuggetreckt.nswbot.NSWBot.setCanCreateTicket;
 
 public class TicketCommand extends Command {
 
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        Role staffrole = new Config().getStaffRole();
+        Role staffrole = NSWBot.getConfig().getStaffRole();
         Member executor = event.getMember();
         assert executor != null;
 
@@ -38,7 +39,7 @@ public class TicketCommand extends Command {
                                 Button.secondary("abort", "Annuler"))
                         .queue();
 
-                new Logs().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
+                new LogsUtils().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
             } else {
                 Member target = Objects.requireNonNull(event.getOption("pseudo")).getAsMember();
                 assert target != null;
@@ -50,13 +51,13 @@ public class TicketCommand extends Command {
                                     .setAllowed(Permission.VIEW_CHANNEL)
                                     .queue();
 
-                            event.reply(String.format(MessageManager.TICKET_MEMBER_ADDED_MESSAGE.getMessage(), target.getAsMention()))
+                            event.reply(String.format(MessageManager.TICKET_MEMBER_ADDED.getMessage(), target.getAsMention()))
                                     .setEphemeral(true)
                                     .queue();
 
-                            new Logs().TicketAdd(target, executor, event.getChannel());
+                            new LogsUtils().TicketAdd(target, executor, event.getChannel());
                         } else {
-                            event.reply(MessageManager.TICKET_MEMBER_ALREADY_PRESENT_MESSAGE.getMessage())
+                            event.reply(MessageManager.TICKET_MEMBER_ALREADY_PRESENT.getMessage())
                                     .setEphemeral(true)
                                     .queue();
                         }
@@ -67,19 +68,19 @@ public class TicketCommand extends Command {
                                     .setDenied(Permission.VIEW_CHANNEL)
                                     .queue();
 
-                            event.reply(String.format(MessageManager.TICKET_MEMBER_REMOVED_MESSAGE.getMessage(), target.getAsMention()))
+                            event.reply(String.format(MessageManager.TICKET_MEMBER_REMOVED.getMessage(), target.getAsMention()))
                                     .setEphemeral(true)
                                     .queue();
 
-                            new Logs().TicketRemove(target, executor, event.getChannel());
+                            new LogsUtils().TicketRemove(target, executor, event.getChannel());
                         } else {
-                            event.reply(MessageManager.TICKET_MEMBER_NOT_PRESENT_MESSAGE.getMessage())
+                            event.reply(MessageManager.TICKET_MEMBER_NOT_PRESENT.getMessage())
                                     .setEphemeral(true)
                                     .queue();
                         }
                     }
                 } else {
-                    event.reply(MessageManager.NO_PERMISSION_MESSAGE.getMessage())
+                    event.reply(MessageManager.NO_PERMISSION.getMessage())
                             .setEphemeral(true)
                             .queue();
                 }
@@ -88,39 +89,39 @@ public class TicketCommand extends Command {
             if (executor.hasPermission(Permission.ADMINISTRATOR)) {
                 if (Objects.requireNonNull(event.getOption("switch")).getAsString().equals("ON")) {
                     if (getCanCreateTicket()) {
-                        event.reply(MessageManager.OPTION_ALREADY_ACTIVATED_MESSAGE.getMessage())
+                        event.reply(MessageManager.OPTION_ALREADY_ACTIVATED.getMessage())
                                 .setEphemeral(true)
                                 .queue();
                     } else {
-                        event.reply(MessageManager.TICKET_CREATION_ENABLED_MESSAGE.getMessage())
+                        event.reply(MessageManager.TICKET_CREATION_ENABLED.getMessage())
                                 .setEphemeral(true)
                                 .queue();
 
                         setCanCreateTicket(true);
-                        new Logs().TicketEnable(executor);
+                        new LogsUtils().TicketEnable(executor);
                     }
                 }
                 if (Objects.requireNonNull(event.getOption("switch")).getAsString().equals("OFF")) {
                     if (!getCanCreateTicket()) {
-                        event.reply(MessageManager.OPTION_ALREADY_DEACTIVATED_MESSAGE.getMessage())
+                        event.reply(MessageManager.OPTION_ALREADY_DEACTIVATED.getMessage())
                                 .setEphemeral(true)
                                 .queue();
                     } else {
-                        event.reply(MessageManager.TICKET_CREATION_DISABLED_MESSAGE.getMessage())
+                        event.reply(MessageManager.TICKET_CREATION_DISABLED.getMessage())
                                 .setEphemeral(true)
                                 .queue();
 
                         setCanCreateTicket(false);
-                        new Logs().TicketDisable(executor);
+                        new LogsUtils().TicketDisable(executor);
                     }
                 }
             } else {
-                event.reply(MessageManager.NO_PERMISSION_MESSAGE.getMessage())
+                event.reply(MessageManager.NO_PERMISSION.getMessage())
                         .setEphemeral(true)
                         .queue();
             }
         } else {
-            event.reply(MessageManager.NOT_IN_TICKET_MESSAGE.getMessage())
+            event.reply(MessageManager.NOT_IN_TICKET.getMessage())
                     .setEphemeral(true)
                     .queue();
         }

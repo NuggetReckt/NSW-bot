@@ -1,7 +1,7 @@
 package fr.nuggetreckt.nswbot.commands.impl;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.commands.Command;
-import fr.nuggetreckt.nswbot.util.Config;
 import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.Date;
 
-import static fr.nuggetreckt.nswbot.Main.pinger;
+import static fr.nuggetreckt.nswbot.NSWBot.pinger;
 
 public class InfoCommand extends Command {
 
@@ -19,7 +19,7 @@ public class InfoCommand extends Command {
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
         EmbedBuilder builder = new EmbedBuilder();
-        TextChannel botChannel = new Config().getBotChannel();
+        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
 
         if (event.getName().equals("info")) {
             if (event.getChannel().equals(botChannel)) {
@@ -33,7 +33,7 @@ public class InfoCommand extends Command {
 
                 event.replyEmbeds(builder.build()).queue();
             } else {
-                event.reply(String.format(MessageManager.BAD_CHANNEL_MESSAGE.getMessage(), botChannel.getAsMention()))
+                event.reply(String.format(MessageManager.BAD_CHANNEL.getMessage(), botChannel.getAsMention()))
                         .setEphemeral(true)
                         .queue();
             }

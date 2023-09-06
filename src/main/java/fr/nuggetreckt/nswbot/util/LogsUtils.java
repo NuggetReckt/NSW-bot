@@ -1,5 +1,6 @@
 package fr.nuggetreckt.nswbot.util;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.Channel;
@@ -8,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.Date;
 
-public class Logs {
+public class LogsUtils {
 
-    EmbedBuilder builder = new EmbedBuilder();
+    final EmbedBuilder builder = new EmbedBuilder();
 
     public void TicketCreate(@NotNull Member user, @NotNull Channel channel) {
         builder.setTitle("Log - Création de ticket")
@@ -20,7 +21,7 @@ public class Logs {
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketDelete(@NotNull Member user, @NotNull Channel channel) {
@@ -31,7 +32,7 @@ public class Logs {
                 .setColor(new Color(218, 67, 54, 1))
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketSave(@NotNull Member user, @NotNull Channel channel) {
@@ -42,7 +43,7 @@ public class Logs {
                 .setColor(new Color(27, 224, 21, 1))
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketClose(@NotNull Member user, @NotNull Channel channel) {
@@ -53,7 +54,7 @@ public class Logs {
                 .setColor(new Color(255, 165, 54, 1))
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketAbort(@NotNull Member user, @NotNull Channel channel) {
@@ -64,7 +65,7 @@ public class Logs {
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketAdd(@NotNull Member user, @NotNull Member executor, @NotNull Channel channel) {
@@ -76,7 +77,7 @@ public class Logs {
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketRemove(@NotNull Member user, @NotNull Member executor, @NotNull Channel channel) {
@@ -88,7 +89,7 @@ public class Logs {
                 .setColor(new Color(218, 67, 54, 1))
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketDisable(@NotNull Member executor) {
@@ -98,7 +99,7 @@ public class Logs {
                 .setColor(new Color(192, 0, 7, 1))
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketEnable(@NotNull Member executor) {
@@ -108,6 +109,6 @@ public class Logs {
                 .setColor(new Color(27, 224, 21, 1))
                 .setTimestamp(new Date().toInstant());
 
-        new Config().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 }
