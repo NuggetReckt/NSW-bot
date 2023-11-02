@@ -56,7 +56,6 @@ public class SuggestionCommand extends Command {
                 event.reply(String.format(MessageManager.BAD_CHANNEL.getMessage(), botChannel.getAsMention()))
                         .setEphemeral(true)
                         .queue();
-
             }
         }
     }

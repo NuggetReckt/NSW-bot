@@ -17,7 +17,7 @@ public class CommandManager extends ListenerAdapter {
 
         OptionData description = new OptionData(OptionType.STRING, "description", "Décrivez votre suggestion ici.", true);
         OptionData pseudo = new OptionData(OptionType.USER, "pseudo", "Exemple : @NuggetReckt#0001", true);
-        OptionData profilePseudo = new OptionData(OptionType.USER, "profile_pseudo", "(Optionnel) Exemple : @NuggetReckt#0001", false);
+        OptionData profilePseudo = new OptionData(OptionType.USER, "name", "(Optionnel) Exemple : @NuggetReckt#0001", false);
         OptionData toggle = new OptionData(OptionType.STRING, "switch", "ON (Active la création de tickets) / OFF (désactive la création de tickets)", true)
                 .addChoice("ON", "ON")
                 .addChoice("OFF", "OFF");
