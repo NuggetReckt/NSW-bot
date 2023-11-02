@@ -22,6 +22,7 @@ public class CommandListener extends ListenerAdapter {
         commands.put("ticket", new TicketCommand());
         commands.put("info", new InfoCommand());
         commands.put("link", new LinkCommand());
+        commands.put("profile", new ProfileCommand());
     }
 
     @Override

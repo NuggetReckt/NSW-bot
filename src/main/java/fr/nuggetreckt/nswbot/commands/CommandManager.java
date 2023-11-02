@@ -17,6 +17,7 @@ public class CommandManager extends ListenerAdapter {
 
         OptionData description = new OptionData(OptionType.STRING, "description", "Décrivez votre suggestion ici.", true);
         OptionData pseudo = new OptionData(OptionType.USER, "pseudo", "Exemple : @NuggetReckt#0001", true);
+        OptionData profilePseudo = new OptionData(OptionType.USER, "profile_pseudo", "(Optionnel) Exemple : @NuggetReckt#0001", false);
         OptionData toggle = new OptionData(OptionType.STRING, "switch", "ON (Active la création de tickets) / OFF (désactive la création de tickets)", true)
                 .addChoice("ON", "ON")
                 .addChoice("OFF", "OFF");
@@ -37,9 +38,13 @@ public class CommandManager extends ListenerAdapter {
         commandData.add(Commands.slash("suggestion", "Permet de faire une suggestion.")
                 .addOptions(description));
         commandData.add(Commands.slash("ticket", "Permet d'interagir avec les tickets.")
-                .addSubcommands(addSubCommandData.addOptions(pseudo), removeSubCommandData.addOptions(pseudo), closeSubCommandData, toggleSubCommandData.addOptions(toggle)));
+                .addSubcommands(addSubCommandData.addOptions(pseudo),
+                        removeSubCommandData.addOptions(pseudo),
+                        closeSubCommandData, toggleSubCommandData.addOptions(toggle)));
         commandData.add(Commands.slash("link", "Permet de relier son compte Discord au serveur Minecraft.")
                 .addOptions(linkCode));
+        commandData.add(Commands.slash("profile", "Permet de voir des informations sur ton profil NoSkillWorld")
+                .addOptions(profilePseudo));
 
         event.getGuild().updateCommands().addCommands(commandData).queue();
     }

@@ -13,6 +13,8 @@ public enum MessageManager {
     NO_DESCRIPTION("Veuillez mettre une description !"),
     BAD_LINK_CODE("Ce code n'existe pas. Vérifiez que vous avez rentré le bon code en ayant exécuté la commande `/link` en jeu !"),
     ALREADY_LINKED("Vous êtes déjà link !"),
+    NOT_LINKED("Vous devez être link pour effectuer cette action !"),
+    NOT_LINKED_OHTER("Le membre choisi n'est pas link !"),
     CANNOT_CHANGE_NAME("Vous ne pouvez pas changer votre pseudo car vous êtes membre du staff."),
 
     //Success messages

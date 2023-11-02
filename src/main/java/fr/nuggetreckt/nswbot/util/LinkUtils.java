@@ -22,6 +22,10 @@ public class LinkUtils {
         return NSWBot.getRequestsManager().getPlayerNameByDiscordId(member.getIdLong());
     }
 
+    public String getPlayerUUIDByDiscordId(@NotNull Member member) {
+        return NSWBot.getRequestsManager().getPlayerUUIDByDiscordId(member.getIdLong());
+    }
+
     public boolean isLinked(@NotNull Member member) {
         return member.getRoles().contains(NSWBot.getConfig().getLinkRole());
     }

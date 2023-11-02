@@ -44,6 +44,25 @@ public class Requests {
         return result;
     }
 
+    public String getPlayerUUIDByDiscordId(Long id) {
+        query = "SELECT * FROM core_players WHERE discordId = '" + id + "';";
+        String result = null;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getString("uuid");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
     public String getPlayerNameByDiscordId(Long id) {
         query = "SELECT * FROM core_players WHERE discordId = '" + id + "';";
         String result = null;
