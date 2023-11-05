@@ -5,6 +5,8 @@ import fr.nuggetreckt.nswbot.NSWBot;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.UUID;
 
 public class Requests {
 
@@ -71,6 +73,84 @@ public class Requests {
         try {
             if (resultSet.next()) {
                 result = resultSet.getString("playerName");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public int getHonorRankId(UUID uuid) {
+        query = "SELECT * FROM core_playerdata WHERE uuid = '" + uuid + "';";
+
+        int result = 0;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getInt("rankId");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public long getHonorPoints(UUID uuid) {
+        query = "SELECT * FROM core_playerdata WHERE uuid = '" + uuid + "';";
+
+        long result = 0;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getLong("honorPoints");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public String getCurrentJob(UUID uuid) {
+        query = "SELECT * FROM jobs_data WHERE uuid = '" + uuid + "';";
+        String result = null;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getString("currentJob");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public Timestamp getLastLogin(UUID uuid) {
+        query = "SELECT * FROM core_players WHERE uuid = '" + uuid + "';";
+        Timestamp result = null;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getTimestamp("lastLogin");
             }
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());

@@ -3,6 +3,7 @@ package fr.nuggetreckt.nswbot.commands.impl;
 import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.commands.Command;
 import fr.nuggetreckt.nswbot.util.MessageManager;
+import fr.nuggetreckt.nswbot.util.ProfileUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
@@ -12,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 public class ProfileCommand extends Command {
 
@@ -55,26 +57,36 @@ public class ProfileCommand extends Command {
     @NotNull
     private EmbedBuilder getProfileEmbed(Member member) {
         String playerName = NSWBot.getLinkUtils().getPlayerNameByDiscordId(member);
-        String playerUUID = NSWBot.getLinkUtils().getPlayerUUIDByDiscordId(member);
+        UUID playerUUID = UUID.fromString(NSWBot.getLinkUtils().getPlayerUUIDByDiscordId(member));
 
         EmbedBuilder profileEmbed = new EmbedBuilder();
+        ProfileUtils profile = NSWBot.getProfileUtils();
+
+        profile.setUUID(playerUUID);
 
         profileEmbed.setTitle("🪪 ・ Profil (" + playerName + ")")
                 .setThumbnail("https://crafatar.com/avatars/" + playerUUID + "?overlay")
-                .addField("📈 __Stats :__", """
-                        ・ Dernière connexion : `<date>`
-                        ・ Temps joué : `<temps>`
-                        ・ Kills : `<kills>`
-                        ・ Morts : `<morts>`
-                        ・ ...""", false)
-                .addField("⛏️ __Jobs :__", """
-                        ・ Actuel : `<job_actuel>`
-                        ・ Level : `<lvl>` (`<xp actuel>`/`<xp_requis>`)
-                        ・ Top Job : `<job>` (`<lvl>`)""", false)
-                .addField("💎 __Rangs d'Honneur :__", """
-                        ・ Rang : `<rang actuel>`
-                        ・ Points d'Honneur : `<points>`
-                        ・ Prochain Rang : `<rang>` (`<points_requis>` points requis)""", false)
+                .addField("📈 __Stats :__", String.format("""
+                                ・ Dernière connexion : `%s`
+                                ・ Temps joué : `%s`
+                                ・ Kills : `%d`
+                                ・ Morts : `%d`
+                                ・ ...""",
+                        profile.getLastLogin(), profile.getTimePlayed(),
+                        profile.getKillCount(), profile.getDeathCount()), false)
+                .addField("⛏️ __Jobs :__", String.format("""
+                                ・ Actuel : `%s`
+                                ・ Level : `%d` (`%.2f`/`%.2f`)
+                                ・ Top Job : `%s` (`%d`)""",
+                        profile.getCurrentJob(), profile.getCurrentJobLevel(),
+                        profile.getXP(), profile.getCurrentXPNeeded(),
+                        profile.getTopJob(), profile.getTopJobLevel()), false)
+                .addField("💎 __Rangs d'Honneur :__", String.format("""
+                                ・ Rang : `%d`
+                                ・ Points d'Honneur : `%d`
+                                ・ Prochain Rang : `%d` (%s)""",
+                        profile.getCurrentRank(), profile.getHonorPoints(),
+                        profile.getNextRank(), profile.getHonorPointsNeeded()), false)
                 .setColor(new Color(61, 189, 201, 1))
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                 .setTimestamp(new Date().toInstant());

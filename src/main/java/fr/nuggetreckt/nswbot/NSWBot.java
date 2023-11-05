@@ -10,6 +10,7 @@ import fr.nuggetreckt.nswbot.tasks.MessagesSender;
 import fr.nuggetreckt.nswbot.tasks.Pinger;
 import fr.nuggetreckt.nswbot.util.Config;
 import fr.nuggetreckt.nswbot.util.LinkUtils;
+import fr.nuggetreckt.nswbot.util.ProfileUtils;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -34,6 +35,7 @@ public class NSWBot {
     private static NSWBot instance;
     private static Connector connector;
     private static Requests requestsManager;
+    private static ProfileUtils profileUtils;
     private static Config config;
     private static LinkUtils linkUtils;
 
@@ -46,6 +48,7 @@ public class NSWBot {
         requestsManager = new Requests();
         config = new Config();
         linkUtils = new LinkUtils();
+        profileUtils = new ProfileUtils();
 
         logger.info("Lancement du bot...");
 
@@ -126,6 +129,10 @@ public class NSWBot {
 
     public static LinkUtils getLinkUtils() {
         return linkUtils;
+    }
+
+    public static ProfileUtils getProfileUtils() {
+        return profileUtils;
     }
 
     public Guild getGuild() {
