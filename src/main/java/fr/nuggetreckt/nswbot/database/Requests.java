@@ -143,6 +143,44 @@ public class Requests {
         return result;
     }
 
+    public int getJobLevel(UUID uuid, String job) {
+        query = "SELECT * FROM jobs_data WHERE uuid = '" + uuid + "';";
+        int result = 0;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getInt(job + "_lvl");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public float getCurrentJobXP(UUID uuid) {
+        query = "SELECT * FROM jobs_data WHERE uuid = '" + uuid + "';";
+        float result = 0.0F;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getFloat("currentXp");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
     public Timestamp getLastLogin(UUID uuid) {
         query = "SELECT * FROM core_players WHERE uuid = '" + uuid + "';";
         Timestamp result = null;

@@ -49,11 +49,12 @@ public class ProfileUtils {
     }
 
     public int getCurrentJobLevel() {
-        return 0;
+        String job = NSWBot.getRequestsManager().getCurrentJob(playerUUID);
+        return NSWBot.getRequestsManager().getJobLevel(playerUUID, job);
     }
 
-    public float getXP() {
-        return 0.00F;
+    public float getCurrentXP() {
+        return NSWBot.getRequestsManager().getCurrentJobXP(playerUUID);
     }
 
     public float getCurrentXPNeeded() {

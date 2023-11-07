@@ -79,7 +79,7 @@ public class ProfileCommand extends Command {
                                 ・ Level : `%d` (`%.2f`/`%.2f`)
                                 ・ Top Job : `%s` (`%d`)""",
                         profile.getCurrentJob(), profile.getCurrentJobLevel(),
-                        profile.getXP(), profile.getCurrentXPNeeded(),
+                        profile.getCurrentXP(), profile.getCurrentXPNeeded(),
                         profile.getTopJob(), profile.getTopJobLevel()), false)
                 .addField("💎 __Rangs d'Honneur :__", String.format("""
                                 ・ Rang : `%d`
