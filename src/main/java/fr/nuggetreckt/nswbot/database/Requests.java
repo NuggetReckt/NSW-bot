@@ -200,6 +200,63 @@ public class Requests {
         return result;
     }
 
+    public int getKillCount(UUID uuid) {
+        query = "SELECT * FROM core_playerdata WHERE uuid = '" + uuid + "';";
+        int result = 0;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getInt("killCount");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public int getDeathCount(UUID uuid) {
+        query = "SELECT * FROM core_playerdata WHERE uuid = '" + uuid + "';";
+        int result = 0;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getInt("deathCount");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
+    public long getTimePlayed(UUID uuid) {
+        query = "SELECT * FROM core_playerdata WHERE uuid = '" + uuid + "';";
+        long result = 0;
+
+        retrieveData(query);
+        try {
+            if (resultSet.next()) {
+                result = resultSet.getLong("timePlayed");
+            }
+        } catch (SQLException e) {
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("VendorError: " + e.getErrorCode());
+        } finally {
+            close();
+        }
+        return result;
+    }
+
     private void retrieveData(String query) {
         if (!isConnected()) {
             NSWBot.getInstance().getLogger().info("Disconnected from database. Reconnecting...");

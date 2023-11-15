@@ -4,6 +4,7 @@ import fr.nuggetreckt.nswbot.NSWBot;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class ProfileUtils {
@@ -23,15 +24,50 @@ public class ProfileUtils {
     }
 
     public String getTimePlayed() {
-        return "<time>";
+        return formatTime(NSWBot.getRequestsManager().getTimePlayed(playerUUID) / 20);
+    }
+
+    public String formatTime(final long time) {
+        if (time < 1) {
+            return "";
+        }
+
+        if (time < 60) {
+            return time + "s";
+        }
+
+        long seconds = time;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        long weeks = days / 7;
+
+        seconds %= 60;
+        minutes %= 60;
+        hours %= 24;
+        days %= 7;
+
+        final StringJoiner joiner = new StringJoiner(" ");
+        appendTime(joiner, weeks, "w");
+        appendTime(joiner, days, "d");
+        appendTime(joiner, hours, "h");
+        appendTime(joiner, minutes, "m");
+        appendTime(joiner, seconds, "s");
+        return joiner.toString();
+    }
+
+    private void appendTime(final StringJoiner joiner, final long value, final String unit) {
+        if (value > 0) {
+            joiner.add(value + unit);
+        }
     }
 
     public int getKillCount() {
-        return 0;
+        return NSWBot.getRequestsManager().getKillCount(playerUUID);
     }
 
     public int getDeathCount() {
-        return 0;
+        return NSWBot.getRequestsManager().getDeathCount(playerUUID);
     }
 
     public String getCurrentJob() {
