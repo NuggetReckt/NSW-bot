@@ -31,7 +31,6 @@ public class ProfileUtils {
         if (time < 1) {
             return "";
         }
-
         if (time < 60) {
             return time + "s";
         }
@@ -86,6 +85,9 @@ public class ProfileUtils {
 
     public int getCurrentJobLevel() {
         String job = NSWBot.getRequestsManager().getCurrentJob(playerUUID);
+        if (job.equals("Null")) {
+            return 0;
+        }
         return NSWBot.getRequestsManager().getJobLevel(playerUUID, job);
     }
 
@@ -114,7 +116,7 @@ public class ProfileUtils {
     }
 
     public int getNextRank() {
-        int rankId = NSWBot.getRequestsManager().getHonorRankId(playerUUID);
+        int rankId = getCurrentRank();
 
         if (rankId == 6) {
             return rankId;
@@ -124,9 +126,19 @@ public class ProfileUtils {
     }
 
     public String getHonorPointsNeeded() {
+        int rankId = getCurrentRank();
         int pointsNeeded = 0;
 
-        if (getCurrentRank() == 6) {
+        switch (rankId) {
+            case 0 -> pointsNeeded = 10;
+            case 1 -> pointsNeeded = 30;
+            case 2 -> pointsNeeded = 60;
+            case 3 -> pointsNeeded = 100;
+            case 4 -> pointsNeeded = 150;
+            case 5 -> pointsNeeded = 250;
+        }
+
+        if (rankId == 6) {
             return "Rang max !";
         } else {
             return "`" + pointsNeeded + "` points requis";

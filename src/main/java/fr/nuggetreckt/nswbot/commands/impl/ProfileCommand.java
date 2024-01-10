@@ -65,7 +65,7 @@ public class ProfileCommand extends Command {
         profile.setUUID(playerUUID);
 
         profileEmbed.setTitle("🪪 ・ Profil (" + playerName + ")")
-                .setThumbnail("https://crafatar.com/avatars/" + playerUUID + "?overlay")
+                .setThumbnail("https://mc-heads.net/avatar/" + playerUUID + ".png")
                 .addField("📈 __Stats :__", String.format("""
                                 ・ Dernière connexion : `%s`
                                 ・ Temps joué : `%s`
