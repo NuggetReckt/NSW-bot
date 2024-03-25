@@ -162,14 +162,14 @@ public class Requests {
         return result;
     }
 
-    public float getCurrentJobXP(UUID uuid) {
+    public int getCurrentJobLevel(UUID uuid) {
         query = "SELECT * FROM jobs_data WHERE uuid = '" + uuid + "';";
-        float result = 0.0F;
+        int result = 0;
 
         retrieveData(query);
         try {
             if (resultSet.next()) {
-                result = resultSet.getFloat("currentXp");
+                result = resultSet.getInt("currentLvl");
             }
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());

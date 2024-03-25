@@ -39,7 +39,8 @@ public class ProfileCommand extends Command {
                     Member target = Objects.requireNonNull(event.getOption("name")).getAsMember();
 
                     if (NSWBot.getLinkUtils().isLinked(Objects.requireNonNull(target))) {
-                        event.replyEmbeds(getProfileEmbed(target).build());
+                        event.replyEmbeds(getProfileEmbed(target).build())
+                                .queue();
                     } else {
                         event.reply(String.format(MessageManager.NOT_LINKED_OHTER.getMessage()))
                                 .setEphemeral(true)
@@ -70,17 +71,18 @@ public class ProfileCommand extends Command {
                                 ・ Dernière connexion : `%s`
                                 ・ Temps joué : `%s`
                                 ・ Kills : `%d`
-                                ・ Morts : `%d`
-                                ・ ...""",
+                                ・ Morts : `%d`""",
                         profile.getLastLogin(), profile.getTimePlayed(),
                         profile.getKillCount(), profile.getDeathCount()), false)
                 .addField("⛏️ __Jobs :__", String.format("""
                                 ・ Actuel : `%s`
-                                ・ Level : `%d` (`%.2f`/`%.2f`)
-                                ・ Top Job : `%s` (`%d`)""",
-                        profile.getCurrentJob(), profile.getCurrentJobLevel(),
-                        profile.getCurrentXP(), profile.getCurrentXPNeeded(),
-                        profile.getTopJob(), profile.getTopJobLevel()), false)
+                                🪓 Bûcheron : `%d` ・ ⛏️ Mineur : `%d`
+                                🥕 Agriculteur : `%d` ・ 🐮 Éleveur : `%d`
+                                🏹 Chasseur : `%d` ・ 🎣 Pêcheur : `%d`""",
+                        profile.getCurrentJob(), profile.getJobLevel("bucheron"),
+                        profile.getJobLevel("mineur"), profile.getJobLevel("agriculteur"),
+                        profile.getJobLevel("eleveur"), profile.getJobLevel("chasseur"),
+                        profile.getJobLevel("pecheur")), false)
                 .addField("💎 __Rangs d'Honneur :__", String.format("""
                                 ・ Rang : `%d`
                                 ・ Points d'Honneur : `%d`

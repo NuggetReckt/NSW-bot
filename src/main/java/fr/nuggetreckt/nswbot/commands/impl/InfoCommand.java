@@ -63,13 +63,12 @@ public class InfoCommand extends Command {
                     ```
                     """;
         } else {
-            motd = String.format("""
+            motd = """
                     ```ansi
-                    [2;34m[2;36m   [0m[2;34m[2;36m[1;36mNoSkillWorld[0m[2;36m[0m[2;34m[0m [2;30m|[0m [2;34mSaison 3[0m [2;30m[[0m[2;31m%s[0m[2;30m][0m
-                    [2;37mSemi-RP[0m [2;30m|[0m [2;37mCréatif[0m [2;30m|[0m [2;37mHardCore[0m [2;32mSaison 1 ![0m[2;36m[2;36m
-                    [0m[2;36m[0m
+                       [2;36m[1;36mNoSkillWorld[0m[2;36m [0m[2;30m|[0m [2;34mSaison 3[0m[0;2m[0;2m[0;2m[0;2m [0;30m[[0m[0m[0m[0m[0m[2;40m[2;40m[2;42m[2;47m[2;44m[2;46m[2;42m[0;2m[0m[2;42m[0m[2;46m[0m[2;44m[0m[2;47m[0m[2;42m[0m[2;40m[0m[2;40m[0m[2;31m1.20.4[0m[2;30m][0m
+                    [2;37m[2;37mSemi-RP[0m[2;37m[0m [2;30m|[0m [2;37mCréatif [0m[2;30m|[0m [2;37mHardCore [0m[2;32mSaison 1 ![0m
                     ```
-                    """, version);
+                    """;
         }
         return motd;
     }

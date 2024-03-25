@@ -1,6 +1,7 @@
 package fr.nuggetreckt.nswbot.util;
 
 import fr.nuggetreckt.nswbot.NSWBot;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -27,7 +28,7 @@ public class ProfileUtils {
         return formatTime(NSWBot.getRequestsManager().getTimePlayed(playerUUID) / 20);
     }
 
-    public String formatTime(final long time) {
+    private String formatTime(final long time) {
         if (time < 1) {
             return "";
         }
@@ -70,8 +71,10 @@ public class ProfileUtils {
     }
 
     public String getCurrentJob() {
-        String job = NSWBot.getRequestsManager().getCurrentJob(playerUUID);
+        return getJobFormatted(NSWBot.getRequestsManager().getCurrentJob(playerUUID));
+    }
 
+    private String getJobFormatted(@NotNull String job) {
         return switch (job) {
             case "bucheron" -> "Bûcheron";
             case "mineur" -> "Mineur";
@@ -83,28 +86,13 @@ public class ProfileUtils {
         };
     }
 
-    public int getCurrentJobLevel() {
-        String job = NSWBot.getRequestsManager().getCurrentJob(playerUUID);
-        if (job.equals("Null")) {
-            return 0;
+    public int getJobLevel(@NotNull String job) {
+        String current = NSWBot.getRequestsManager().getCurrentJob(playerUUID);
+
+        if (job.equals(current)) {
+            return NSWBot.getRequestsManager().getCurrentJobLevel(playerUUID);
         }
         return NSWBot.getRequestsManager().getJobLevel(playerUUID, job);
-    }
-
-    public float getCurrentXP() {
-        return NSWBot.getRequestsManager().getCurrentJobXP(playerUUID);
-    }
-
-    public float getCurrentXPNeeded() {
-        return 0.00F;
-    }
-
-    public String getTopJob() {
-        return "<top_job>";
-    }
-
-    public int getTopJobLevel() {
-        return 0;
     }
 
     public int getCurrentRank() {
