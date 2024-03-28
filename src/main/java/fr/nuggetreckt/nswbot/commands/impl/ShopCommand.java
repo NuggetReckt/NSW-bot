@@ -9,10 +9,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class ShopCommand extends Command {
 
-    final TextChannel botChannel = NSWBot.getConfig().getBotChannel();
-
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
+
+        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
+
         if (event.getName().equals("shop")) {
             if (event.getChannel().equals(botChannel)) {
                 event.reply("> **Shop :** https://shop.noskillworld.fr")
