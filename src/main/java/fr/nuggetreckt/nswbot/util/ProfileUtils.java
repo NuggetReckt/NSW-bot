@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.StringJoiner;
 import java.util.UUID;
 
@@ -18,10 +19,9 @@ public class ProfileUtils {
 
     public String getLastLogin() {
         Timestamp timestamp = NSWBot.getRequestsManager().getLastLogin(playerUUID);
-        String date = new SimpleDateFormat("dd/MM/yyyy").format(timestamp);
-        String time = new SimpleDateFormat("HH:mm").format(timestamp);
+        String format = "'Le 'dd/MM/yyyy' à 'hh'h'mm";
 
-        return "Le " + date + " à " + time;
+        return new SimpleDateFormat(format, Locale.FRANCE).format(timestamp);
     }
 
     public String getTimePlayed() {
