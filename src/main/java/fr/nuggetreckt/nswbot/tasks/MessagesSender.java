@@ -63,7 +63,7 @@ public class MessagesSender {
             ticketChannel.sendMessageEmbeds(panel.build())
                     .setActionRow(
                             Button.primary("create", "Créer un ticket"),
-                            Button.link("https://play.noskillworld.fr/cgu-cgv", "CGU-CGV"),
+                            Button.link("https://play.noskillworld.fr/wiki/cgu-cgv", "CGU-CGV"),
                             Button.link("https://play.noskillworld.fr/wiki/questions-reponses", "Questions/Réponses")
                     )
                     .queue();
@@ -81,7 +81,7 @@ public class MessagesSender {
 
         ticketChannel.editMessageEmbedsById(embed, panel.build()).setActionRow(
                 Button.primary("create", "Créer un ticket").asDisabled(),
-                Button.link("https://play.noskillworld.fr/cgu-cgv", "CGU-CGV"),
+                Button.link("https://play.noskillworld.fr/wiki/cgu-cgv", "CGU-CGV"),
                 Button.link("https://play.noskillworld.fr/wiki/questions-reponses", "Questions/Réponses")
         ).queue();
     }
@@ -99,7 +99,7 @@ public class MessagesSender {
 
         ticketChannel.editMessageEmbedsById(embed, panel.build()).setActionRow(
                 Button.primary("create", "Créer un ticket").asEnabled(),
-                Button.link("https://play.noskillworld.fr/cgu-cgv", "CGU-CGV"),
+                Button.link("https://play.noskillworld.fr/wiki/cgu-cgv", "CGU-CGV"),
                 Button.link("https://play.noskillworld.fr/wiki/questions-reponses", "Questions/Réponses")
         ).queue();
     }
@@ -107,7 +107,7 @@ public class MessagesSender {
     public void setRuleEmbed() {
         rules = new EmbedBuilder();
 
-        rules.setTitle("✅ ・ Règles", "https://play.noskillworld.fr/cgu-cgv")
+        rules.setTitle("✅ ・ Règles", "https://play.noskillworld.fr/wiki/regles")
                 .setDescription("En lisant ces règles ci-dessous, vous vous engagez à les respecter et à vous exposer à des **sanctions** dans le cas contraire.")
                 .addField("<:info_nsw:864197429729034250> __Sur le Discord__", """
                         🔹Respectez-vous les uns des autres
@@ -117,7 +117,7 @@ public class MessagesSender {
                         🔹Pas de contenu nsfw/raciste/homophobe/...
                         """, true)
                 .addField("<:info_nsw:864197429729034250> __En jeu__", """
-                        Retrouvez les règles en jeu complètes ici : https://play.noskillworld.fr/règles
+                        Retrouvez les règles complètes ici : https://play.noskillworld.fr/wiki/regles
                                                     
                         🔹Vous êtes témoin d'un tp kill, cheat, insultes, ou grief ? Créez un ticket.
                         """ + NSWBot.getConfig().getTicketPanel().getAsMention(), true)

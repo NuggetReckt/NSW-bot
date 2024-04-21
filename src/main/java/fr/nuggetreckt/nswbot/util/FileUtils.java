@@ -83,6 +83,9 @@ public class FileUtils {
         int k = 0;
 
         for (Member i : currentChannel.getMembers()) {
+            if (i.getUser().isBot()) {
+                continue;
+            }
             sb.append(i.getEffectiveName());
 
             if (k % 2 == 0) {
