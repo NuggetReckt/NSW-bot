@@ -9,10 +9,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class ShopCommand extends Command {
 
+    private final NSWBot instance;
+
+    public ShopCommand(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
+        TextChannel botChannel = instance.getConfig().getBotChannel();
 
         if (event.getName().equals("shop")) {
             if (event.getChannel().equals(botChannel)) {

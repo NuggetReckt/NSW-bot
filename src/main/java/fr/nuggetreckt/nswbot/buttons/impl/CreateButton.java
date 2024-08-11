@@ -2,7 +2,6 @@ package fr.nuggetreckt.nswbot.buttons.impl;
 
 import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.buttons.Buttons;
-import fr.nuggetreckt.nswbot.util.LogsUtils;
 import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -16,9 +15,13 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.Objects;
 
-import static fr.nuggetreckt.nswbot.NSWBot.jda;
-
 public class CreateButton extends Buttons {
+
+    private final NSWBot instance;
+
+    public CreateButton(NSWBot instance) {
+        this.instance = instance;
+    }
 
     @Override
     public void execute(@NotNull ButtonInteractionEvent event) {
@@ -27,10 +30,10 @@ public class CreateButton extends Buttons {
             String memberFormatted = member.replaceAll("\\W+", "");
             String channelName = "ticket-de-" + memberFormatted;
 
-            if (event.getGuild() != null && jda.getTextChannelsByName(channelName, true).isEmpty()) {
-                TextChannel channel = event.getGuild().createTextChannel(channelName, NSWBot.getConfig().getTicketCategory())
+            if (event.getGuild() != null && instance.getJDA().getTextChannelsByName(channelName, true).isEmpty()) {
+                TextChannel channel = event.getGuild().createTextChannel(channelName, instance.getConfig().getTicketCategory())
                         .addPermissionOverride(event.getMember(), EnumSet.of(Permission.VIEW_CHANNEL), null)
-                        .addPermissionOverride(NSWBot.getConfig().getStaffRole(), EnumSet.of(Permission.VIEW_CHANNEL), null)
+                        .addPermissionOverride(instance.getConfig().getStaffRole(), EnumSet.of(Permission.VIEW_CHANNEL), null)
                         .addPermissionOverride(event.getGuild().getPublicRole(), null, EnumSet.of(Permission.VIEW_CHANNEL))
                         .complete();
 
@@ -38,7 +41,7 @@ public class CreateButton extends Buttons {
                         .setEphemeral(true)
                         .queue();
 
-                new LogsUtils().TicketCreate(event.getMember(), channel);
+                instance.getLogsUtils().TicketCreate(event.getMember(), channel);
 
                 EmbedBuilder welcome = new EmbedBuilder();
 

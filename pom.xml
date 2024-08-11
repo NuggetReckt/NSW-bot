@@ -6,7 +6,7 @@
 
     <groupId>fr.nuggetreckt.nswbot</groupId>
     <artifactId>NSW-bot</artifactId>
-    <version>1.4.8</version>
+    <version>1.5.0</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,7 +42,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.5.2</version>
+                <version>3.5.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -58,6 +58,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -102,6 +109,11 @@
             <groupId>io.github.cdimascio</groupId>
             <artifactId>dotenv-java</artifactId>
             <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.Ryzeon</groupId>
+            <artifactId>discord-html-transcripts</artifactId>
+            <version>2.1</version>
         </dependency>
     </dependencies>
 </project>

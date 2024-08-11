@@ -11,6 +11,12 @@ import java.util.UUID;
 
 public class ProfileUtils {
 
+    private final NSWBot instance;
+
+    public ProfileUtils(NSWBot instance) {
+        this.instance = instance;
+    }
+
     private UUID playerUUID;
 
     public void setUUID(UUID uuid) {
@@ -18,14 +24,14 @@ public class ProfileUtils {
     }
 
     public String getLastLogin() {
-        Timestamp timestamp = NSWBot.getRequestsManager().getLastLogin(playerUUID);
+        Timestamp timestamp = instance.getRequestsManager().getLastLogin(playerUUID);
         String format = "'Le 'dd/MM/yyyy' à 'hh'h'mm";
 
         return new SimpleDateFormat(format, Locale.FRANCE).format(timestamp);
     }
 
     public String getTimePlayed() {
-        return formatTime(NSWBot.getRequestsManager().getTimePlayed(playerUUID) / 20);
+        return formatTime(instance.getRequestsManager().getTimePlayed(playerUUID) / 20);
     }
 
     private String formatTime(final long time) {
@@ -63,15 +69,15 @@ public class ProfileUtils {
     }
 
     public int getKillCount() {
-        return NSWBot.getRequestsManager().getKillCount(playerUUID);
+        return instance.getRequestsManager().getKillCount(playerUUID);
     }
 
     public int getDeathCount() {
-        return NSWBot.getRequestsManager().getDeathCount(playerUUID);
+        return instance.getRequestsManager().getDeathCount(playerUUID);
     }
 
     public String getCurrentJob() {
-        return getJobFormatted(NSWBot.getRequestsManager().getCurrentJob(playerUUID));
+        return getJobFormatted(instance.getRequestsManager().getCurrentJob(playerUUID));
     }
 
     private String getJobFormatted(@NotNull String job) {
@@ -87,20 +93,20 @@ public class ProfileUtils {
     }
 
     public int getJobLevel(@NotNull String job) {
-        String current = NSWBot.getRequestsManager().getCurrentJob(playerUUID);
+        String current = instance.getRequestsManager().getCurrentJob(playerUUID);
 
         if (job.equals(current)) {
-            return NSWBot.getRequestsManager().getCurrentJobLevel(playerUUID);
+            return instance.getRequestsManager().getCurrentJobLevel(playerUUID);
         }
-        return NSWBot.getRequestsManager().getJobLevel(playerUUID, job);
+        return instance.getRequestsManager().getJobLevel(playerUUID, job);
     }
 
     public int getCurrentRank() {
-        return NSWBot.getRequestsManager().getHonorRankId(playerUUID);
+        return instance.getRequestsManager().getHonorRankId(playerUUID);
     }
 
     public long getHonorPoints() {
-        return NSWBot.getRequestsManager().getHonorPoints(playerUUID);
+        return instance.getRequestsManager().getHonorPoints(playerUUID);
     }
 
     public int getNextRank() {

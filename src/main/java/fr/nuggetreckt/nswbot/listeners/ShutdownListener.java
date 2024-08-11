@@ -8,12 +8,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class ShutdownListener implements EventListener {
 
+    private final NSWBot instance;
+
+    public ShutdownListener(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void onEvent(@NotNull GenericEvent event) {
-
         if (event instanceof ShutdownEvent) {
-            NSWBot.getInstance().getLogger().info("Extinction du bot...");
-            NSWBot.getConnector().close();
+            instance.getLogger().info("Extinction du bot...");
+            instance.getConnector().close();
         }
     }
 }

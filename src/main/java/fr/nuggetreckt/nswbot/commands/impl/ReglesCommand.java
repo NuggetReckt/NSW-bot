@@ -9,10 +9,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class ReglesCommand extends Command {
 
+    private final NSWBot instance;
+
+    public ReglesCommand(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
+        TextChannel botChannel = instance.getConfig().getBotChannel();
 
         if (event.getName().equals("règles")) {
             if (event.getChannel().equals(botChannel)) {

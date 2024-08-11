@@ -9,10 +9,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class VoteCommand extends Command {
 
+    private final NSWBot instance;
+
+    public VoteCommand(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
+        TextChannel botChannel = instance.getConfig().getBotChannel();
 
         if (event.getName().equals("vote")) {
             if (event.getChannel().equals(botChannel)) {

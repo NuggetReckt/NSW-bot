@@ -4,8 +4,9 @@ import fr.nuggetreckt.nswbot.NSWBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageHistory;
-import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.util.Date;
@@ -13,54 +14,59 @@ import java.util.List;
 
 public class MessagesSender {
 
-    final MessageChannel rulesChannel = NSWBot.getConfig().getRulesChannel();
-    final MessageChannel supportChannel = NSWBot.getConfig().getSupportChannel();
-    final MessageChannel ticketChannel = NSWBot.getConfig().getTicketPanel();
+    private final NSWBot instance;
 
     private EmbedBuilder rules;
     private EmbedBuilder support;
     private EmbedBuilder panel;
 
-    public MessagesSender() {
-        this.setRuleEmbed();
-        this.setSupportEmbed();
-        this.setPanelEmbed();
+    public MessagesSender(@NotNull NSWBot instance) {
+        this.instance = instance;
 
-        this.sendRulesMessage();
-        this.sendSupportMessage();
-        this.sendTicketPanelMessage();
+        setRuleEmbed();
+        setSupportEmbed();
+        setPanelEmbed();
+    }
+
+    public void sendEmbeds() {
+        sendRulesMessage();
+        sendSupportMessage();
+        sendTicketPanelMessage();
     }
 
     private void sendRulesMessage() {
-        MessageHistory history = MessageHistory.getHistoryFromBeginning(rulesChannel).complete();
+        TextChannel channel = instance.getConfig().getRulesChannel();
+        MessageHistory history = MessageHistory.getHistoryFromBeginning(channel).complete();
         List<Message> messages = history.getRetrievedHistory();
 
         if (messages.size() == 1) return;
 
         if (messages.isEmpty()) {
-            rulesChannel.sendMessageEmbeds(rules.build()).queue();
+            channel.sendMessageEmbeds(rules.build()).queue();
         }
     }
 
     private void sendSupportMessage() {
-        MessageHistory history = MessageHistory.getHistoryFromBeginning(supportChannel).complete();
+        TextChannel channel = instance.getConfig().getSupportChannel();
+        MessageHistory history = MessageHistory.getHistoryFromBeginning(channel).complete();
         List<Message> messages = history.getRetrievedHistory();
 
         if (messages.size() == 1) return;
 
         if (messages.isEmpty()) {
-            supportChannel.sendMessageEmbeds(support.build()).queue();
+            channel.sendMessageEmbeds(support.build()).queue();
         }
     }
 
     private void sendTicketPanelMessage() {
-        MessageHistory history = MessageHistory.getHistoryFromBeginning(ticketChannel).complete();
+        TextChannel channel = instance.getConfig().getTicketPanel();
+        MessageHistory history = MessageHistory.getHistoryFromBeginning(channel).complete();
         List<Message> messages = history.getRetrievedHistory();
 
         if (messages.size() == 1) return;
 
         if (messages.isEmpty()) {
-            ticketChannel.sendMessageEmbeds(panel.build())
+            channel.sendMessageEmbeds(panel.build())
                     .setActionRow(
                             Button.primary("create", "Créer un ticket"),
                             Button.link("https://play.noskillworld.fr/wiki/cgu-cgv", "CGU-CGV"),
@@ -71,7 +77,8 @@ public class MessagesSender {
     }
 
     public void disableTicketCreation() {
-        MessageHistory history = MessageHistory.getHistoryFromBeginning(ticketChannel).complete();
+        TextChannel channel = instance.getConfig().getTicketPanel();
+        MessageHistory history = MessageHistory.getHistoryFromBeginning(channel).complete();
         List<Message> messages = history.getRetrievedHistory();
         String embed = messages.get(0).getId();
 
@@ -79,7 +86,7 @@ public class MessagesSender {
                 La création de ticket est temporairement désactivée.
                 Nous revenons bientôt.""");
 
-        ticketChannel.editMessageEmbedsById(embed, panel.build()).setActionRow(
+        channel.editMessageEmbedsById(embed, panel.build()).setActionRow(
                 Button.primary("create", "Créer un ticket").asDisabled(),
                 Button.link("https://play.noskillworld.fr/wiki/cgu-cgv", "CGU-CGV"),
                 Button.link("https://play.noskillworld.fr/wiki/questions-reponses", "Questions/Réponses")
@@ -87,7 +94,8 @@ public class MessagesSender {
     }
 
     public void enableTicketCreation() {
-        MessageHistory history = MessageHistory.getHistoryFromBeginning(ticketChannel).complete();
+        TextChannel channel = instance.getConfig().getTicketPanel();
+        MessageHistory history = MessageHistory.getHistoryFromBeginning(channel).complete();
         List<Message> messages = history.getRetrievedHistory();
         String embed = messages.get(0).getId();
 
@@ -97,7 +105,7 @@ public class MessagesSender {
                                         
                 Tout abus/troll sera sanctionné.""");
 
-        ticketChannel.editMessageEmbedsById(embed, panel.build()).setActionRow(
+        channel.editMessageEmbedsById(embed, panel.build()).setActionRow(
                 Button.primary("create", "Créer un ticket").asEnabled(),
                 Button.link("https://play.noskillworld.fr/wiki/cgu-cgv", "CGU-CGV"),
                 Button.link("https://play.noskillworld.fr/wiki/questions-reponses", "Questions/Réponses")
@@ -120,7 +128,7 @@ public class MessagesSender {
                         Retrouvez les règles complètes ici : https://play.noskillworld.fr/wiki/regles
                                                     
                         🔹Vous êtes témoin d'un tp kill, cheat, insultes, ou grief ? Créez un ticket.
-                        """ + NSWBot.getConfig().getTicketPanel().getAsMention(), true)
+                        """ + instance.getConfig().getTicketPanel().getAsMention(), true)
                 .setColor(new Color(61, 189, 201, 1))
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                 .setTimestamp(new Date().toInstant());

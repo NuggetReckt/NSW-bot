@@ -10,10 +10,16 @@ import java.util.UUID;
 
 public class Requests {
 
+    private final NSWBot instance;
+
     private Statement statement;
     private ResultSet resultSet;
 
     private String query;
+
+    public Requests(NSWBot instance) {
+        this.instance = instance;
+    }
 
     public void insertDiscordId(Long id, String linkCode) {
         query = "UPDATE core_players SET discordId = '" + id + "' WHERE linkCode = '" + linkCode + "';";
@@ -259,12 +265,12 @@ public class Requests {
 
     private void retrieveData(String query) {
         if (!isConnected()) {
-            NSWBot.getInstance().getLogger().info("Disconnected from database. Reconnecting...");
-            NSWBot.getConnector().connect();
+            instance.getLogger().info("Disconnected from database. Reconnecting...");
+            instance.getConnector().connect();
         }
 
         try {
-            statement = NSWBot.getConnector().getConn().createStatement();
+            statement = instance.getConnector().getConn().createStatement();
             resultSet = statement.executeQuery(query);
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
@@ -275,12 +281,12 @@ public class Requests {
 
     private void updateData(String query) {
         if (!isConnected()) {
-            NSWBot.getInstance().getLogger().info("Disconnected from database. Reconnecting...");
-            NSWBot.getConnector().connect();
+            instance.getLogger().info("Disconnected from database. Reconnecting...");
+            instance.getConnector().connect();
         }
 
         try {
-            statement = NSWBot.getConnector().getConn().createStatement();
+            statement = instance.getConnector().getConn().createStatement();
             statement.executeUpdate(query);
         } catch (SQLException e) {
             System.out.println("SQLException: " + e.getMessage());
@@ -308,6 +314,6 @@ public class Requests {
     }
 
     private boolean isConnected() {
-        return NSWBot.getConnector().isConnected();
+        return instance.getConnector().isConnected();
     }
 }

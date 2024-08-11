@@ -12,16 +12,22 @@ import java.util.Objects;
 
 public class NameChangeButton extends Buttons {
 
+    private final NSWBot instance;
+
+    public NameChangeButton(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void execute(@NotNull ButtonInteractionEvent event) {
 
         Member member = event.getMember();
-        Role staffrole = NSWBot.getConfig().getStaffRole();
+        Role staffrole = instance.getConfig().getStaffRole();
 
         if (event.getComponentId().equals("namechange_yes")) {
             if (!Objects.requireNonNull(member).getRoles().contains(staffrole)) {
-                String newName = NSWBot.getLinkUtils().getPlayerNameByDiscordId(member);
-                NSWBot.getLinkUtils().updateMemberName(member, newName);
+                String newName = instance.getLinkUtils().getPlayerNameByDiscordId(member);
+                instance.getLinkUtils().updateMemberName(member, newName);
 
                 event.reply(String.format(MessageManager.MEMBER_NAME_CHANGED.getMessage()))
                         .setEphemeral(true)

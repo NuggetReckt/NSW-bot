@@ -16,11 +16,17 @@ import java.util.Objects;
 
 public class SuggestionCommand extends Command {
 
+    private final NSWBot instance;
+
+    public SuggestionCommand(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        TextChannel suggestionChannel = NSWBot.getConfig().getSuggestionChannel();
-        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
+        TextChannel suggestionChannel = instance.getConfig().getSuggestionChannel();
+        TextChannel botChannel = instance.getConfig().getBotChannel();
 
         if (event.getName().equals("suggestion")) {
             if (event.getChannel().equals(botChannel)) {

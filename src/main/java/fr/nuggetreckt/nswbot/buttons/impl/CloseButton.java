@@ -1,7 +1,7 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.buttons.Buttons;
-import fr.nuggetreckt.nswbot.util.LogsUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
@@ -11,6 +11,12 @@ import java.awt.*;
 import java.util.Objects;
 
 public class CloseButton extends Buttons {
+
+    private final NSWBot instance;
+
+    public CloseButton(NSWBot instance) {
+        this.instance = instance;
+    }
 
     @Override
     public void execute(@NotNull ButtonInteractionEvent event) {
@@ -27,7 +33,7 @@ public class CloseButton extends Buttons {
                             Button.secondary("abort", "Annuler"))
                     .queue();
 
-            new LogsUtils().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
+            instance.getLogsUtils().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
         }
     }
 }

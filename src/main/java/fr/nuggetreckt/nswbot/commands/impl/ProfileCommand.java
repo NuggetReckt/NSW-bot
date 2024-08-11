@@ -17,17 +17,23 @@ import java.util.UUID;
 
 public class ProfileCommand extends Command {
 
+    private final NSWBot instance;
+
+    public ProfileCommand(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
+        TextChannel botChannel = instance.getConfig().getBotChannel();
 
         if (event.getName().equals("profile")) {
             if (event.getChannel().equals(botChannel)) {
                 if (event.getOption("name") == null) {
                     Member member = Objects.requireNonNull(event.getMember());
 
-                    if (NSWBot.getLinkUtils().isLinked(member)) {
+                    if (instance.getLinkUtils().isLinked(member)) {
                         event.replyEmbeds(getProfileEmbed(member).build())
                                 .queue();
                     } else {
@@ -38,7 +44,7 @@ public class ProfileCommand extends Command {
                 } else {
                     Member target = Objects.requireNonNull(event.getOption("name")).getAsMember();
 
-                    if (NSWBot.getLinkUtils().isLinked(Objects.requireNonNull(target))) {
+                    if (instance.getLinkUtils().isLinked(Objects.requireNonNull(target))) {
                         event.replyEmbeds(getProfileEmbed(target).build())
                                 .queue();
                     } else {
@@ -57,11 +63,11 @@ public class ProfileCommand extends Command {
 
     @NotNull
     private EmbedBuilder getProfileEmbed(Member member) {
-        String playerName = NSWBot.getLinkUtils().getPlayerNameByDiscordId(member);
-        UUID playerUUID = UUID.fromString(NSWBot.getLinkUtils().getPlayerUUIDByDiscordId(member));
+        String playerName = instance.getLinkUtils().getPlayerNameByDiscordId(member);
+        UUID playerUUID = UUID.fromString(instance.getLinkUtils().getPlayerUUIDByDiscordId(member));
 
         EmbedBuilder profileEmbed = new EmbedBuilder();
-        ProfileUtils profile = NSWBot.getProfileUtils();
+        ProfileUtils profile = instance.getProfileUtils();
 
         profile.setUUID(playerUUID);
 

@@ -10,6 +10,7 @@ import fr.nuggetreckt.nswbot.tasks.MessagesSender;
 import fr.nuggetreckt.nswbot.tasks.Pinger;
 import fr.nuggetreckt.nswbot.util.Config;
 import fr.nuggetreckt.nswbot.util.LinkUtils;
+import fr.nuggetreckt.nswbot.util.LogsUtils;
 import fr.nuggetreckt.nswbot.util.ProfileUtils;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
@@ -21,23 +22,25 @@ import org.slf4j.LoggerFactory;
 
 public class NSWBot {
 
-    public static JDA jda;
+    private JDA jda;
 
-    public static Logger logger;
+    public final Logger logger;
 
-    public static Dotenv dotenv;
+    public Dotenv dotenv;
 
-    private static boolean canCreateTicket = true;
+    private boolean canCreateTicket = true;
 
-    private static String token;
+    private String token;
 
-    public static Pinger pinger;
-    private static NSWBot instance;
-    private static Connector connector;
-    private static Requests requestsManager;
-    private static ProfileUtils profileUtils;
-    private static Config config;
-    private static LinkUtils linkUtils;
+    private final NSWBot instance;
+    private final Pinger pinger;
+    private final Connector connector;
+    private final MessagesSender messagesSender;
+    private final Requests requestsManager;
+    private final ProfileUtils profileUtils;
+    private final Config config;
+    private final LinkUtils linkUtils;
+    private final LogsUtils logsUtils;
 
     public NSWBot() {
         instance = this;
@@ -45,10 +48,12 @@ public class NSWBot {
         logger = LoggerFactory.getLogger(NSWBot.class);
         pinger = new Pinger();
         connector = new Connector();
-        requestsManager = new Requests();
-        config = new Config();
-        linkUtils = new LinkUtils();
-        profileUtils = new ProfileUtils();
+        messagesSender = new MessagesSender(this);
+        requestsManager = new Requests(this);
+        config = new Config(this);
+        linkUtils = new LinkUtils(this);
+        profileUtils = new ProfileUtils(this);
+        logsUtils = new LogsUtils(this);
 
         logger.info("Lancement du bot...");
 
@@ -81,58 +86,70 @@ public class NSWBot {
         registerEvents();
     }
 
-    private static void registerEvents() {
+    private void registerEvents() {
         //Basic events
-        jda.addEventListener(new ReadyListener());
-        jda.addEventListener(new ShutdownListener());
+        jda.addEventListener(new ReadyListener(this));
+        jda.addEventListener(new ShutdownListener(this));
         jda.addEventListener(new GronazListener());
-        jda.addEventListener(new MessageListener());
-        jda.addEventListener(new MemberJoinListener());
+        jda.addEventListener(new MessageListener(this));
+        jda.addEventListener(new MemberJoinListener(this));
 
         //Register commands
         jda.addEventListener(new CommandManager());
 
         //Commands/Buttons events
-        jda.addEventListener(new CommandListener());
-        jda.addEventListener(new ButtonListener());
+        jda.addEventListener(new CommandListener(this));
+        jda.addEventListener(new ButtonListener(this));
     }
 
-    public static void setCanCreateTicket(boolean b) {
+    public void setCanCreateTicket(boolean b) {
         canCreateTicket = b;
 
         if (canCreateTicket) {
-            new MessagesSender().enableTicketCreation();
+            new MessagesSender(this).enableTicketCreation();
         } else {
-            new MessagesSender().disableTicketCreation();
+            new MessagesSender(this).disableTicketCreation();
         }
     }
 
-    public static boolean getCanCreateTicket() {
+    public boolean getCanCreateTicket() {
         return canCreateTicket;
     }
 
-    public static NSWBot getInstance() {
+    public NSWBot getInstance() {
         return instance;
     }
 
-    public static Connector getConnector() {
+    public Pinger getPinger() {
+        return pinger;
+    }
+
+    public Connector getConnector() {
         return connector;
     }
 
-    public static Requests getRequestsManager() {
+    public MessagesSender getMessagesSender() {
+        return messagesSender;
+    }
+
+    public Requests getRequestsManager() {
         return requestsManager;
     }
 
-    public static Config getConfig() {
+    public Config getConfig() {
         return config;
     }
 
-    public static LinkUtils getLinkUtils() {
+    public LinkUtils getLinkUtils() {
         return linkUtils;
     }
 
-    public static ProfileUtils getProfileUtils() {
+    public ProfileUtils getProfileUtils() {
         return profileUtils;
+    }
+
+    public LogsUtils getLogsUtils() {
+        return logsUtils;
     }
 
     public Guild getGuild() {
@@ -148,6 +165,6 @@ public class NSWBot {
     }
 
     public String getVersion() {
-        return getInstance().getClass().getPackage().getImplementationVersion();
+        return this.getClass().getPackage().getImplementationVersion();
     }
 }

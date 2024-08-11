@@ -1,20 +1,21 @@
 package fr.nuggetreckt.nswbot.tasks;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
 import java.util.*;
 
-import static fr.nuggetreckt.nswbot.NSWBot.jda;
-import static fr.nuggetreckt.nswbot.NSWBot.pinger;
-
 public class BotStatus {
+
+    private final NSWBot instance;
 
     private final Random r;
 
     private final List<String> status;
 
-    public BotStatus(boolean isUnderMaintenance) {
+    public BotStatus(NSWBot instance, boolean isUnderMaintenance) {
+        this.instance = instance;
         r = new Random();
         Timer timer = new Timer();
         status = new ArrayList<>();
@@ -31,7 +32,7 @@ public class BotStatus {
                 }
             }, second, changeStatusInterval);
         } else {
-            jda.getPresence().setPresence(OnlineStatus.IDLE, true);
+            instance.getJDA().getPresence().setPresence(OnlineStatus.IDLE, true);
         }
     }
 
@@ -64,7 +65,7 @@ public class BotStatus {
         status.add("@noskillworld_mc sur YouTube !");
         status.add("@noskillworld_mc sur TikTok !");
         status.add("/bump !");
-        status.add(pinger.getPlayersOnline() + "/" + pinger.getMaxPlayers() + " Joueurs connectés");
+        status.add(instance.getPinger().getPlayersOnline() + "/" + instance.getPinger().getMaxPlayers() + " Joueurs connectés");
     }
 
     private List<String> getStatus() {
@@ -73,6 +74,6 @@ public class BotStatus {
 
     private void setCurrentStatus() {
         int a = r.nextInt(getStatus().size() - 1);
-        jda.getPresence().setActivity(Activity.playing(String.valueOf(getStatus().get(a))));
+        instance.getJDA().getPresence().setActivity(Activity.playing(String.valueOf(getStatus().get(a))));
     }
 }

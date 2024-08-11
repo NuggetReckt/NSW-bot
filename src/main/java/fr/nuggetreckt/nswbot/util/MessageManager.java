@@ -30,6 +30,7 @@ public enum MessageManager {
 
     //Other messages
     MEMBER_NAMECHANGE_CANCELLED("Pas de soucis, bon jeu sur NoSkillWorld !"),
+    TRANSCRIPT_MESSAGE_FILE("Transcript du ticket :"),
     ;
 
     private final String message;

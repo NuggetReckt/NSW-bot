@@ -13,11 +13,17 @@ import java.util.Date;
 
 public class MemberJoinListener extends ListenerAdapter {
 
+    private final NSWBot instance;
+
+    public MemberJoinListener(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
         EmbedBuilder join = new EmbedBuilder();
 
-        Role role = NSWBot.getConfig().getPlayerRole();
+        Role role = instance.getConfig().getPlayerRole();
         Member member = event.getMember();
 
         join.setTitle("🎉 ・ Oh ! Un nouveau membre !")
@@ -28,7 +34,7 @@ public class MemberJoinListener extends ListenerAdapter {
                 .setFooter("NSW - Semi-RP", "https://play.noskillworld.fr/assets/images/embed-icon.png")
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getWelcomeChannel().sendMessageEmbeds(join.build())
+        instance.getConfig().getWelcomeChannel().sendMessageEmbeds(join.build())
                 .queue();
 
         event.getGuild().addRoleToMember(member, role)

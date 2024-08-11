@@ -9,10 +9,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class DynmapCommand extends Command {
 
+    private final NSWBot instance;
+
+    public DynmapCommand(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
+        TextChannel botChannel = instance.getConfig().getBotChannel();
 
         if (event.getName().equals("dynmap")) {
             if (event.getChannel().equals(botChannel)) {

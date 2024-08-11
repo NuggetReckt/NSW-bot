@@ -1,7 +1,7 @@
 package fr.nuggetreckt.nswbot.buttons.impl;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.buttons.Buttons;
-import fr.nuggetreckt.nswbot.util.LogsUtils;
 import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
@@ -11,6 +11,12 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class DeleteButton extends Buttons {
+
+    private final NSWBot instance;
+
+    public DeleteButton(NSWBot instance) {
+        this.instance = instance;
+    }
 
     @Override
     public void execute(@NotNull ButtonInteractionEvent event) {
@@ -26,7 +32,7 @@ public class DeleteButton extends Buttons {
                         .delete()
                         .queueAfter(10000, TimeUnit.MILLISECONDS);
 
-                new LogsUtils().TicketDelete(event.getMember(), event.getChannel());
+                instance.getLogsUtils().TicketDelete(event.getMember(), event.getChannel());
             } else {
                 event.reply(MessageManager.NO_PERMISSION.getMessage())
                         .setEphemeral(true)

@@ -11,6 +11,12 @@ import java.util.Date;
 
 public class LogsUtils {
 
+    private final NSWBot instance;
+
+    public LogsUtils(NSWBot instance) {
+        this.instance = instance;
+    }
+
     final EmbedBuilder builder = new EmbedBuilder();
 
     public void TicketCreate(@NotNull Member user, @NotNull Channel channel) {
@@ -21,7 +27,7 @@ public class LogsUtils {
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketDelete(@NotNull Member user, @NotNull Channel channel) {
@@ -32,7 +38,7 @@ public class LogsUtils {
                 .setColor(new Color(218, 67, 54, 1))
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketSave(@NotNull Member user, @NotNull Channel channel) {
@@ -43,7 +49,7 @@ public class LogsUtils {
                 .setColor(new Color(27, 224, 21, 1))
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketClose(@NotNull Member user, @NotNull Channel channel) {
@@ -54,7 +60,7 @@ public class LogsUtils {
                 .setColor(new Color(255, 165, 54, 1))
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketAbort(@NotNull Member user, @NotNull Channel channel) {
@@ -65,7 +71,7 @@ public class LogsUtils {
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketAdd(@NotNull Member user, @NotNull Member executor, @NotNull Channel channel) {
@@ -77,7 +83,7 @@ public class LogsUtils {
                 .setColor(new Color(76, 193, 80, 1))
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketRemove(@NotNull Member user, @NotNull Member executor, @NotNull Channel channel) {
@@ -89,7 +95,7 @@ public class LogsUtils {
                 .setColor(new Color(218, 67, 54, 1))
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketDisable(@NotNull Member executor) {
@@ -99,7 +105,7 @@ public class LogsUtils {
                 .setColor(new Color(192, 0, 7, 1))
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
     public void TicketEnable(@NotNull Member executor) {
@@ -109,6 +115,6 @@ public class LogsUtils {
                 .setColor(new Color(27, 224, 21, 1))
                 .setTimestamp(new Date().toInstant());
 
-        NSWBot.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 }

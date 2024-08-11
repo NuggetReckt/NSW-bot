@@ -1,5 +1,6 @@
 package fr.nuggetreckt.nswbot.commands;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.commands.impl.*;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -9,20 +10,29 @@ import java.util.HashMap;
 
 public class CommandListener extends ListenerAdapter {
 
-    final HashMap<String, Command> commands = new HashMap<>();
+    private final NSWBot instance;
 
-    public CommandListener() {
-        commands.put("dynmap", new DynmapCommand());
-        commands.put("ip", new IpCommand());
-        commands.put("règles", new ReglesCommand());
-        commands.put("shop", new ShopCommand());
-        commands.put("site", new SiteCommand());
-        commands.put("suggestion", new SuggestionCommand());
-        commands.put("vote", new VoteCommand());
-        commands.put("ticket", new TicketCommand());
-        commands.put("info", new InfoCommand());
-        commands.put("link", new LinkCommand());
-        commands.put("profile", new ProfileCommand());
+    private final HashMap<String, Command> commands;
+
+    public CommandListener(NSWBot instance) {
+        this.instance = instance;
+        commands = new HashMap<>();
+
+        setupCommands();
+    }
+
+    private void setupCommands() {
+        commands.put("dynmap", new DynmapCommand(instance));
+        commands.put("ip", new IpCommand(instance));
+        commands.put("règles", new ReglesCommand(instance));
+        commands.put("shop", new ShopCommand(instance));
+        commands.put("site", new SiteCommand(instance));
+        commands.put("suggestion", new SuggestionCommand(instance));
+        commands.put("vote", new VoteCommand(instance));
+        commands.put("ticket", new TicketCommand(instance));
+        commands.put("info", new InfoCommand(instance));
+        commands.put("link", new LinkCommand(instance));
+        commands.put("profile", new ProfileCommand(instance));
     }
 
     @Override

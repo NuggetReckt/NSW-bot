@@ -13,24 +13,30 @@ import java.util.Objects;
 
 public class LinkCommand extends Command {
 
+    private final NSWBot instance;
+
+    public LinkCommand(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
+        TextChannel botChannel = instance.getConfig().getBotChannel();
 
         if (event.getName().equals("link")) {
             if (event.getChannel().equals(botChannel)) {
                 if (event.getOption("code") != null) {
                     Member member = Objects.requireNonNull(event.getMember());
 
-                    if (!NSWBot.getLinkUtils().isLinked(member)) {
+                    if (!instance.getLinkUtils().isLinked(member)) {
                         //Le membre n'est pas link
                         String givenCode = Objects.requireNonNull(event.getOption("code")).getAsString();
-                        String generatedCode = NSWBot.getRequestsManager().getLinkCode(givenCode);
+                        String generatedCode = instance.getRequestsManager().getLinkCode(givenCode);
 
                         if (givenCode.equals(generatedCode)) {
                             //Le code du membre est valide
-                            NSWBot.getLinkUtils().setLinked(member, givenCode);
+                            instance.getLinkUtils().setLinked(member, givenCode);
 
                             event.reply(String.format(MessageManager.MEMBER_LINKED.getMessage()))
                                     .setEphemeral(true)

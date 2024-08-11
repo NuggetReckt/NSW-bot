@@ -2,7 +2,6 @@ package fr.nuggetreckt.nswbot.commands.impl;
 
 import fr.nuggetreckt.nswbot.NSWBot;
 import fr.nuggetreckt.nswbot.commands.Command;
-import fr.nuggetreckt.nswbot.util.LogsUtils;
 import fr.nuggetreckt.nswbot.util.MessageManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -15,15 +14,18 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.Objects;
 
-import static fr.nuggetreckt.nswbot.NSWBot.getCanCreateTicket;
-import static fr.nuggetreckt.nswbot.NSWBot.setCanCreateTicket;
-
 public class TicketCommand extends Command {
+
+    private final NSWBot instance;
+
+    public TicketCommand(NSWBot instance) {
+        this.instance = instance;
+    }
 
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
-        Role staffrole = NSWBot.getConfig().getStaffRole();
+        Role staffrole = instance.getConfig().getStaffRole();
         Member executor = event.getMember();
         assert executor != null;
 
@@ -39,7 +41,7 @@ public class TicketCommand extends Command {
                                 Button.secondary("abort", "Annuler"))
                         .queue();
 
-                new LogsUtils().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
+                instance.getLogsUtils().TicketClose(Objects.requireNonNull(event.getMember()), event.getChannel());
             } else {
                 Member target = Objects.requireNonNull(event.getOption("pseudo")).getAsMember();
                 assert target != null;
@@ -55,7 +57,7 @@ public class TicketCommand extends Command {
                                     .setEphemeral(true)
                                     .queue();
 
-                            new LogsUtils().TicketAdd(target, executor, event.getChannel());
+                            instance.getLogsUtils().TicketAdd(target, executor, event.getChannel());
                         } else {
                             event.reply(MessageManager.TICKET_MEMBER_ALREADY_PRESENT.getMessage())
                                     .setEphemeral(true)
@@ -72,7 +74,7 @@ public class TicketCommand extends Command {
                                     .setEphemeral(true)
                                     .queue();
 
-                            new LogsUtils().TicketRemove(target, executor, event.getChannel());
+                            instance.getLogsUtils().TicketRemove(target, executor, event.getChannel());
                         } else {
                             event.reply(MessageManager.TICKET_MEMBER_NOT_PRESENT.getMessage())
                                     .setEphemeral(true)
@@ -88,7 +90,7 @@ public class TicketCommand extends Command {
         } else if (Objects.equals(event.getSubcommandName(), "toggle")) {
             if (executor.hasPermission(Permission.ADMINISTRATOR)) {
                 if (Objects.requireNonNull(event.getOption("switch")).getAsString().equals("ON")) {
-                    if (getCanCreateTicket()) {
+                    if (instance.getCanCreateTicket()) {
                         event.reply(MessageManager.OPTION_ALREADY_ACTIVATED.getMessage())
                                 .setEphemeral(true)
                                 .queue();
@@ -97,12 +99,12 @@ public class TicketCommand extends Command {
                                 .setEphemeral(true)
                                 .queue();
 
-                        setCanCreateTicket(true);
-                        new LogsUtils().TicketEnable(executor);
+                        instance.setCanCreateTicket(true);
+                        instance.getLogsUtils().TicketEnable(executor);
                     }
                 }
                 if (Objects.requireNonNull(event.getOption("switch")).getAsString().equals("OFF")) {
-                    if (!getCanCreateTicket()) {
+                    if (!instance.getCanCreateTicket()) {
                         event.reply(MessageManager.OPTION_ALREADY_DEACTIVATED.getMessage())
                                 .setEphemeral(true)
                                 .queue();
@@ -111,8 +113,8 @@ public class TicketCommand extends Command {
                                 .setEphemeral(true)
                                 .queue();
 
-                        setCanCreateTicket(false);
-                        new LogsUtils().TicketDisable(executor);
+                        instance.setCanCreateTicket(false);
+                        instance.getLogsUtils().TicketDisable(executor);
                     }
                 }
             } else {

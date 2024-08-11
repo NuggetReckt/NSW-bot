@@ -11,15 +11,19 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.Date;
 
-import static fr.nuggetreckt.nswbot.NSWBot.pinger;
-
 public class InfoCommand extends Command {
+
+    private final NSWBot instance;
+
+    public InfoCommand(NSWBot instance) {
+        this.instance = instance;
+    }
 
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
 
         EmbedBuilder builder = new EmbedBuilder();
-        TextChannel botChannel = NSWBot.getConfig().getBotChannel();
+        TextChannel botChannel = instance.getConfig().getBotChannel();
 
         if (event.getName().equals("info")) {
             if (event.getChannel().equals(botChannel)) {
@@ -42,7 +46,7 @@ public class InfoCommand extends Command {
 
     @NotNull
     private String getStatus() {
-        if (pinger.fetchData()) {
+        if (instance.getPinger().fetchData()) {
             return "<a:online:999970001966608446> ・ Serveur en ligne";
         } else {
             return "<a:offline:999980343580962836> ・ Serveur hors ligne";
@@ -51,7 +55,7 @@ public class InfoCommand extends Command {
 
     @NotNull
     private String getMotd() {
-        String version = pinger.getGameVersion();
+        String version = instance.getPinger().getGameVersion();
         String motd;
 
         if (version.equals("§4§lServeur en Maintenance !")) {
@@ -75,12 +79,15 @@ public class InfoCommand extends Command {
 
     @NotNull
     private String getPlayers() {
-        return "\uD83D\uDC65 ・ " + pinger.getPlayersOnline() + "/" + pinger.getMaxPlayers() + " Joueurs connectés";
+        int playersOnline = instance.getPinger().getPlayersOnline();
+        int maxPlayerSlots = instance.getPinger().getMaxPlayers();
+
+        return "\uD83D\uDC65 ・ " + playersOnline + "/" + maxPlayerSlots + " Joueurs connectés";
     }
 
     @NotNull
     private String getVersion() {
-        String version = pinger.getGameVersion();
+        String version = instance.getPinger().getGameVersion();
         String versionFormatted;
 
         if (version.equals("§4§lServeur en Maintenance !")) {

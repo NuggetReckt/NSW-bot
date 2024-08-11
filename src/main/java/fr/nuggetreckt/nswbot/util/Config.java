@@ -1,13 +1,18 @@
 package fr.nuggetreckt.nswbot.util;
 
+import fr.nuggetreckt.nswbot.NSWBot;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.Category;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 
-import static fr.nuggetreckt.nswbot.NSWBot.jda;
-
 public class Config {
+
+    private final NSWBot instance;
+
+    public Config(NSWBot instance) {
+        this.instance = instance;
+    }
 
     final String guildId = "700249004721700955";
     final String ticketPanelId = "845218977458028544";
@@ -24,54 +29,54 @@ public class Config {
     final String linkRoleId = "1148569236566966273";
 
     public Guild getGuild() {
-        return jda.getGuildById(guildId);
+        return instance.getJDA().getGuildById(guildId);
     }
 
     public TextChannel getTicketPanel() {
-        return jda.getTextChannelById(ticketPanelId);
+        return instance.getJDA().getTextChannelById(ticketPanelId);
     }
 
     public Category getTicketCategory() {
-        return jda.getCategoryById(ticketCategoryId);
+        return instance.getJDA().getCategoryById(ticketCategoryId);
     }
 
     public TextChannel getLogChannel() {
-        return jda.getTextChannelById(logChannelId);
+        return instance.getJDA().getTextChannelById(logChannelId);
     }
 
     public TextChannel getGeneralChannel() {
-        return jda.getTextChannelById(generalChannelId);
+        return instance.getJDA().getTextChannelById(generalChannelId);
     }
 
     public TextChannel getRulesChannel() {
-        return jda.getTextChannelById(rulesChannelId);
+        return instance.getJDA().getTextChannelById(rulesChannelId);
     }
 
     public TextChannel getSupportChannel() {
-        return jda.getTextChannelById(supportChannelId);
+        return instance.getJDA().getTextChannelById(supportChannelId);
     }
 
     public TextChannel getWelcomeChannel() {
-        return jda.getTextChannelById(welcomeChannelId);
+        return instance.getJDA().getTextChannelById(welcomeChannelId);
     }
 
     public TextChannel getBotChannel() {
-        return jda.getTextChannelById(botChannelId);
+        return instance.getJDA().getTextChannelById(botChannelId);
     }
 
     public TextChannel getSuggestionChannel() {
-        return jda.getTextChannelById(suggestionChannelId);
+        return instance.getJDA().getTextChannelById(suggestionChannelId);
     }
 
     public Role getPlayerRole() {
-        return jda.getRoleById(playerRoleId);
+        return instance.getJDA().getRoleById(playerRoleId);
     }
 
     public Role getStaffRole() {
-        return jda.getRoleById(staffRoleId);
+        return instance.getJDA().getRoleById(staffRoleId);
     }
 
     public Role getLinkRole() {
-        return jda.getRoleById(linkRoleId);
+        return instance.getJDA().getRoleById(linkRoleId);
     }
 }

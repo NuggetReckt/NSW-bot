@@ -10,6 +10,12 @@ import java.util.Objects;
 
 public class MessageListener extends ListenerAdapter {
 
+    private final NSWBot instance;
+
+    public MessageListener(NSWBot instance) {
+        this.instance = instance;
+    }
+
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
 
@@ -17,18 +23,18 @@ public class MessageListener extends ListenerAdapter {
         String content = message.getContentRaw();
 
         if (event.getAuthor().isBot()) return;
-        if (Objects.requireNonNull(event.getMember()).getRoles().contains(NSWBot.getConfig().getStaffRole())) return;
+        if (Objects.requireNonNull(event.getMember()).getRoles().contains(instance.getConfig().getStaffRole())) return;
         if (content.contains("https://") && content.contains("http://")) return;
 
-        if (event.getChannel().equals(NSWBot.getConfig().getGeneralChannel())) {
+        if (event.getChannel().equals(instance.getConfig().getGeneralChannel())) {
 
             if (content.contains("aide") && content.contains("besoin")) {
                 message.reply("> Si vous avez besoin d'aide, rendez-vous dans "
-                                + NSWBot.getConfig().getTicketPanel().getAsMention())
+                                + instance.getConfig().getTicketPanel().getAsMention())
                         .queue();
             } else if (content.contains("support") && content.contains("besoin")) {
                 message.reply("> Si vous avez besoin de contacter le staff, créez un ticket dans le salon "
-                                + NSWBot.getConfig().getTicketPanel().getAsMention())
+                                + instance.getConfig().getTicketPanel().getAsMention())
                         .queue();
             } else if (content.contains("ip") && content.contains("quoi") && content.contains("?")) {
                 message.reply("> IP du serveur : **play.noskillworld.fr**")
