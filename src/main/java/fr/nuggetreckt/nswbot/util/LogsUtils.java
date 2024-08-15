@@ -4,6 +4,7 @@ import fr.nuggetreckt.nswbot.NSWBot;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.Channel;
+import net.dv8tion.jda.api.utils.FileUpload;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -41,7 +42,7 @@ public class LogsUtils {
         instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
     }
 
-    public void TicketSave(@NotNull Member user, @NotNull Channel channel) {
+    public void TicketSave(@NotNull Member user, @NotNull Channel channel, FileUpload transcript) {
         builder.setTitle("Log - Sauvegarde de ticket")
                 .setDescription("Ticket : **" + channel.getName() + "**"
                         + "\nSave par : " + user.getAsMention())
@@ -50,6 +51,7 @@ public class LogsUtils {
                 .setTimestamp(new Date().toInstant());
 
         instance.getConfig().getLogChannel().sendMessageEmbeds(builder.build()).queue();
+        TranscriptUtils.sendTranscript(instance.getConfig().getLogChannel(), transcript);
     }
 
     public void TicketClose(@NotNull Member user, @NotNull Channel channel) {

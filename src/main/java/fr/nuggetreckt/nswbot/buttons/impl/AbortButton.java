@@ -18,8 +18,11 @@ public class AbortButton extends Buttons {
     @Override
     public void execute(@NotNull ButtonInteractionEvent event) {
         if (event.getComponentId().equals("abort")) {
-            event.getMessage()
-                    .delete()
+            String messageId = event.getMessageId();
+            event.deferEdit().queue();
+
+            event.getHook()
+                    .deleteMessageById(messageId)
                     .queue();
 
             instance.getLogsUtils().TicketAbort(Objects.requireNonNull(event.getMember()), event.getChannel());

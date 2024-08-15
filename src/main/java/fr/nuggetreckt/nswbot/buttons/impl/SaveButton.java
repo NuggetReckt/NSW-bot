@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.utils.FileUpload;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -33,7 +34,8 @@ public class SaveButton extends Buttons {
                         .delete()
                         .queue();
 
-                TranscriptUtils.createTranscript(channel);
+                FileUpload transcriptFile = TranscriptUtils.getTranscript(channel);
+                TranscriptUtils.sendTranscript(channel, transcriptFile);
 
                 confirm.setTitle("Transcript sauvegardé avec succès. Supprimer définitivement le ticket ?")
                         .setColor(new Color(61, 189, 201, 1));
@@ -44,7 +46,7 @@ public class SaveButton extends Buttons {
                                 Button.success("abort", "Non"))
                         .queue();
 
-                instance.getLogsUtils().TicketSave(event.getMember(), event.getChannel());
+                instance.getLogsUtils().TicketSave(event.getMember(), event.getChannel(), transcriptFile);
             } else {
                 event.reply(MessageManager.NO_PERMISSION.getMessage())
                         .setEphemeral(true)

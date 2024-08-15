@@ -24,7 +24,6 @@ public class TicketCommand extends Command {
 
     @Override
     public void execute(@NotNull SlashCommandInteractionEvent event) {
-
         Role staffrole = instance.getConfig().getStaffRole();
         Member executor = event.getMember();
         assert executor != null;
@@ -32,12 +31,14 @@ public class TicketCommand extends Command {
         if (event.getChannel().getName().contains("ticket-de-")) {
             if (Objects.requireNonNull(event.getSubcommandName()).equals("close")) {
                 EmbedBuilder confirm = new EmbedBuilder();
-                confirm.setTitle("Confirmation requise d'un administrateur");
-                confirm.setColor(new Color(61, 189, 201, 1));
+
+                confirm.setTitle("Action requise d'un administrateur")
+                        .setColor(new Color(61, 189, 201, 1));
 
                 event.replyEmbeds(confirm.build())
                         .addActionRow(
-                                Button.danger("confirm", "Supprimer définitivement."),
+                                Button.success("save", "Sauvegarder"),
+                                Button.danger("delete", "Supprimer définitivement"),
                                 Button.secondary("abort", "Annuler"))
                         .queue();
 

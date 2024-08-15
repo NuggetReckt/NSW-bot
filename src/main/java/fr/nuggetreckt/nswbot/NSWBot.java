@@ -35,7 +35,6 @@ public class NSWBot {
     private final NSWBot instance;
     private final Pinger pinger;
     private final Connector connector;
-    private final MessagesSender messagesSender;
     private final Requests requestsManager;
     private final ProfileUtils profileUtils;
     private final Config config;
@@ -46,19 +45,19 @@ public class NSWBot {
         instance = this;
 
         logger = LoggerFactory.getLogger(NSWBot.class);
+
+        logger.info("Lancement du bot...");
+
         pinger = new Pinger();
         connector = new Connector();
-        messagesSender = new MessagesSender(this);
         requestsManager = new Requests(this);
         config = new Config(this);
         linkUtils = new LinkUtils(this);
         profileUtils = new ProfileUtils(this);
         logsUtils = new LogsUtils(this);
 
-        logger.info("Lancement du bot...");
-
-        this.setToken();
-        this.buildJDA();
+        setToken();
+        buildJDA();
 
         pinger.fetchData();
     }
@@ -87,6 +86,8 @@ public class NSWBot {
     }
 
     private void registerEvents() {
+        logger.info("Chargement des events...");
+
         //Basic events
         jda.addEventListener(new ReadyListener(this));
         jda.addEventListener(new ShutdownListener(this));
@@ -126,10 +127,6 @@ public class NSWBot {
 
     public Connector getConnector() {
         return connector;
-    }
-
-    public MessagesSender getMessagesSender() {
-        return messagesSender;
     }
 
     public Requests getRequestsManager() {

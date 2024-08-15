@@ -2,22 +2,27 @@ package fr.nuggetreckt.nswbot.util;
 
 import me.ryzeon.transcripts.DiscordHtmlTranscripts;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import net.dv8tion.jda.api.utils.FileUpload;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
 public class TranscriptUtils {
 
-    public static void createTranscript(@NotNull TextChannel channel) {
+    public static FileUpload getTranscript(@NotNull TextChannel channel) {
         DiscordHtmlTranscripts transcript = DiscordHtmlTranscripts.getInstance();
         String fileName = "transcript-" + channel.getName() + ".html";
 
         try {
-            channel.sendFiles(transcript.createTranscript(channel, fileName))
-                    .addContent(MessageManager.TRANSCRIPT_MESSAGE_FILE.getMessage())
-                    .queue();
+            return transcript.createTranscript(channel, fileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void sendTranscript(@NotNull TextChannel channel, FileUpload file) {
+        channel.sendFiles(file)
+                .addContent(MessageManager.TRANSCRIPT_MESSAGE_FILE.getMessage())
+                .queue();
     }
 }
