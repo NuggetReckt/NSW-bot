@@ -28,13 +28,13 @@ public class SaveButton extends Buttons {
         if (event.getComponentId().equals("save")) {
             if (Objects.requireNonNull(event.getMember()).hasPermission(Permission.ADMINISTRATOR)) {
                 EmbedBuilder confirm = new EmbedBuilder();
-                TextChannel channel = (TextChannel) event.getChannel();
+                TextChannel channel = event.getChannel().asTextChannel();
+                FileUpload transcriptFile = TranscriptUtils.getTranscript(channel);
 
                 event.getMessage()
                         .delete()
                         .queue();
 
-                FileUpload transcriptFile = TranscriptUtils.getTranscript(channel);
                 TranscriptUtils.sendTranscript(channel, transcriptFile);
 
                 confirm.setTitle("Transcript sauvegardé avec succès. Supprimer définitivement le ticket ?")
