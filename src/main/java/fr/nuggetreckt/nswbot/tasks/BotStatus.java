@@ -54,7 +54,7 @@ public class BotStatus {
         status.add("Vous trouvez pas que Herbyvor il est bg ?");
         status.add("Dev par NuggetReckt avec ❤");
         status.add("Saison 3 !");
-        status.add("En version 1.20 !");
+        status.add(String.format("En version %s !", instance.getPinger().getGameVersion()));
         status.add("Génération custom !");
         status.add("Rejoins-nous !");
         status.add("Bon jeu sur NoSkillWorld !");
@@ -65,7 +65,6 @@ public class BotStatus {
         status.add("@noskillworld_mc sur YouTube !");
         status.add("@noskillworld_mc sur TikTok !");
         status.add("/bump !");
-        status.add(instance.getPinger().getPlayersOnline() + "/" + instance.getPinger().getMaxPlayers() + " Joueurs connectés");
     }
 
     private List<String> getStatus() {

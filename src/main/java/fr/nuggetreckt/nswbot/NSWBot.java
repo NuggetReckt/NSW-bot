@@ -43,7 +43,6 @@ public class NSWBot {
 
     public NSWBot() {
         instance = this;
-
         logger = LoggerFactory.getLogger(NSWBot.class);
 
         logger.info("Lancement du bot...");
@@ -56,10 +55,11 @@ public class NSWBot {
         profileUtils = new ProfileUtils(this);
         logsUtils = new LogsUtils(this);
 
+        logger.info("Fetching Minecraft server data...");
+        pinger.fetchData();
+
         setToken();
         buildJDA();
-
-        pinger.fetchData();
     }
 
     private void setToken() {
@@ -78,6 +78,7 @@ public class NSWBot {
     }
 
     private void buildJDA() {
+        logger.info("Loading JDA...");
         jda = JDABuilder.createDefault(token)
                 .enableIntents(GatewayIntent.GUILD_MEMBERS)
                 .enableIntents(GatewayIntent.MESSAGE_CONTENT)
