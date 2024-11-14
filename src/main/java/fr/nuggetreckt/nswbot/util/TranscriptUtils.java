@@ -11,7 +11,7 @@ public class TranscriptUtils {
 
     public static FileUpload getTranscript(@NotNull TextChannel channel) {
         DiscordHtmlTranscripts transcript = DiscordHtmlTranscripts.getInstance();
-        String fileName = "transcript-" + channel.getName() + ".html";
+        String fileName = "transcript-" + channel.getName() + "-" + channel.getId() + ".html";
 
         try {
             return transcript.createTranscript(channel, fileName);
